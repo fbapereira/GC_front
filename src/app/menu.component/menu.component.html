@@ -1,0 +1,41 @@
+<nav *ngIf="oUsuarioService.oUsuario && oAcademiaService.oAcademia" class="navbar navbar-expand-lg navbar-light bg-light"
+    style="background-color: #e1bee7;">
+    <a class="navbar-brand" href="#">Basic Flux</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Mensalidade</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/usuario" routerLinkActive="active">Usuário</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/academia" routerLinkActive="active">Academia</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link">
+                    {{(oUsuarioService.oUsuario && oUsuarioService.oUsuario.Nome)?oUsuarioService.oUsuario.Nome:''}} {{(oAcademiaService.oAcademia
+                    && oAcademiaService.oAcademia.Nome)? '@ '+ oAcademiaService.oAcademia.Nome:''}}
+                </a>
+            </li>
+
+
+        </ul>
+    </div>
+</nav>
+
+<nav *ngIf="!oUsuarioService.oUsuario || !oAcademiaService.oAcademia" class="navbar navbar-expand-lg navbar-light bg-light"
+    style="background-color: #e1bee7;">
+    <a class="navbar-brand center">Basic Flux</a>
+</nav>

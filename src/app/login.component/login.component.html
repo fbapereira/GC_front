@@ -1,0 +1,29 @@
+<app-gc-message [messages]='messages'></app-gc-message>
+<div class="text-center">
+    <div class="form-signin">
+        <img class="mb-4" src="../assets/img/the_flux_icon.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Bem vindo</h1>
+        <label for="inputEmail" class="sr-only">Email ou Login</label>
+        <input type="text" [attr.disabled]="(lstAcademia && lstAcademia.length > 0)?'':null" [(ngModel)]="oUsuario.Email" id="inputEmail"
+            class="form-control" placeholder="Email ou Login">
+        <label for="inputPassword" class="sr-only">Senha</label>
+        <input type="password" [attr.disabled]="(lstAcademia && lstAcademia.length > 0)?'':null" [(ngModel)]="oUsuario.Senha" id="inputPassword"
+            class="form-control" placeholder="Senha">
+        <select *ngIf="lstAcademia && lstAcademia.length > 1" [(ngModel)]="oAcademia" class="form-control" id="exampleFormControlSelect1">
+            <option *ngFor="let oAcademia of lstAcademia" [ngValue]="oAcademia">{{oAcademia.Nome}}</option>
+        </select>
+
+        <div class="checkbox mb-3" *ngIf="!lstAcademia || lstAcademia.length == 0">
+            <label>
+                <input type="checkbox" value="remember-me"> Lembre-se de mim
+            </label>
+        </div>
+        <button *ngIf="!lstAcademia || lstAcademia.length == 0" class="btn btn-lg btn-primary btn-block" (click)="Login()">Entrar</button>
+        <button *ngIf="!lstAcademia || lstAcademia.length == 0" class="btn btn-lg btn-secundry btn-block" type="submit">Esqueci a senha</button>
+
+        <button style="margin-top:15px;" *ngIf="lstAcademia && lstAcademia.length > 1" class="btn btn-lg btn-primary btn-block" (click)="SetAcademia(oAcademia)">Entrar</button>
+
+        <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+        {{oUsuario.email}}
+    </div>
+</div>
