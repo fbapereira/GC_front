@@ -1,41 +1,55 @@
 <nav *ngIf="oUsuarioService.oUsuario && oAcademiaService.oAcademia" class="navbar navbar-expand-lg navbar-light bg-light"
     style="background-color: #e1bee7;">
-    <a class="navbar-brand" href="#">Basic Flux</a>
+    <a class="navbar-brand" routerLink="/dashboard" routerLinkActive="active">Basic Flux</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav  ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home
-                    <span class="sr-only">(current)</span>
+                <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Home
+                    <span class="sr-only" *ngIf="router.url=='/dashboard'">(current)</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Mensalidade</a>
+                <a class="nav-link" routerLink="/mensalidade" routerLinkActive="active">Mensalidade</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/usuario" routerLinkActive="active">Usuário</a>
+                <a class="nav-link" routerLink="/usuario" routerLinkActive="active">Usuário
+                    <span class="sr-only" *ngIf="router.url=='/usuario'">(current)</span>
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/academia" routerLinkActive="active">Academia</a>
+                <a class="nav-link" routerLink="/academia" routerLinkActive="active">Academia
+                    <span class="sr-only" *ngIf="router.url=='/academia'">(current)</span>
+                </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link">
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                     {{(oUsuarioService.oUsuario && oUsuarioService.oUsuario.Nome)?oUsuarioService.oUsuario.Nome:''}} {{(oAcademiaService.oAcademia
                     && oAcademiaService.oAcademia.Nome)? '@ '+ oAcademiaService.oAcademia.Nome:''}}
-                </a>
-            </li>
 
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" routerLink="/meus-dados" routerLinkActive="active">Meus Dados</a>
+                    <a class="dropdown-item" href="#">Trocar Academia</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" (click)="LogOut()">Sair</a>
+                </div>
+            </li>
 
         </ul>
     </div>
 </nav>
 
-<nav *ngIf="!oUsuarioService.oUsuario || !oAcademiaService.oAcademia" class="navbar navbar-expand-lg navbar-light bg-light"
+<nav *ngIf="!oUsuarioService.oUsuario || !oAcademiaService.oAcademia" class="navbar navbar-expand-md navbar-light bg-light"
     style="background-color: #e1bee7;">
     <a class="navbar-brand center">Basic Flux</a>
 </nav>

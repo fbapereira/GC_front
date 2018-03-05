@@ -12,4 +12,8 @@ export class GCHTTPService {
     public Post(url: string, body: any): Observable<any> {
         return this._http.post(this.urlBase + url, body);
     }
+
+    public Put(url: string, body: any): Observable<any> {
+        return this._http.put(this.urlBase + url, body);
+    }
 }

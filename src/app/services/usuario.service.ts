@@ -36,4 +36,8 @@ export class UsuarioService {
     public Obtem(oAcademia: Academia): Observable<Usuario[]> {
         return this.GCHTTP.Post('ObtemUsuariosAcademia', oAcademia);
     }
+
+    public Altera(oUsuario: Usuario): Observable<any> {
+        return this.GCHTTP.Put('GC_Usuario/' + oUsuario.Id, oUsuario);
+    }
 }

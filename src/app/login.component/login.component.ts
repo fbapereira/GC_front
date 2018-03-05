@@ -41,6 +41,10 @@ export class LoginComponent {
         this.router.navigate(['/dashboard']);
     }
 
+    ForgetPassword() {
+        this.router.navigate(['/forget-password']);
+    }
+
     Login(oUsuario: Usuario) {
         this.messages = [];
 

@@ -8,11 +8,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InputCPFDirective } from './directives/input-cpf.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GC_COMPONENTS
+    GC_COMPONENTS,
+    InputCPFDirective
   ],
   imports: [
     FormsModule,

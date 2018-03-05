@@ -1,0 +1,10 @@
+<H3>Meus Dados</H3>
+<app-gc-message [messages]='messages'></app-gc-message>
+<app-gc-usuario-detail [targetUsuario]="oUsuarioService.oUsuario" [isEditavel]="false" #usuarioDetail></app-gc-usuario-detail>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
+            <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="SetUsuario()">Salvar</button>
+        </div>
+    </div>
+</div>

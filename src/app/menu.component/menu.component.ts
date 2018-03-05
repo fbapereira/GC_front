@@ -2,6 +2,7 @@ import { OnInit, Component, ViewChild } from "@angular/core";
 import { UsuarioService } from "../services/usuario.service";
 import { Usuario } from "../models/usuario";
 import { AcademiaService } from "../services/academia.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -11,10 +12,16 @@ import { AcademiaService } from "../services/academia.service";
 
 export class MenuComponent {
 
-    constructor(private oUsuarioService: UsuarioService,
-        private oAcademiaService: AcademiaService) {
+    constructor(
+        private oUsuarioService: UsuarioService,
+        private oAcademiaService: AcademiaService,
+        private router: Router) {
     }
 
-
+    LogOut() {
+        this.oAcademiaService.oAcademia = undefined;
+        this.oUsuarioService.oUsuario = undefined;
+        this.router.navigate(['/login']);
+    }
 
 }
