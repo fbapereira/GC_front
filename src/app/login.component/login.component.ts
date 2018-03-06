@@ -5,6 +5,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { AcademiaService } from '../services/academia.service';
 import { Academia } from '../models/academia';
 import { Router } from '@angular/router';
+import { PerfilService } from '../services/perfil.service';
 
 @Component({
     selector: 'app-hero-detail',
@@ -22,6 +23,8 @@ export class LoginComponent {
     constructor(
         private oUsuarioService: UsuarioService,
         private oAcademiaService: AcademiaService,
+        private oPerfilService: PerfilService,
+
         private router: Router) {
 
     }
@@ -29,7 +32,7 @@ export class LoginComponent {
     SetAcademia(oAcademia: Academia) {
         this.messages = [];
 
-        if (!oAcademia || oAcademia.id === 0) {
+        if (!oAcademia || oAcademia.Id === 0) {
             const oMessageUI: MessageUI = new MessageUI();
             oMessageUI.message = 'Por favor, selecione uma academia';
             oMessageUI.title = '[Academia]';
@@ -38,7 +41,11 @@ export class LoginComponent {
         }
 
         this.oAcademiaService.oAcademia = oAcademia;
-        this.router.navigate(['/dashboard']);
+        this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
+            .subscribe(() => {
+                this.router.navigate(['/dashboard']);
+                return;
+            });
     }
 
     ForgetPassword() {
@@ -85,8 +92,11 @@ export class LoginComponent {
                                 return;
                             } else if (lstAcademia.length === 1) {
                                 this.SetAcademia(lstAcademia[0]);
-                                this.router.navigate(['/dashboard']);
-                                return;
+                                this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
+                                    .subscribe(() => {
+                                        this.router.navigate(['/dashboard']);
+                                        return;
+                                    });
                             }
                             this.lstAcademia = lstAcademia;
                         });

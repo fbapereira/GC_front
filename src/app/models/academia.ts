@@ -1,5 +1,5 @@
 export class Academia {
-    id: number;
+    Id: number;
     nome: string;
     email: string;
     token: string;

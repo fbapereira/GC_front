@@ -13,15 +13,15 @@
                     <span class="sr-only" *ngIf="router.url=='/dashboard'">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="IsVisible('mensalidade')">
                 <a class="nav-link" routerLink="/mensalidade" routerLinkActive="active">Mensalidade</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="IsVisible('usuario')">
                 <a class="nav-link" routerLink="/usuario" routerLinkActive="active">Usuário
                     <span class="sr-only" *ngIf="router.url=='/usuario'">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="IsVisible('academia')">
                 <a class="nav-link" routerLink="/academia" routerLinkActive="active">Academia
                     <span class="sr-only" *ngIf="router.url=='/academia'">(current)</span>
                 </a>

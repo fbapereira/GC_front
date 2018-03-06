@@ -60,7 +60,17 @@ export class MeusDadosComponent {
                 .subscribe((isOK: boolean) => {
                     oMessageUI.message = 'Dados salvos com sucesso.';
                     oMessageUI.title = '[Dados Usuário]';
+                    oMessageUI.level = 'success';
                     this.messages.push(oMessageUI);
+                }, (error: any) => {
+                    if (error &&
+                        error.error &&
+                        error.error.Message) {
+                        oMessageUI.message = error.error.Message;
+                        oMessageUI.title = '[Dados Usuário]';
+                        oMessageUI.level = 'danger';
+                        this.messages.push(oMessageUI);
+                    }
                 });
         }
     }

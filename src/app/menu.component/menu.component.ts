@@ -1,8 +1,9 @@
-import { OnInit, Component, ViewChild } from "@angular/core";
-import { UsuarioService } from "../services/usuario.service";
-import { Usuario } from "../models/usuario";
-import { AcademiaService } from "../services/academia.service";
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario';
+import { PerfilService } from '../services/perfil.service';
+import { OnInit, Component, ViewChild } from '@angular/core';
+import { UsuarioService } from '../services/usuario.service';
+import { AcademiaService } from '../services/academia.service';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class MenuComponent {
     constructor(
         private oUsuarioService: UsuarioService,
         private oAcademiaService: AcademiaService,
+        private oPerfilService: PerfilService,
         private router: Router) {
     }
 
@@ -22,6 +24,37 @@ export class MenuComponent {
         this.oAcademiaService.oAcademia = undefined;
         this.oUsuarioService.oUsuario = undefined;
         this.router.navigate(['/login']);
+    }
+
+    IsVisible(oMenu: string): boolean {
+        if (!this.oPerfilService.oPerfil ||
+            !this.oPerfilService.oPerfil.Nome) { return false; }
+
+        const perfil: string = this.oPerfilService.oPerfil.Nome.toUpperCase();
+
+        if (perfil === 'SUPER USUARIO') {
+            if (oMenu === 'academia') { return true; }
+            if (oMenu === 'usuario') { return true; }
+            if (oMenu === 'mensalidade') { return true; }
+            return false;
+        } else if (perfil === 'ADMINISTRADOR') {
+            if (oMenu === 'academia') { return false; }
+            if (oMenu === 'usuario') { return true; }
+            if (oMenu === 'mensalidade') { return true; }
+            return false;
+        } else if (perfil === 'PROFESSOR') {
+            if (oMenu === 'academia') { return false; }
+            if (oMenu === 'usuario') { return false; }
+            if (oMenu === 'mensalidade') { return true; }
+            return false;
+        } else if (perfil === 'ALUNO') {
+            if (oMenu === 'academia') { return false; }
+            if (oMenu === 'usuario') { return false; }
+            if (oMenu === 'mensalidade') { return true; }
+            return false;
+        }
+
+
     }
 
 }
