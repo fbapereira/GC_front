@@ -10,7 +10,7 @@ import { PerfilService } from '../services/perfil.service';
 @Component({
     selector: 'app-hero-detail',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: ['./login.component.css'],
 })
 
 export class LoginComponent {
@@ -24,7 +24,6 @@ export class LoginComponent {
         private oUsuarioService: UsuarioService,
         private oAcademiaService: AcademiaService,
         private oPerfilService: PerfilService,
-
         private router: Router) {
 
     }

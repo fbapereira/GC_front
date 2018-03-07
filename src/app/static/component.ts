@@ -9,6 +9,7 @@ import { UsuarioComponent } from '../usuario.component/usuario.component';
 import { ForgetPasswordComponent } from '../forget-password.component/forget-password.component';
 import { MeusDadosComponent } from '../meus-dados.component/meus-dados.component';
 import { UsuarioDetailComponent } from '../usuario-detail.component/usuario-detail.component';
+import { LoaderComponent } from '../loader.component/loader.component';
 
 export const GC_COMPONENTS = [
     MenuComponent,
@@ -21,5 +22,6 @@ export const GC_COMPONENTS = [
     UsuarioComponent,
     ForgetPasswordComponent,
     MeusDadosComponent,
+    LoaderComponent,
     UsuarioDetailComponent
 ];

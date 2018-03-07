@@ -9,6 +9,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputCPFDirective } from './directives/input-cpf.directive';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+// import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { InputCPFDirective } from './directives/input-cpf.directive';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    NgbModule.forRoot()
   ],
   providers: [GC_SERVICES],
   bootstrap: [AppComponent]

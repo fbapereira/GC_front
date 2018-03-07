@@ -7,7 +7,7 @@ import { PerfilService } from '../services/perfil.service';
 export const GC_SERVICES = [
     GCHTTPService,
     UsuarioService,
-    AcademiaService, 
-    SAMService, 
-    PerfilService
+    AcademiaService,
+    SAMService,
+    PerfilService,
 ];
