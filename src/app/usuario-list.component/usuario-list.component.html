@@ -1,4 +1,6 @@
-<div class="table-responsive">
+<app-gc-message [messages]='messages'></app-gc-message>
+
+<div class="table-responsive" *ngIf="!targetUsuario">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -16,11 +18,24 @@
                 <td>{{oUsuario.Nome}}</td>
                 <td>{{oUsuario.Login}}</td>
                 <td>
-                    <a href="#">
-                        <span class="glyphicon glyphicon-search"></span>
+                    <a (click)="viewDetail(oUsuario)">
+                        <span class="glyphicon glyphicon-edit"></span>
                     </a>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+<div *ngIf="targetUsuario">
+    <app-gc-usuario-detail [(targetUsuario)]="targetUsuario"></app-gc-usuario-detail>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12  col-md-6  col-lg-4">
+                <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+            </div>
+            <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4" *ngIf="isAdmin()">
+                <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="SetUsuario()">Salvar</button>
+            </div>
+        </div>
+    </div>
 </div>

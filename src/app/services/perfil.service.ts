@@ -35,4 +35,19 @@ export class PerfilService {
 
         });
     }
+
+    public isAdmin(targetPerfil: Perfil) {
+
+        const perfil: string = targetPerfil.Nome.toUpperCase();
+
+        if (perfil === 'SUPER USUARIO') {
+            return true;
+        } else if (perfil === 'ADMINISTRADOR') {
+            return true;
+        } else if (perfil === 'PROFESSOR') {
+            return true;
+        } else if (perfil === 'ALUNO') {
+            return false;
+        }
+    }
 }
