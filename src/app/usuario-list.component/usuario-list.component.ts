@@ -21,6 +21,7 @@ export class UsuarioListComponent implements OnInit {
     @ViewChild('content') content: ElementRef;
 
     targetUsuario: Usuario;
+    targetNewUsuario: Usuario;
     messages: MessageUI[] = [];
 
     constructor(private oUsuarioService: UsuarioService,
@@ -48,10 +49,70 @@ export class UsuarioListComponent implements OnInit {
 
     return(): void {
         this.targetUsuario = undefined;
+        this.targetNewUsuario = undefined;
     }
 
     isAdmin(): boolean {
         return this.oPerfilService.isAdmin(this.oPerfilService.oPerfil);
+    }
+    CreateUsuario() {
+        const oMessageUI: MessageUI = new MessageUI();
+        this.messages = [];
+
+        if (!this.targetNewUsuario.CPF) {
+            oMessageUI.message = 'Por favor, digite um CPF valido';
+            oMessageUI.title = '[CPF]';
+            this.messages.push(oMessageUI);
+        }
+
+        if (!this.targetNewUsuario.Email) {
+            oMessageUI.message = 'Por favor, digite um e-mail valido';
+            oMessageUI.title = '[e-mail]';
+            this.messages.push(oMessageUI);
+        }
+
+        if (!this.targetNewUsuario.Login) {
+            oMessageUI.message = 'Por favor, digite um Login valido';
+            oMessageUI.title = '[Login]';
+            this.messages.push(oMessageUI);
+        }
+
+        if (!this.targetNewUsuario.Nome) {
+            oMessageUI.message = 'Por favor, digite um Nome valido';
+            oMessageUI.title = '[Nome]';
+            this.messages.push(oMessageUI);
+        }
+
+        if (!this.targetNewUsuario.Senha) {
+            oMessageUI.message = 'Por favor, digite um Senha valido';
+            oMessageUI.title = '[Senha]';
+            this.messages.push(oMessageUI);
+        }
+
+        if (this.messages.length === 0) {
+            this.oUsuarioService.Adiciona(this.targetNewUsuario)
+                .subscribe((isOK: boolean) => {
+                    oMessageUI.message = 'Dados salvos com sucesso.';
+                    oMessageUI.title = '[Dados Usuário]';
+                    oMessageUI.level = 'success';
+                    this.messages.push(oMessageUI);
+                    this.targetNewUsuario = undefined;
+                    this.loadUsuario();
+                }, (error: any) => {
+                    if (error &&
+                        error.error &&
+                        error.error.Message) {
+                        oMessageUI.message = error.error.Message;
+                        oMessageUI.title = '[Dados Usuário]';
+                        oMessageUI.level = 'danger';
+                        this.messages.push(oMessageUI);
+                    }
+                });
+        }
+    }
+
+    NovoUsuario() {
+        this.targetNewUsuario = new Usuario();
     }
 
     SetUsuario() {
