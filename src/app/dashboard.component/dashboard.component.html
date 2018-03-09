@@ -1,1 +1,4 @@
-HELLO
+<div *ngIf="oUsuario">
+    <h3>Minhas Mensalidades</h3>
+    <app-gc-mensalidade-list [(targetUsuario)]="oUsuario"></app-gc-mensalidade-list>
+</div>

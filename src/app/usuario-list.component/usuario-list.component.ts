@@ -120,6 +120,9 @@ export class UsuarioListComponent implements OnInit {
         this.targetNewUsuario = new Usuario();
     }
 
+    showMensalidade(show: boolean): boolean {
+        return show;
+    }
     SetUsuario() {
         const oMessageUI: MessageUI = new MessageUI();
         this.messages = [];

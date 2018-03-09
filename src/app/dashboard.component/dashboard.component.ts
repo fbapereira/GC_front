@@ -21,6 +21,7 @@ export class DashboardComponent extends BaseComponent {
         oSAMService: SAMService,
         router: Router) {
         super(true, oSAMService, router);
+        this.oUsuario = this.oUsuarioService.oUsuario;
     }
 
 
