@@ -20,6 +20,7 @@ export class GCHTTPService {
                         obs.next(obj);
                     },
                     (erro) => {
+                        this.isWorking.emit(false);
                         obs.error(erro);
                     },
                     () => {
@@ -31,6 +32,42 @@ export class GCHTTPService {
     }
 
     public Put(url: string, body: any): Observable<any> {
-        return this._http.put(this.urlBase + url, body);
+        return Observable.create((obs) => {
+            this.isWorking.emit(true);
+            this._http.put(this.urlBase + url, body)
+                .subscribe(
+                    (obj) => {
+                        obs.next(obj);
+                    },
+                    (erro) => {
+                        this.isWorking.emit(false);
+                        obs.error(erro);
+                    },
+                    () => {
+                        this.isWorking.emit(false);
+                        obs.complete();
+                    });
+
+        });
+    }
+
+    public Get(url: string): Observable<any> {
+        return Observable.create((obs) => {
+            this.isWorking.emit(true);
+            this._http.get(this.urlBase + url)
+                .subscribe(
+                    (obj) => {
+                        obs.next(obj);
+                    },
+                    (erro) => {
+                        this.isWorking.emit(false);
+                        obs.error(erro);
+                    },
+                    () => {
+                        this.isWorking.emit(false);
+                        obs.complete();
+                    });
+
+        });
     }
 }

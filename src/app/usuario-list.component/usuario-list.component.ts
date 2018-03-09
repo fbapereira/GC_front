@@ -6,6 +6,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { Academia } from '../models/academia';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PerfilService } from '../services/perfil.service';
+import { AcademiaService } from '../services/academia.service';
 
 @Component({
     selector: 'app-gc-usuario-list',
@@ -25,6 +26,7 @@ export class UsuarioListComponent implements OnInit {
     messages: MessageUI[] = [];
 
     constructor(private oUsuarioService: UsuarioService,
+        private oAcademiaService: AcademiaService,
         private oPerfilService: PerfilService, ) {
 
     }
@@ -91,13 +93,16 @@ export class UsuarioListComponent implements OnInit {
 
         if (this.messages.length === 0) {
             this.oUsuarioService.Adiciona(this.targetNewUsuario)
-                .subscribe((isOK: boolean) => {
+                .subscribe((newUser: Usuario) => {
                     oMessageUI.message = 'Dados salvos com sucesso.';
                     oMessageUI.title = '[Dados Usuário]';
                     oMessageUI.level = 'success';
                     this.messages.push(oMessageUI);
                     this.targetNewUsuario = undefined;
-                    this.loadUsuario();
+                    this.oAcademiaService.AdicionaUsuario(newUser, this.oAcademiaService.oAcademia)
+                        .subscribe(() => {
+                            this.loadUsuario();
+                        });
                 }, (error: any) => {
                     if (error &&
                         error.error &&

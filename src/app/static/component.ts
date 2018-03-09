@@ -10,6 +10,8 @@ import { ForgetPasswordComponent } from '../forget-password.component/forget-pas
 import { MeusDadosComponent } from '../meus-dados.component/meus-dados.component';
 import { UsuarioDetailComponent } from '../usuario-detail.component/usuario-detail.component';
 import { LoaderComponent } from '../loader.component/loader.component';
+import { MensalidadeListComponent } from '../mensalidade-list.component/mensalidade-list.component';
+import { MensalidadeComponent } from '../mensalidade.component/mensalidade.component';
 
 export const GC_COMPONENTS = [
     MenuComponent,
@@ -23,5 +25,7 @@ export const GC_COMPONENTS = [
     ForgetPasswordComponent,
     MeusDadosComponent,
     LoaderComponent,
-    UsuarioDetailComponent
+    UsuarioDetailComponent, 
+    MensalidadeListComponent, 
+    MensalidadeComponent
 ];

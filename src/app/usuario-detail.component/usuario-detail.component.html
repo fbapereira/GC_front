@@ -4,31 +4,31 @@
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtCPF">CPF</label>
-                <input type="text" [attr.disabled]="isEditavel?'':null" class="form-control" id="txtCPF" placeholder="CPF" [(ngModel)]="targetUsuario.CPF">
+                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtCPF" placeholder="CPF" [(ngModel)]="targetUsuario.CPF">
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtLogin">Login</label>
-                <input type="text" [attr.disabled]="isEditavel?'':null" class="form-control" id="txtLogin" placeholder="Login" [(ngModel)]="targetUsuario.Login">
+                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtLogin" placeholder="Login" [(ngModel)]="targetUsuario.Login">
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtNome">Nome</label>
-                <input type="text" [attr.disabled]="isEditavel?'':null" class="form-control" id="txtNome" placeholder="Nome" [(ngModel)]="targetUsuario.Nome">
+                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtNome" placeholder="Nome" [(ngModel)]="targetUsuario.Nome">
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtE-mail">E-mail</label>
-                <input type="text" [attr.disabled]="isEditavel?'':null" class="form-control" id="txtE-mail" placeholder="E-mail" [(ngModel)]="targetUsuario.Email">
+                <input type="text" class="form-control" id="txtE-mail" placeholder="E-mail" [(ngModel)]="targetUsuario.Email">
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtPassword">Senha</label>
-                <input type="password" [attr.disabled]="isEditavel?'':null" class="form-control" id="txtPassword" placeholder="Senha" [(ngModel)]="targetUsuario.Senha">
+                <input type="password" class="form-control" id="txtPassword" placeholder="Senha" [(ngModel)]="targetUsuario.Senha">
             </div>
         </div>
     </div>

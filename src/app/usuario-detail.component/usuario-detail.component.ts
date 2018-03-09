@@ -22,7 +22,6 @@ export class UsuarioDetailComponent extends BaseComponent {
     @Input()
     isEditavel: Boolean;
 
-
     constructor(
         private oUsuarioService: UsuarioService,
         private oAcademiaService: AcademiaService,

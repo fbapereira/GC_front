@@ -1,0 +1,28 @@
+<app-gc-message [messages]='messages'></app-gc-message>
+
+<div class="table-responsive" *ngIf="!targetMensalidade && !targetNewMensalidade">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Vencimento</th>
+                <th scope="col">Status</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let oMensalidade of lstMensalidade">
+                <td scope="row">{{oMensalidade.Id}}</td>
+                <td>{{oMensalidade.Valor}}</td>
+                <td>{{oMensalidade.Vencimento}}</td>
+                <td>{{oMensalidade.MensaliadadeStatus.Nome}}</td>
+                <td>
+                    <a (click)="viewDetail(oMensalidade)">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
