@@ -40,7 +40,8 @@ export class LoginComponent {
         }
 
         this.oAcademiaService.oAcademia = oAcademia;
-        this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
+        this.oAcademia = oAcademia;
+        this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, oAcademia)
             .subscribe(() => {
                 this.router.navigate(['/dashboard']);
                 return;

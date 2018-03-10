@@ -9,8 +9,8 @@ import { Academia } from '../models/academia';
 export class AcademiaService {
 
     oAcademia: Academia;
-
     constructor(private GCHTTP: GCHTTPService) { }
+
 
     public GetAcademia(oUsuario: Usuario): Observable<Academia[]> {
         return this.GCHTTP.Post('ObtemAcademiaUsuario', oUsuario);

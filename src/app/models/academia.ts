@@ -1,6 +1,6 @@
 export class Academia {
     Id: number;
-    nome: string;
-    email: string;
-    token: string;
+    Nome: string;
+    Email: string;
+    Token: string;
 }

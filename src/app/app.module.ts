@@ -12,6 +12,7 @@ import { InputCPFDirective } from './directives/input-cpf.directive';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { GC_Pipes } from './static/pipes';
 // import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { GC_Pipes } from './static/pipes';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    Angular2FontawesomeModule
   ],
   providers: [GC_SERVICES],
   bootstrap: [AppComponent]

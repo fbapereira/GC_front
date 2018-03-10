@@ -1,30 +1,35 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, OnChanges } from "@angular/core";
 import { Usuario } from "../models/usuario";
 import { BaseComponent } from "../shared/base-component";
 import { MensalidadeService } from "../services/mensalidade.service";
-import { SAMService } from "../services/sam.service";
+import { SAMService } from '../services/sam.service';
 import { Router } from "@angular/router";
 import { Mensalidade } from "../models/mensalidade";
 import { Observable } from "rxjs/Observable";
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { MessageUI } from "../models/messageUI";
 import * as moment from 'moment';
+import { AcademiaService } from "../services/academia.service";
 
 @Component({
     selector: 'app-gc-mensalidade-list',
     templateUrl: './mensalidade-list.component.html',
 })
 
-export class MensalidadeListComponent extends BaseComponent implements OnInit {
+export class MensalidadeListComponent extends BaseComponent implements OnInit, OnChanges {
 
     @Input()
     targetUsuario: Usuario;
+
+    @Input()
+    showAdd: Boolean;
 
     lstMensalidade: Mensalidade[];
     targetNewMensalidade: Mensalidade;
     messages: MessageUI[] = [];
 
     constructor(private oMensalidadeService: MensalidadeService,
+        private oAcademiaService: AcademiaService,
         oSAMService: SAMService,
         router: Router
     ) {
@@ -32,8 +37,19 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        debugger;
         this.oMensalidadeService.GetMensalidade(this.targetUsuario)
             .subscribe((lstMensalidade: Mensalidade[]) => {
+                debugger;
+                this.lstMensalidade = lstMensalidade;
+            });
+    }
+
+    ngOnChanges(): void {
+        debugger;
+        this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+            .subscribe((lstMensalidade: Mensalidade[]) => {
+                debugger;
                 this.lstMensalidade = lstMensalidade;
             });
     }
@@ -47,35 +63,45 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     }
 
     CreateMensalidade(): void {
-        let obs: Observable<Mensalidade>[] = [];
-        let obsVinc: Observable<Mensalidade>[] = [];
+        const obs: Observable<Mensalidade>[] = [];
+        const obsVinc: Observable<Mensalidade>[] = [];
+        const lstMensalidade: Mensalidade[] = [];
 
-        for (var _i = 0; _i < this.targetNewMensalidade.parcela; _i++) {
+        for (let _i = 0; _i < this.targetNewMensalidade.parcela; _i++) {
+            lstMensalidade.push(this.targetNewMensalidade);
             obs.push(this.oMensalidadeService.Adiciona(Object.assign({}, this.targetNewMensalidade)));
             this.targetNewMensalidade.Vencimento = moment(this.targetNewMensalidade.Vencimento).add(1, 'M').toDate();
         }
 
+
+
+
+        // Cria as mensalidades
         forkJoin(obs)
             .subscribe((oMensalidades: Mensalidade[]) => {
+                // Vincula ao usuario
                 oMensalidades.forEach((oMensalidade: Mensalidade) => {
                     obsVinc.push(this.oMensalidadeService.Vincula(oMensalidade, this.targetUsuario));
                 });
                 forkJoin(obsVinc).subscribe(() => {
-                    this.oMensalidadeService.GetMensalidade(this.targetUsuario)
-                        .subscribe((lstMensalidade: Mensalidade[]) => {
-                            this.lstMensalidade = lstMensalidade;
 
+                    // Obtem a mensalidade com Id
+                    this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+                        .subscribe((lstMensalidadeWithId: Mensalidade[]) => {
+
+
+
+                            this.lstMensalidade = lstMensalidadeWithId;
                             const oMessageUI: MessageUI = new MessageUI();
                             this.messages = [];
                             oMessageUI.message = 'Mensalidades incluidas com sucesso';
                             oMessageUI.level = 'success';
                             oMessageUI.title = '[Mensalidades Incluídas]';
                             this.messages.push(oMessageUI);
+                            this.targetNewMensalidade = undefined;
                             return;
                         });
                 });
             });
-
-
     }
 }

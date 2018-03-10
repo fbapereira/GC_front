@@ -1,11 +1,10 @@
 import { MensalidadeStatus } from "./mensalidade-status";
 
 export class Mensalidade {
-    Id: Number;
-    Valor: Number;
+    Id: number;
+    Valor: number;
     Vencimento: Date;
     MensaliadadeStatus: MensalidadeStatus;
     GC_MensalidadeStatusId: any;
-    parcela: Number;
+    parcela: number;
 }
-    

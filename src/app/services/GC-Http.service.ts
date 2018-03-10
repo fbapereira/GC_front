@@ -11,10 +11,16 @@ export class GCHTTPService {
 
     urlBase: String = 'http://localhost:59912/Api/';
 
+    private TrataUrl(url: string): string {
+
+        if (url.indexOf('http') > -1) { return url; }
+        return this.urlBase + url;
+    }
+
     public Post(url: string, body: any): Observable<any> {
         return Observable.create((obs) => {
             this.isWorking.emit(true);
-            this._http.post(this.urlBase + url, body)
+            this._http.post(this.TrataUrl(url), body)
                 .subscribe(
                     (obj) => {
                         obs.next(obj);
@@ -34,7 +40,7 @@ export class GCHTTPService {
     public Put(url: string, body: any): Observable<any> {
         return Observable.create((obs) => {
             this.isWorking.emit(true);
-            this._http.put(this.urlBase + url, body)
+            this._http.put(this.TrataUrl(url), body)
                 .subscribe(
                     (obj) => {
                         obs.next(obj);
@@ -54,7 +60,7 @@ export class GCHTTPService {
     public Get(url: string): Observable<any> {
         return Observable.create((obs) => {
             this.isWorking.emit(true);
-            this._http.get(this.urlBase + url)
+            this._http.get(this.TrataUrl(url))
                 .subscribe(
                     (obj) => {
                         obs.next(obj);

@@ -13,7 +13,9 @@ import { UsuarioService } from "../services/usuario.service";
 })
 
 export class MensalidadeComponent extends BaseComponent {
-
+    @Input()
+    showAdd: Boolean;
+    
     constructor(private oMensalidadeService: MensalidadeService,
         oSAMService: SAMService,
         router: Router,

@@ -1,14 +1,15 @@
 import { Router } from '@angular/router';
 import { Usuario } from '../models/usuario';
 import { PerfilService } from '../services/perfil.service';
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { OnInit, Component, ViewChild, style } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
 import { AcademiaService } from '../services/academia.service';
 
 
 @Component({
     selector: 'app-gc-menu',
-    templateUrl: './menu.component.html'
+    templateUrl: './menu.component.html',
+    styleUrls: ['./menu.component.css']
 })
 
 export class MenuComponent {

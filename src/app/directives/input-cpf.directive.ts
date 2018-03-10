@@ -26,8 +26,10 @@ export class InputCPFDirective implements ControlValueAccessor {
   }
 
   writeValue(value: any): void {
+    if (!value) {
+      value = '';
+    }
     this.el.nativeElement.value = value;
-    //this.control.valueAccessor.writeValue(value);
 
   }
 
@@ -52,6 +54,7 @@ export class InputCPFDirective implements ControlValueAccessor {
     }
 
     if (valor.length <= pad.length) {
+
       this.onChange(valor);
     }
 

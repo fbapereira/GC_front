@@ -40,6 +40,7 @@ export class MensalidadeService {
                             })
                             .subscribe((lstMensaliadadeMapped: Mensalidade[]) => {
                                 obs.next(lstMensaliadadeMapped);
+                                obs.complete();
                             });
                     });
             } else {
@@ -49,9 +50,9 @@ export class MensalidadeService {
                     })
                     .subscribe((lstMensaliadadeMapped: Mensalidade[]) => {
                         obs.next(lstMensaliadadeMapped);
+                        obs.complete();
                     });
             }
-            obs.complete();
         });
     }
 

@@ -1,5 +1,4 @@
 <app-gc-message [messages]='messages'></app-gc-message>
-
 <div class="table-responsive" *ngIf="!targetMensalidade && !targetNewMensalidade">
     <table class="table table-hover">
         <thead>
@@ -18,16 +17,14 @@
                 <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
                 <td>{{oMensalidade.MensaliadadeStatus.Nome}}</td>
                 <td>
-                    <a (click)="viewDetail(oMensalidade)">
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </a>
+                    <button type="button" class="btn btn-outline-success">Pagar</button>
                 </td>
             </tr>
         </tbody>
     </table>
     <p class="text-center" *ngIf="!lstMensalidade || lstMensalidade.length == 0">Não há mensalidades cadastradas</p>
 </div>
-<div class="container" *ngIf="!targetNewMensalidade">
+<div class="container" *ngIf="!targetNewMensalidade && showAdd">
     <div class="row">
         <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
             <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoMensalidade()">Adicionar</button>
@@ -53,3 +50,4 @@
         </div>
     </div>
 </div>
+
