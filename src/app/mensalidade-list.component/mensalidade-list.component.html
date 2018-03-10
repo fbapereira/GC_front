@@ -1,7 +1,7 @@
 <app-gc-message [messages]='messages'></app-gc-message>
 
 <div class="table-responsive" *ngIf="!targetMensalidade && !targetNewMensalidade">
-    <table class="table table-hover"> 
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th scope="col">Id</th>
@@ -14,8 +14,8 @@
         <tbody>
             <tr *ngFor="let oMensalidade of lstMensalidade">
                 <td scope="row">{{oMensalidade.Id}}</td>
-                <td>{{oMensalidade.Valor}}</td>
-                <td>{{oMensalidade.Vencimento}}</td>
+                <td>{{oMensalidade.Valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
+                <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
                 <td>{{oMensalidade.MensaliadadeStatus.Nome}}</td>
                 <td>
                     <a (click)="viewDetail(oMensalidade)">
@@ -25,4 +25,31 @@
             </tr>
         </tbody>
     </table>
+    <p class="text-center" *ngIf="!lstMensalidade || lstMensalidade.length == 0">Não há mensalidades cadastradas</p>
+</div>
+<div class="container" *ngIf="!targetNewMensalidade">
+    <div class="row">
+        <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
+            <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoMensalidade()">Adicionar</button>
+        </div>
+    </div>
+</div>
+<diV *ngIf="targetNewMensalidade">
+
+</diV>
+<!-- Adicioanr -->
+<div *ngIf="targetNewMensalidade">
+
+    <app-gc-adiciona-mensalidade [(targetMensalidade)]="targetNewMensalidade"></app-gc-adiciona-mensalidade>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12  col-md-6  col-lg-4">
+                <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+            </div>
+            <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4">
+                <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="CreateMensalidade()">Adicionar</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,7 +1,7 @@
-import { Directive, Input, HostListener } from '@angular/core';
+import { Directive, Input, HostListener, ElementRef } from '@angular/core';
 
 import {
-  NG_VALUE_ACCESSOR, ControlValueAccessor
+  NG_VALUE_ACCESSOR, ControlValueAccessor, NgControl
 } from '@angular/forms';
 
 @Directive({
@@ -21,7 +21,14 @@ export class InputCPFDirective implements ControlValueAccessor {
 
   @Input('gcMask') gcMask: string;
 
+  constructor(private el: ElementRef) {
+
+  }
+
   writeValue(value: any): void {
+    this.el.nativeElement.value = value;
+    //this.control.valueAccessor.writeValue(value);
+
   }
 
   registerOnChange(fn: any): void {

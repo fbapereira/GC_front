@@ -3,7 +3,8 @@
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtCPF">CPF</label>
-                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtCPF" placeholder="CPF" [(ngModel)]="targetUsuario.CPF">
+                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtCPF" placeholder="CPF" [(ngModel)]="targetUsuario.CPF"
+                    gcMask="999.999.999-99" appInputCPFDirective>
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">

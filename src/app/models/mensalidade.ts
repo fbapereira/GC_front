@@ -5,5 +5,7 @@ export class Mensalidade {
     Valor: Number;
     Vencimento: Date;
     MensaliadadeStatus: MensalidadeStatus;
-    GC_MensalidadeStatusId: Number;
+    GC_MensalidadeStatusId: any;
+    parcela: Number;
 }
+    

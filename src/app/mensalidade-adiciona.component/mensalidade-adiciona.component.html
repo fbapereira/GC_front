@@ -3,19 +3,27 @@
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtCPF">Valor</label>
-                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtCPF" placeholder="CPF" [(ngModel)]="targetUsuario.CPF">
+
+                <div class="input-group">
+                    <span class="input-group-addon">R$</span>
+                    <input type="number" [attr.disabled]="isEditavel" class="form-control" id="txtValor" placeholder="Valor" step="0.01" min="0"
+                        [(ngModel)]="targetMensalidade.Valor">
+                </div>
+
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtCPF">Parcelas</label>
-                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtCPF" placeholder="CPF" [(ngModel)]="targetUsuario.CPF">
+                <input type="number" [attr.disabled]="isEditavel" class="form-control" id="txtParcela" placeholder="Parcelas" step="1" min="0"
+                    max="12" [(ngModel)]="targetMensalidade.parcela">
             </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
                 <label for="txtCPF">Vencimento</label>
-                <input type="text" [attr.disabled]="isEditavel" class="form-control" id="txtCPF" placeholder="CPF" [(ngModel)]="targetUsuario.CPF">
+                <input type="date" [attr.disabled]="isEditavel" class="form-control" id="txtVencimento" placeholder="Primeiro Vencimento"
+                    [(ngModel)]="targetMensalidade.Vencimento">
             </div>
         </div>
 

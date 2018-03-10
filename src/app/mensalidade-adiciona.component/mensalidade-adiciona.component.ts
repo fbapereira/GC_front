@@ -8,11 +8,14 @@ import { Mensalidade } from "../models/mensalidade";
 import { UsuarioService } from "../services/usuario.service";
 
 @Component({
-    selector: 'app-gc-mensalidade',
+    selector: 'app-gc-adiciona-mensalidade',
     templateUrl: './mensalidade-adiciona.component.html',
 })
 
 export class MensalidadeAdicionaComponent extends BaseComponent {
+
+    @Input()
+    targetMensalidade: Mensalidade;
 
     constructor(private oMensalidadeService: MensalidadeService,
         oSAMService: SAMService,
@@ -21,4 +24,6 @@ export class MensalidadeAdicionaComponent extends BaseComponent {
     ) {
         super(true, oSAMService, router);
     }
+
+
 }

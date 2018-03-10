@@ -17,8 +17,14 @@ export class MensalidadeService {
     constructor(private GCHTTP: GCHTTPService) { }
 
     Adiciona(oMensalidade: Mensalidade): Observable<Mensalidade> {
+        oMensalidade.GC_MensalidadeStatusId = { "Id": "1", "Nome": "t" };
+        return this.GCHTTP.Post('GC_Mensalidade', oMensalidade);
+    }
 
-        return this.GCHTTP.Post('GC_Mensalidade', oMensalidade)
+
+    Vincula(oMensalidade: Mensalidade, oUsuario: Usuario): Observable<Mensalidade> {
+
+        return this.GCHTTP.Put('AdicionaMensalidadeUsuario/' + oUsuario.Id, oMensalidade);
     }
 
     GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {
@@ -55,7 +61,6 @@ export class MensalidadeService {
     }
 
     MapStatus(lstMensaliadadeUnmapped: Mensalidade[], that: any): Mensalidade[] {
-        debugger;
         lstMensaliadadeUnmapped.forEach((oMensalidade: Mensalidade) => {
             oMensalidade.MensaliadadeStatus = that.lstMensaliadadeStatus.filter((oStatus: MensalidadeStatus) => {
                 return oMensalidade.GC_MensalidadeStatusId = oStatus.Id;

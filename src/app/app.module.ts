@@ -10,13 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputCPFDirective } from './directives/input-cpf.directive';
 import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { GC_Pipes } from './static/pipes';
 // import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 
 @NgModule({
   declarations: [
     AppComponent,
     GC_COMPONENTS,
-    InputCPFDirective
+    InputCPFDirective, 
+    GC_Pipes
   ],
   imports: [
     FormsModule,
