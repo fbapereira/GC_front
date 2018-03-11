@@ -16,8 +16,10 @@ export class MensalidadeService {
     lstMensaliadadeStatus: MensalidadeStatus[];
     constructor(private GCHTTP: GCHTTPService) { }
 
-    Adiciona(oMensalidade: Mensalidade): Observable<Mensalidade> {
-        oMensalidade.GC_MensalidadeStatusId = { "Id": "1", "Nome": "t" };
+    Adiciona(oMensalidade: Mensalidade, oAcademia: Academia, oUsuario: Usuario): Observable<Mensalidade> {
+        oMensalidade.GC_MensalidadeStatusId = 1;
+        oMensalidade.GC_AcademiaId = oAcademia.Id;
+        oMensalidade.GC_UsuarioId = oUsuario.Id;
         return this.GCHTTP.Post('GC_Mensalidade', oMensalidade);
     }
 
@@ -25,6 +27,12 @@ export class MensalidadeService {
     Vincula(oMensalidade: Mensalidade, oUsuario: Usuario): Observable<Mensalidade> {
 
         return this.GCHTTP.Put('AdicionaMensalidadeUsuario/' + oUsuario.Id, oMensalidade);
+    }
+
+
+    GerarBoletos(oMensalidade: Mensalidade[]): Observable<boolean> {
+
+        return this.GCHTTP.Post('GerarBoletos', oMensalidade);
     }
 
     GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {

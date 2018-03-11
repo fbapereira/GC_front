@@ -66,7 +66,10 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
 
         for (let _i = 0; _i < this.targetNewMensalidade.parcela; _i++) {
             lstMensalidade.push(this.targetNewMensalidade);
-            obs.push(this.oMensalidadeService.Adiciona(Object.assign({}, this.targetNewMensalidade)));
+            obs.push(this.oMensalidadeService.Adiciona(
+                Object.assign({}, this.targetNewMensalidade),
+                this.oAcademiaService.oAcademia,
+                this.targetUsuario));
             this.targetNewMensalidade.Vencimento = moment(this.targetNewMensalidade.Vencimento).add(1, 'M').toDate();
         }
 
@@ -76,6 +79,12 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
         // Cria as mensalidades
         forkJoin(obs)
             .subscribe((oMensalidades: Mensalidade[]) => {
+                debugger;
+                // gera boleto 
+                this.oMensalidadeService.GerarBoletos(oMensalidades).
+                    subscribe(() => {
+
+                    });
                 // Vincula ao usuario
                 oMensalidades.forEach((oMensalidade: Mensalidade) => {
                     obsVinc.push(this.oMensalidadeService.Vincula(oMensalidade, this.targetUsuario));

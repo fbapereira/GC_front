@@ -32,7 +32,7 @@
     </div>
 </div>
 <!-- Adicioanr -->
-<div *ngIf="targetNewMensalidade && targetPagamentoMensalidade">
+<div *ngIf="targetNewMensalidade && !targetPagamentoMensalidade">
 
     <app-gc-adiciona-mensalidade [(targetMensalidade)]="targetNewMensalidade"></app-gc-adiciona-mensalidade>
 
