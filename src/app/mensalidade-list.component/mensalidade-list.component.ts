@@ -16,7 +16,7 @@ import { AcademiaService } from "../services/academia.service";
     templateUrl: './mensalidade-list.component.html',
 })
 
-export class MensalidadeListComponent extends BaseComponent implements OnInit, OnChanges {
+export class MensalidadeListComponent extends BaseComponent implements OnInit {
 
     @Input()
     targetUsuario: Usuario;
@@ -26,6 +26,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
     lstMensalidade: Mensalidade[];
     targetNewMensalidade: Mensalidade;
+    targetPagamentoMensalidade: Mensalidade;
     messages: MessageUI[] = [];
 
     constructor(private oMensalidadeService: MensalidadeService,
@@ -37,22 +38,12 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     }
 
     ngOnInit(): void {
-        debugger;
         this.oMensalidadeService.GetMensalidade(this.targetUsuario)
             .subscribe((lstMensalidade: Mensalidade[]) => {
-                debugger;
                 this.lstMensalidade = lstMensalidade;
             });
     }
 
-    ngOnChanges(): void {
-        debugger;
-        this.oMensalidadeService.GetMensalidade(this.targetUsuario)
-            .subscribe((lstMensalidade: Mensalidade[]) => {
-                debugger;
-                this.lstMensalidade = lstMensalidade;
-            });
-    }
 
     NovoMensalidade(): void {
         this.targetNewMensalidade = new Mensalidade();
@@ -60,6 +51,12 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
     return(): void {
         this.targetNewMensalidade = undefined;
+        this.targetPagamentoMensalidade = undefined;
+
+    }
+
+    pagar(oMensalidade: Mensalidade): void {
+        this.targetPagamentoMensalidade = oMensalidade;
     }
 
     CreateMensalidade(): void {
