@@ -6,6 +6,7 @@ import { AcademiaService } from '../services/academia.service';
 import { Academia } from '../models/academia';
 import { Router } from '@angular/router';
 import { PerfilService } from '../services/perfil.service';
+import { GCHTTPService } from '../services/GC-Http.service';
 
 @Component({
     selector: 'app-hero-detail',
@@ -24,6 +25,7 @@ export class LoginComponent {
         private oUsuarioService: UsuarioService,
         private oAcademiaService: AcademiaService,
         private oPerfilService: PerfilService,
+        private GCHTTP: GCHTTPService,
         private router: Router) {
 
     }

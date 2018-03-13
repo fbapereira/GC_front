@@ -25,10 +25,11 @@ export class MensalidadeService {
 
 
     Vincula(oMensalidade: Mensalidade, oUsuario: Usuario): Observable<Mensalidade> {
-
-        return this.GCHTTP.Put('AdicionaMensalidadeUsuario/' + oUsuario.Id, oMensalidade);
+        const obj: any = {};
+        obj.GC_UsuarioId = oUsuario.Id;
+        obj.GC_MensalidadeId = oMensalidade.Id;
+        return this.GCHTTP.Post('AdicionaMensalidadeUsuario', obj);
     }
-
 
     GerarBoletos(oMensalidade: Mensalidade[]): Observable<boolean> {
 
@@ -36,6 +37,7 @@ export class MensalidadeService {
     }
 
     GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {
+        debugger;
         const that = this;
         return Observable.create((obs) => {
             if (!this.lstMensaliadadeStatus) {
@@ -72,7 +74,7 @@ export class MensalidadeService {
     MapStatus(lstMensaliadadeUnmapped: Mensalidade[], that: any): Mensalidade[] {
         lstMensaliadadeUnmapped.forEach((oMensalidade: Mensalidade) => {
             oMensalidade.MensaliadadeStatus = that.lstMensaliadadeStatus.filter((oStatus: MensalidadeStatus) => {
-                return oMensalidade.GC_MensalidadeStatusId = oStatus.Id;
+                return oMensalidade.GC_MensalidadeStatusId === oStatus.Id;
             })[0];
         });
         return lstMensaliadadeUnmapped;

@@ -31,7 +31,7 @@
                 <label for="txtCPF">Código de Barras</label>
                 <div class="input-group">
                     <input type="text" class="form-control" id="txtBoleto" aria-label="Recipient's username" aria-describedby="basic-addon2"
-                        [ngModel]="targetMensalidade.Vencimento  | date:'dd/MM/yyyy'">
+                        [ngModel]="targetPagamentoPagSeguro.BarCode  ">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" (click)="copyToClipboard()" type="button">Copiar</button>
                     </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges } from "@angular/core";
+import { Component, Input, OnInit, OnChanges, ViewChild } from "@angular/core";
 import { Usuario } from "../models/usuario";
 import { BaseComponent } from "../shared/base-component";
 import { MensalidadeService } from "../services/mensalidade.service";
@@ -10,6 +10,7 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { MessageUI } from "../models/messageUI";
 import * as moment from 'moment';
 import { AcademiaService } from "../services/academia.service";
+import { PagamentoComponent } from "../pagamento.component/pagamento.component";
 
 @Component({
     selector: 'app-gc-mensalidade-list',
@@ -24,6 +25,10 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     @Input()
     showAdd: Boolean;
 
+    @ViewChild("boleto") boleto: PagamentoComponent;
+
+
+    oRouter: any;
     lstMensalidade: Mensalidade[];
     targetNewMensalidade: Mensalidade;
     targetPagamentoMensalidade: Mensalidade;
@@ -35,9 +40,11 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
         router: Router
     ) {
         super(true, oSAMService, router);
+        this.oRouter = router;
     }
 
     ngOnInit(): void {
+        debugger;
         this.oMensalidadeService.GetMensalidade(this.targetUsuario)
             .subscribe((lstMensalidade: Mensalidade[]) => {
                 this.lstMensalidade = lstMensalidade;
@@ -52,7 +59,11 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     return(): void {
         this.targetNewMensalidade = undefined;
         this.targetPagamentoMensalidade = undefined;
+        this.targetUsuario = undefined;
+    }
 
+    print(): void {
+        window.open(this.boleto.targetPagamentoPagSeguro.Link);
     }
 
     pagar(oMensalidade: Mensalidade): void {

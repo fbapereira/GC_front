@@ -24,6 +24,7 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
     lstUsuario: Usuario[] = [];
     @ViewChild('content') content: ElementRef;
 
+    targetUsuarioMensalidade: Usuario;
     targetUsuario: Usuario;
     targetNewUsuario: Usuario;
     messages: MessageUI[] = [];
@@ -54,6 +55,10 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
         this.targetUsuario = oUsuario;
     }
 
+    viewMensalidade(oUsuario: Usuario): void {
+        this.targetUsuarioMensalidade = oUsuario;
+    }
+    
     return(): void {
         this.targetUsuario = undefined;
         this.targetNewUsuario = undefined;

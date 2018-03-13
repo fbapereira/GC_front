@@ -38,7 +38,8 @@ export class UsuarioService {
     }
 
     public Altera(oUsuario: Usuario): Observable<any> {
-        return this.GCHTTP.Put('GC_Usuario/' + oUsuario.Id, oUsuario);
+
+        return this.GCHTTP.Post('AlteraUsuario', oUsuario);
     }
 
     public Adiciona(oUsuario: Usuario): Observable<Usuario> {

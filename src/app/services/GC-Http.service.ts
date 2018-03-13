@@ -37,25 +37,25 @@ export class GCHTTPService {
         });
     }
 
-    public Put(url: string, body: any): Observable<any> {
-        return Observable.create((obs) => {
-            this.isWorking.emit(true);
-            this._http.put(this.TrataUrl(url), body)
-                .subscribe(
-                    (obj) => {
-                        obs.next(obj);
-                    },
-                    (erro) => {
-                        this.isWorking.emit(false);
-                        obs.error(erro);
-                    },
-                    () => {
-                        this.isWorking.emit(false);
-                        obs.complete();
-                    });
+    // public Put(url: string, body: any): Observable<any> {
+    //     return Observable.create((obs) => {
+    //         this.isWorking.emit(true);
+    //         this._http.put(this.TrataUrl(url), body)
+    //             .subscribe(
+    //                 (obj) => {
+    //                     obs.next(obj);
+    //                 },
+    //                 (erro) => {
+    //                     this.isWorking.emit(false);
+    //                     obs.error(erro);
+    //                 },
+    //                 () => {
+    //                     this.isWorking.emit(false);
+    //                     obs.complete();
+    //                 });
 
-        });
-    }
+    //     });
+    // }
 
     public Get(url: string): Observable<any> {
         return Observable.create((obs) => {

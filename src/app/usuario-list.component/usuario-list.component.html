@@ -1,6 +1,6 @@
 <app-gc-message [messages]='messages'></app-gc-message>
 
-<div class="table-responsive" *ngIf="!targetUsuario && !targetNewUsuario">
+<div class="table-responsive" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -8,7 +8,7 @@
                 <th scope="col">CPF</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Login</th>
-                <th scope="col">#</th>
+                <th scope="col" colspan="2">#</th>
             </tr>
         </thead>
         <tbody>
@@ -17,16 +17,20 @@
                 <td>{{oUsuario.CPF}}</td>
                 <td>{{oUsuario.Nome}}</td>
                 <td>{{oUsuario.Login}}</td>
-                <td>
-                    <a (click)="viewDetail(oUsuario)">
-                        <fa [name]="'edit'"></fa>
-                    </a>
+
+                    <td>
+                        <button type="button" class="btn btn-outline-success" (click)="viewDetail(oUsuario)">Alterar Dados</button>
+                    </td>
+
+                    <td>
+                        <button type="button" class="btn btn-outline-success" (click)="viewMensalidade(oUsuario)">Mensalidades</button>
+
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-<div class="container" *ngIf="!targetUsuario && !targetNewUsuario">
+<div class="container" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
     <div class="row">
         <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
             <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoUsuario()">Adicionar</button>
@@ -35,7 +39,7 @@
 </div>
 <!-- Adicioanr -->
 <div *ngIf="targetNewUsuario">
-    <app-gc-usuario-detail [(targetUsuario)]="targetNewUsuario"(showMensalidade)='showMensalidade(false)' (isEditavel)="true" ></app-gc-usuario-detail>
+    <app-gc-usuario-detail [(targetUsuario)]="targetNewUsuario" (showMensalidade)='showMensalidade(false)' (isEditavel)="true"></app-gc-usuario-detail>
     <div class="container">
         <div class="row">
             <div class="col-sm-12  col-md-6  col-lg-4">
@@ -49,7 +53,7 @@
 </div>
 <!-- alterar -->
 <div *ngIf="targetUsuario">
-    <app-gc-usuario-detail [(targetUsuario)]="targetUsuario" (showMensalidade)="showMensalidade(true)" (isEditavel)='true' ></app-gc-usuario-detail>
+    <app-gc-usuario-detail [(targetUsuario)]="targetUsuario" (isEditavel)='true'></app-gc-usuario-detail>
     <div class="container">
         <div class="row">
             <div class="col-sm-12  col-md-6  col-lg-4">
@@ -60,4 +64,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div *ngIf="targetUsuarioMensalidade">
+    <app-gc-mensalidade-list [(targetUsuario)]='targetUsuarioMensalidade' [showAdd]='true'></app-gc-mensalidade-list>
 </div>

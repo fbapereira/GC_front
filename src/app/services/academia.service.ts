@@ -17,6 +17,9 @@ export class AcademiaService {
     }
 
     public AdicionaUsuario(oUsuario: Usuario, oAcademia: Academia): Observable<Boolean> {
-        return this.GCHTTP.Put('AdicionaUsuarioAcademia/' + oAcademia.Id, oUsuario);
+        const oObj: any = {};
+        oObj.GC_AcademiaId = oAcademia.Id;
+        oObj.GC_UsuarioId = oUsuario.Id;
+        return this.GCHTTP.Post('AdicionaUsuarioAcademia', oObj);
     }
 }
