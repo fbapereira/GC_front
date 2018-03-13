@@ -8,7 +8,7 @@
                 <th scope="col">CPF</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Login</th>
-                <th scope="col" colspan="2">#</th>
+                <th scope="col" colspan="3">#</th>
             </tr>
         </thead>
         <tbody>
@@ -18,13 +18,17 @@
                 <td>{{oUsuario.Nome}}</td>
                 <td>{{oUsuario.Login}}</td>
 
-                    <td>
-                        <button type="button" class="btn btn-outline-success" (click)="viewDetail(oUsuario)">Alterar Dados</button>
-                    </td>
+                <td>
+                    <button type="button" class="btn btn-outline-success" (click)="viewDetail(oUsuario)">Alterar Dados</button>
+                </td>
 
-                    <td>
-                        <button type="button" class="btn btn-outline-success" (click)="viewMensalidade(oUsuario)">Mensalidades</button>
+                <td>
+                    <button type="button" class="btn btn-outline-success" (click)="viewMensalidade(oUsuario)">Mensalidades</button>
+                </td>
 
+
+                <td>
+                    <button type="button" class="btn btn-outline-danger" (click)="apagar(oUsuario)">Apagar</button>
                 </td>
             </tr>
         </tbody>

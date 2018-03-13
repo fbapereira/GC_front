@@ -70,6 +70,18 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
         this.targetPagamentoMensalidade = oMensalidade;
     }
 
+    apagar(oMensalidade: Mensalidade): void {
+        debugger;
+        this.oMensalidadeService.Deleta(oMensalidade)
+            .subscribe(() => {
+                this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+                    .subscribe((lstMensalidade: Mensalidade[]) => {
+                        this.lstMensalidade = lstMensalidade;
+                    });
+            });
+
+    }
+
     CreateMensalidade(): void {
         const obs: Observable<Mensalidade>[] = [];
         const obsVinc: Observable<Mensalidade>[] = [];

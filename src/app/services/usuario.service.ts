@@ -45,4 +45,9 @@ export class UsuarioService {
     public Adiciona(oUsuario: Usuario): Observable<Usuario> {
         return this.GCHTTP.Post('GC_Usuario', oUsuario);
     }
+
+    
+    public Deleta(oUsuario: Usuario): Observable<any> {
+        return this.GCHTTP.Post('DeletaUsuario', oUsuario);
+    }
 }

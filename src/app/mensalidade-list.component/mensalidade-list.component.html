@@ -7,7 +7,7 @@
                 <th scope="col">Valor</th>
                 <th scope="col">Vencimento</th>
                 <th scope="col">Status</th>
-                <th scope="col" colspan="2">#</th>
+                <th scope="col" colspan="3">#</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +21,9 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Registrar Pagamento</button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger" (click)="apagar(oMensalidade)">Apagar</button>
                 </td>
             </tr>
         </tbody>

@@ -71,6 +71,10 @@ export class MensalidadeService {
 
     }
 
+    public Deleta(oMensalidade: Mensalidade): Observable<any> {
+        return this.GCHTTP.Post('DeletaMensalidade', oMensalidade);
+    }
+
     MapStatus(lstMensaliadadeUnmapped: Mensalidade[], that: any): Mensalidade[] {
         lstMensaliadadeUnmapped.forEach((oMensalidade: Mensalidade) => {
             oMensalidade.MensaliadadeStatus = that.lstMensaliadadeStatus.filter((oStatus: MensalidadeStatus) => {

@@ -58,7 +58,14 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
     viewMensalidade(oUsuario: Usuario): void {
         this.targetUsuarioMensalidade = oUsuario;
     }
-    
+
+    apagar(oUsuario: Usuario): void {
+        this.oUsuarioService.Deleta(oUsuario).subscribe(() => {
+            this.loadUsuario();
+        });
+    }
+
+
     return(): void {
         this.targetUsuario = undefined;
         this.targetNewUsuario = undefined;
