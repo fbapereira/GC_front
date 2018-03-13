@@ -13,9 +13,9 @@
                     <span class="sr-only" *ngIf="router.url=='/dashboard'">(current)</span>
                 </a>
             </li>
-            <li class="nav-item" *ngIf="IsVisible( 'mensalidade')" [ngClass]="{'active': (router.url=='/mensalidade')}">
+            <!-- <li class="nav-item" *ngIf="IsVisible( 'mensalidade')" [ngClass]="{'active': (router.url=='/mensalidade')}">
                 <a class="nav-link" routerLink="/mensalidade" routerLinkActive="active">Mensalidade</a>
-            </li>
+            </li> -->
             <li class="nav-item" *ngIf="IsVisible( 'usuario')" [ngClass]="{'active': (router.url=='/usuario')}">
                 <a class="nav-link" routerLink="/usuario" routerLinkActive="active">Usuário
                     <span class="sr-only" *ngIf="router.url=='/usuario'">(current)</span>

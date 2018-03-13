@@ -25,6 +25,16 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     @Input()
     showAdd: Boolean;
 
+    @Input()
+    showPay: Boolean;
+
+    @Input()
+    showPayAdmin: Boolean;
+
+
+    @Input()
+    showExclude: Boolean;
+
     @ViewChild("boleto") boleto: PagamentoComponent;
 
 
@@ -44,7 +54,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        debugger;
         this.oMensalidadeService.GetMensalidade(this.targetUsuario)
             .subscribe((lstMensalidade: Mensalidade[]) => {
                 this.lstMensalidade = lstMensalidade;
@@ -71,7 +80,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     }
 
     apagar(oMensalidade: Mensalidade): void {
-        debugger;
         this.oMensalidadeService.Deleta(oMensalidade)
             .subscribe(() => {
                 this.oMensalidadeService.GetMensalidade(this.targetUsuario)
@@ -102,7 +110,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
         // Cria as mensalidades
         forkJoin(obs)
             .subscribe((oMensalidades: Mensalidade[]) => {
-                debugger;
                 // gera boleto 
                 this.oMensalidadeService.GerarBoletos(oMensalidades).
                     subscribe(() => {

@@ -71,5 +71,6 @@
 </div>
 
 <div *ngIf="targetUsuarioMensalidade">
-    <app-gc-mensalidade-list [(targetUsuario)]='targetUsuarioMensalidade' [showAdd]='true'></app-gc-mensalidade-list>
+    <app-gc-mensalidade-list [(targetUsuario)]='targetUsuarioMensalidade' [showAdd]="true" [showPay]="false" [showPayAdmin]="true"
+        [showExclude]="true"></app-gc-mensalidade-list>
 </div>

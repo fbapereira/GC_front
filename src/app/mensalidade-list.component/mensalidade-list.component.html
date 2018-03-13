@@ -16,13 +16,13 @@
                 <td>{{oMensalidade.Valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
                 <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
                 <td>{{oMensalidade.MensaliadadeStatus.Nome}}</td>
-                <td>
+                <td *ngIf="showPay">
                     <button type="button" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Pagar</button>
                 </td>
-                <td>
+                <td *ngIf="showPayAdmin">
                     <button type="button" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Registrar Pagamento</button>
                 </td>
-                <td>
+                <td *ngIf="showExclude">
                     <button type="button" class="btn btn-outline-danger" (click)="apagar(oMensalidade)">Apagar</button>
                 </td>
             </tr>

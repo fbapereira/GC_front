@@ -37,7 +37,6 @@ export class MensalidadeService {
     }
 
     GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {
-        debugger;
         const that = this;
         return Observable.create((obs) => {
             if (!this.lstMensaliadadeStatus) {
