@@ -14,6 +14,7 @@ import { MensalidadeListComponent } from '../mensalidade-list.component/mensalid
 import { MensalidadeComponent } from '../mensalidade.component/mensalidade.component';
 import { MensalidadeAdicionaComponent } from '../mensalidade-adiciona.component/mensalidade-adiciona.component';
 import { PagamentoComponent } from '../pagamento.component/pagamento.component';
+import { MensalidadeAlteraComponent } from '../mensalidade-altera.component/mensalidade-altera.component';
 
 export const GC_COMPONENTS = [
     MenuComponent,
@@ -31,5 +32,6 @@ export const GC_COMPONENTS = [
     MensalidadeListComponent, 
     MensalidadeComponent,
     MensalidadeAdicionaComponent,
-    PagamentoComponent
+    PagamentoComponent, 
+    MensalidadeAlteraComponent
 ];

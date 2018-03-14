@@ -46,6 +46,12 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
         if (this.targetAcademia) {
             this.oUsuarioService.Obtem(this.targetAcademia)
                 .subscribe((lstUsuario: Usuario[]) => {
+
+                    lstUsuario = lstUsuario.sort((a: Usuario, b: Usuario) => {
+                        if (a.Nome < b.Nome) return -1;
+                        if (a.Nome > b.Nome) return 1;
+                        return 0;
+                    });
                     this.lstUsuario = lstUsuario;
                 });
         }

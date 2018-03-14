@@ -42,6 +42,8 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     lstMensalidade: Mensalidade[];
     targetNewMensalidade: Mensalidade;
     targetPagamentoMensalidade: Mensalidade;
+    targetAlteraMensalidade: Mensalidade;
+
     messages: MessageUI[] = [];
 
     constructor(private oMensalidadeService: MensalidadeService,
@@ -77,6 +79,11 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
 
     pagar(oMensalidade: Mensalidade): void {
         this.targetPagamentoMensalidade = oMensalidade;
+    }
+
+    alterar(oMensalidade: Mensalidade): void {
+        debugger;
+        this.targetAlteraMensalidade = oMensalidade;
     }
 
     apagar(oMensalidade: Mensalidade): void {

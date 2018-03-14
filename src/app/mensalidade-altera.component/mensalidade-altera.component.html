@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="txtCPF">Status</label>
+
+                <div class="input-group mb-3">
+                    <select class="custom-select" id="inputGroupSelect02">
+                        <option *ngFor="let oMensalidadeStatus of lstMensalidadeStatus" [ngValue]="oMensalidadeStatus">{{oMensalidadeStatus.Nome}}</option>
+                    </select>
+                    <div class="input-group-append">
+                        <label class="input-group-text" for="inputGroupSelect02">Status</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="txtCPF">Vencimento</label>
+                <input type="date" [attr.disabled]="isEditavel" class="form-control" id="txtVencimento" placeholder="Primeiro Vencimento"
+                    [(ngModel)]="targetMensalidade.Vencimento">
+            </div>
+        </div>
+
+    </div>
+</div>
