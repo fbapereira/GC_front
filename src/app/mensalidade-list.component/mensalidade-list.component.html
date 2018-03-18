@@ -17,13 +17,13 @@
                 <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
                 <td>{{oMensalidade.MensaliadadeStatus.Nome}}</td>
                 <td *ngIf="showPay">
-                    <button type="button" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Pagar</button>
+                    <button type="button" *ngIf ="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Pagar</button>
                 </td>
-                <td *ngIf="showPayAdmin">
-                    <button type="button" class="btn btn-outline-success" (click)="alterar(oMensalidade)">Registrar Pagamento</button>
+                <td *ngIf="showPayAdmin ">
+                    <button type="button" *ngIf ="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="alterar(oMensalidade)">Registrar Pagamento</button>
                 </td>
-                <td *ngIf="showExclude">
-                    <button type="button" class="btn btn-outline-danger" (click)="apagar(oMensalidade)">Apagar</button>
+                <td *ngIf="showExclude ">
+                    <button type="button" *ngIf ="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-danger" (click)="apagar(oMensalidade)">Apagar</button>
                 </td>
             </tr>
         </tbody>
