@@ -10,6 +10,7 @@ import { AcademiaService } from '../services/academia.service';
 import { BaseComponent } from '../shared/base-component';
 import { SAMService } from '../services/sam.service';
 import { Router } from '@angular/router';
+import { MensalidadeListComponent } from '../mensalidade-list.component/mensalidade-list.component';
 
 @Component({
     selector: 'app-gc-usuario-list',
@@ -24,6 +25,11 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
     lstUsuario: Usuario[] = [];
     @ViewChild('content') content: ElementRef;
 
+
+
+    @ViewChild('MensalidadeList') MensalidadeList: MensalidadeListComponent;
+
+
     targetUsuarioMensalidade: Usuario;
     targetUsuario: Usuario;
     targetNewUsuario: Usuario;
@@ -37,11 +43,16 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
         router: Router) {
         super(true, oSAMService, router);
         this.meuUsuario = oUsuarioService.oUsuario;
+       
     }
 
     ngOnInit(): void {
 
         this.loadUsuario();
+        this.MensalidadeList.emitClose.subscribe((s: boolean) => {
+            this.targetUsuarioMensalidade = undefined;
+        });
+       
     }
 
     loadUsuario(): void {
@@ -65,6 +76,7 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
 
     viewMensalidade(oUsuario: Usuario): void {
         this.targetUsuarioMensalidade = oUsuario;
+       
     }
 
     apagar(oUsuario: Usuario): void {

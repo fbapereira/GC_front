@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, OnChanges, ViewChild, EventEmitter, SimpleChanges } from "@angular/core";
 import { Usuario } from "../models/usuario";
 import { BaseComponent } from "../shared/base-component";
 import { MensalidadeService } from "../services/mensalidade.service";
@@ -18,7 +18,7 @@ import { PagSeguroComponent } from "../pagseguro.component/pagseguro.component";
     templateUrl: './mensalidade-list.component.html',
 })
 
-export class MensalidadeListComponent extends BaseComponent implements OnInit {
+export class MensalidadeListComponent extends BaseComponent implements OnInit, OnChanges {
 
     @Input()
     targetUsuario: Usuario;
@@ -39,6 +39,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     @ViewChild("boleto") boleto: PagamentoComponent;
     @ViewChild("pagseguro") pagseguro: PagSeguroComponent;
 
+    emitClose: EventEmitter<boolean> = new EventEmitter();
 
     oRouter: any;
     lstMensalidade: Mensalidade[];
@@ -58,10 +59,21 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.oMensalidadeService.GetMensalidade(this.targetUsuario)
-            .subscribe((lstMensalidade: Mensalidade[]) => {
-                this.lstMensalidade = lstMensalidade;
-            });
+        if (this.targetUsuario) {
+            this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+                .subscribe((lstMensalidade: Mensalidade[]) => {
+                    this.lstMensalidade = lstMensalidade;
+                });
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (this.targetUsuario) {
+            this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+                .subscribe((lstMensalidade: Mensalidade[]) => {
+                    this.lstMensalidade = lstMensalidade;
+                });
+        }
     }
 
 
@@ -70,6 +82,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     }
 
     return(): void {
+        this.emitClose.emit(true);
         this.targetNewMensalidade = undefined;
         this.targetPagamentoMensalidade = undefined;
         this.targetUsuario = undefined;

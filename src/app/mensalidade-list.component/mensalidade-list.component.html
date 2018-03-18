@@ -1,4 +1,5 @@
-<app-gc-message [messages]='messages'></app-gc-message>
+<app-gc-message [messages]='messages'>
+</app-gc-message>
 <div class="table-responsive" *ngIf="!targetMensalidade && !targetNewMensalidade && !targetPagamentoMensalidade">
     <table class="table table-hover">
         <thead>
@@ -17,13 +18,13 @@
                 <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
                 <td>{{oMensalidade.MensaliadadeStatus.Nome}}</td>
                 <td *ngIf="showPay">
-                    <button type="button" *ngIf ="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Pagar</button>
+                    <button type="button" *ngIf="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Pagar</button>
                 </td>
                 <td *ngIf="showPayAdmin ">
-                    <button type="button" *ngIf ="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="alterar(oMensalidade)">Registrar Pagamento</button>
+                    <button type="button" *ngIf="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="alterar(oMensalidade)">Registrar Pagamento</button>
                 </td>
                 <td *ngIf="showExclude ">
-                    <button type="button" *ngIf ="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-danger" (click)="apagar(oMensalidade)">Apagar</button>
+                    <button type="button" *ngIf="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-danger" (click)="apagar(oMensalidade)">Apagar</button>
                 </td>
             </tr>
         </tbody>
