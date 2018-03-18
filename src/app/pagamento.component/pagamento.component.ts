@@ -42,9 +42,31 @@ export class PagamentoComponent extends BaseComponent implements OnInit {
         this.oBoletoService.GetBoletos(this.targetMensalidade)
             .subscribe((oPagamentoPagSeguro: PagamentoPagSeguro) => {
                 this.targetPagamentoPagSeguro = oPagamentoPagSeguro;
+
+                let code: string = this.targetPagamentoPagSeguro.BarCode;
+                code = this.splice(code, 5, 0, '.');
+                code = this.splice(code, 11, 0, ' ');
+                code = this.splice(code, 17, 0, '.');
+                code = this.splice(code, 24, 0, ' ');
+                code = this.splice(code, 30, 0, '.');
+                code = this.splice(code, 37, 0, ' ');
+                code = this.splice(code, 39, 0, ' ');
+                this.targetPagamentoPagSeguro.BarCode = code;
+
             });
     }
 
-  
+
+
+
+    print(): void {
+        window.open(this.targetPagamentoPagSeguro.Link);
+    }
+
+
+    splice(st, idx, rem, str) {
+        return st.slice(0, idx) + str + st.slice(idx + Math.abs(rem));
+    };
+
 
 }

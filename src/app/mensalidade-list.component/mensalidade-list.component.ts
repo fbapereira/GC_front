@@ -11,6 +11,7 @@ import { MessageUI } from "../models/messageUI";
 import * as moment from 'moment';
 import { AcademiaService } from "../services/academia.service";
 import { PagamentoComponent } from "../pagamento.component/pagamento.component";
+import { PagSeguroComponent } from "../pagseguro.component/pagseguro.component";
 
 @Component({
     selector: 'app-gc-mensalidade-list',
@@ -36,6 +37,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
     showExclude: Boolean;
 
     @ViewChild("boleto") boleto: PagamentoComponent;
+    @ViewChild("pagseguro") pagseguro: PagSeguroComponent;
 
 
     oRouter: any;
@@ -73,16 +75,11 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
         this.targetUsuario = undefined;
     }
 
-    print(): void {
-        window.open(this.boleto.targetPagamentoPagSeguro.Link);
-    }
-
     pagar(oMensalidade: Mensalidade): void {
         this.targetPagamentoMensalidade = oMensalidade;
     }
 
     alterar(oMensalidade: Mensalidade): void {
-        debugger;
         this.targetAlteraMensalidade = oMensalidade;
     }
 
@@ -146,5 +143,9 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit {
                         });
                 });
             });
+    }
+
+    payment(): void {
+        this.pagseguro.getMethods();
     }
 }

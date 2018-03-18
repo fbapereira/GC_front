@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-11 col-md-9 offset-md-1  col-lg-7  offset-lg-2">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Numero do Cartão</label>
+                <input type="number" (change)="getBrand()" [(ngModel)]="targetCard.number" class="form-control" id="exampleInputPassword1"
+                    min="0" placeholder="Numero do Cartão">
+            </div>
+        </div>
+        <div class="col-sm-1 col-md-1 col-lg-1">
+            <div class="form-group" *ngIf="targetPayMethod">
+                <label for="exampleInputPassword1">#</label>
+                <br/>
+
+                <img [src]="'https://stc.pagseguro.uol.com.br'+ targetPayMethod.image" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 offset-md-1 col-md-5 col-lg-4 offset-lg-2">
+            <div class="form-group">
+                <label for="exampleInputPassword1">CVV</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="targetCard.cvv" min="0" placeholder="CVV">
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-2 col-lg-2">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Mes</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="targetCard.mes" placeholder="Mes" min="0"
+                    max="12">
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-2">
+            <div class="form-group">
+                <label for="exampleInputPassword1">Ano</label>
+                <input type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="targetCard.ano" placeholder="Ano" min="2018"
+                    max="2099">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-10 offset-md-1  col-lg-8  offset-lg-2">
+
+            Cartões Aceitos
+            <br/>
+            <div *ngFor="let oPayMethod of lstPayMethod" style="display:inline">
+
+                <img [src]="'https://stc.pagseguro.uol.com.br'+ oPayMethod.image" [attr.title]="oPayMethod.displayName" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-4 offset-md-5  col-lg-4  offset-lg-6">
+            <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="pay()">Pagar</button>
+        </div>
+    </div>
+</div>

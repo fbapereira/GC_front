@@ -13,6 +13,7 @@ import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { GC_Pipes } from './static/pipes';
 // import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
-    Angular2FontawesomeModule
+    Angular2FontawesomeModule,
+    NgxBarcodeModule
   ],
   providers: [GC_SERVICES],
   bootstrap: [AppComponent]
