@@ -28,7 +28,7 @@
 
 
                 <td>
-                    <button type="button" class="btn btn-outline-danger" (click)="apagar(oUsuario)">Apagar</button>
+                    <button type="button" *ngIf="meuUsuario.Id !== oUsuario.Id" class="btn btn-outline-danger" (click)="apagar(oUsuario)">Apagar</button>
                 </td>
             </tr>
         </tbody>

@@ -27,6 +27,7 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
     targetUsuarioMensalidade: Usuario;
     targetUsuario: Usuario;
     targetNewUsuario: Usuario;
+    meuUsuario: Usuario;
     messages: MessageUI[] = [];
 
     constructor(private oUsuarioService: UsuarioService,
@@ -35,6 +36,7 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
         oSAMService: SAMService,
         router: Router) {
         super(true, oSAMService, router);
+        this.meuUsuario = oUsuarioService.oUsuario;
     }
 
     ngOnInit(): void {
