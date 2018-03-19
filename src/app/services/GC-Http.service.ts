@@ -9,8 +9,8 @@ export class GCHTTPService {
 
     isWorking: EventEmitter<boolean> = new EventEmitter();
 
-    urlBase: String = 'http://localhost:59912/Api/';
-    _urlBase: String = 'http://gc.basicflux.com/Api/';
+    _urlBase: String = 'http://localhost:59912/Api/';
+    urlBase: String = 'http://gc.basicflux.com/Api/';
 
     private TrataUrl(url: string): string {
 

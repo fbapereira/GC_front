@@ -59,6 +59,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     }
 
     ngOnInit(): void {
+        this.messages = [];
         if (this.targetUsuario) {
             this.oMensalidadeService.GetMensalidade(this.targetUsuario)
                 .subscribe((lstMensalidade: Mensalidade[]) => {
@@ -68,6 +69,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        this.messages = [];
         if (this.targetUsuario) {
             this.oMensalidadeService.GetMensalidade(this.targetUsuario)
                 .subscribe((lstMensalidade: Mensalidade[]) => {
@@ -78,10 +80,12 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
 
     NovoMensalidade(): void {
+        this.messages = [];
         this.targetNewMensalidade = new Mensalidade();
     }
 
     return(): void {
+        this.messages = [];
         this.emitClose.emit(true);
         this.targetNewMensalidade = undefined;
         this.targetPagamentoMensalidade = undefined;
@@ -89,19 +93,28 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     }
 
     pagar(oMensalidade: Mensalidade): void {
+        this.messages = [];
         this.targetPagamentoMensalidade = oMensalidade;
     }
 
     alterar(oMensalidade: Mensalidade): void {
+        this.messages = [];
         this.targetAlteraMensalidade = oMensalidade;
     }
 
     apagar(oMensalidade: Mensalidade): void {
+        this.messages = [];
         this.oMensalidadeService.Deleta(oMensalidade)
             .subscribe(() => {
                 this.oMensalidadeService.GetMensalidade(this.targetUsuario)
                     .subscribe((lstMensalidade: Mensalidade[]) => {
+                        const oMessageUI: MessageUI = new MessageUI();
+                        oMessageUI.message = 'Mensalidade apagada com sucesso';
+                        oMessageUI.title = '[Mensalidade]';
+                        oMessageUI.level = 'success';
+                        this.messages.push(oMessageUI);
                         this.lstMensalidade = lstMensalidade;
+                        return;
                     });
             });
 
@@ -111,6 +124,49 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
         const obs: Observable<Mensalidade>[] = [];
         const obsVinc: Observable<Mensalidade>[] = [];
         const lstMensalidade: Mensalidade[] = [];
+
+        this.messages = [];
+        // Validação
+        if (!this.targetNewMensalidade.parcela || this.targetNewMensalidade.parcela === 0) {
+            const oMessageUI: MessageUI = new MessageUI();
+            oMessageUI.message = 'Por favor, digite a quantidade de parcelas';
+            oMessageUI.title = '[Parcelas]';
+            oMessageUI.level = 'danger';
+            this.messages.push(oMessageUI);
+            return;
+        }
+
+        if (!this.targetNewMensalidade.Valor || this.targetNewMensalidade.Valor <= 0) {
+            const oMessageUI: MessageUI = new MessageUI();
+            oMessageUI.message = 'Por favor, o valor da parcela deve ser maior que 0';
+            oMessageUI.title = '[Valor]';
+            oMessageUI.level = 'danger';
+            this.messages.push(oMessageUI);
+            return;
+        }
+
+        if (!this.targetNewMensalidade.Vencimento || moment(this.targetNewMensalidade.Vencimento).isBefore(moment())) {
+            const oMessageUI: MessageUI = new MessageUI();
+            oMessageUI.message = 'Por favor, a data deve ser maior que hoje';
+            oMessageUI.title = '[Vencimento]';
+            oMessageUI.level = 'danger';
+            this.messages.push(oMessageUI);
+            return;
+        }
+
+
+        if (!this.targetNewMensalidade.Vencimento ||
+            moment(this.targetNewMensalidade.Vencimento).isAfter(moment().add(1, 'M').toDate())) {
+            const oMessageUI: MessageUI = new MessageUI();
+            oMessageUI.message = 'Por favor, a data deve ser em no maximo 30 dias';
+            oMessageUI.title = '[Vencimento]';
+            oMessageUI.level = 'danger';
+            this.messages.push(oMessageUI);
+            return;
+        }
+
+
+
 
         for (let _i = 0; _i < this.targetNewMensalidade.parcela; _i++) {
             lstMensalidade.push(this.targetNewMensalidade);

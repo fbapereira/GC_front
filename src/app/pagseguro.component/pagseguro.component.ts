@@ -27,30 +27,29 @@ export class PagSeguroComponent extends BaseComponent implements AfterViewInit {
     targetCard: Card = new Card();
     targetBrand: Brand;
 
+    routerr: Router;
     constructor(private pagseguroService: PagseguroService, private academiaService: AcademiaService,
         oSAMService: SAMService,
         router: Router
     ) {
         super(true, oSAMService, router);
+        this.routerr = router;
         this.injectScripts();
     }
 
     ngAfterViewInit(): void {
-        setInterval(() => {
-
-            if (this.academiaService.oAcademia && this.lstPayMethod.length === 0) {
-                const that = this;
-                this.pagseguroService.iniciaSessao(this.academiaService.oAcademia)
-                    .subscribe((idSessao: String) => {
-                        PagSeguroDirectPayment.setSessionId(idSessao);
-                        this.getMethods().subscribe((a: PayMethods[]) => {
-                            that.lstPayMethod = a.filter((oPayMethods: PayMethods) => {
-                                return oPayMethods.mainName === 'CREDIT_CARD';
-                            });
+        if (this.academiaService.oAcademia && this.lstPayMethod.length === 0) {
+            const that = this;
+            this.pagseguroService.iniciaSessao(this.academiaService.oAcademia)
+                .subscribe((idSessao: String) => {
+                    PagSeguroDirectPayment.setSessionId(idSessao);
+                    this.getMethods().subscribe((a: PayMethods[]) => {
+                        that.lstPayMethod = a.filter((oPayMethods: PayMethods) => {
+                            return oPayMethods.mainName === 'CREDIT_CARD';
                         });
                     });
-            }
-        }, 1000);
+                });
+        }
 
     }
 
@@ -155,9 +154,8 @@ export class PagSeguroComponent extends BaseComponent implements AfterViewInit {
         }).subscribe((token: any) => {
             this.pagseguroService.checkout(this.targetMensalidade, token.card.token, this.hash)
                 .subscribe((obj: any) => {
-                    debugger;
-
-                })
+                    this.routerr.navigate(['Dashboard']);
+                });
         });
     }
 }
