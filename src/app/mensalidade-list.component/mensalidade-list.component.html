@@ -25,6 +25,7 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" *ngIf="showPay && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="enviar(oMensalidade)">Enviar E-mail</a>
               <a class="dropdown-item" *ngIf="showPay && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="pagar(oMensalidade)">Ver Boleto</a>
               <a class="dropdown-item" *ngIf="showPayAdmin && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="alterar(oMensalidade)">Registrar Pagamento</a>
               <a class="dropdown-item" *ngIf="showPayAdmin && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="apagar(oMensalidade)">Apagar</a>

@@ -8,50 +8,50 @@ import { Academia } from '../models/academia';
 @Injectable()
 export class UsuarioService {
 
-    oUsuario: Usuario;
+  oUsuario: Usuario;
 
-    constructor(private GCHTTP: GCHTTPService) { }
+  constructor(private GCHTTP: GCHTTPService) { }
 
-    public Login(oUsuario: Usuario): Observable<Boolean> {
-        oUsuario.Login = oUsuario.Email;
+  public Login(oUsuario: Usuario): Observable<Boolean> {
+    oUsuario.Login = oUsuario.Email;
 
-        return Observable.create((obs) => {
-            this.GCHTTP.Post('Login', oUsuario)
-                .subscribe((data: any) => {
-                    if (data) {
-                        this.oUsuario = data;
-                        obs.next(true);
-                        obs.complete();
-                        return;
-                    }
-                    obs.next(false);
-                    obs.complete();
-                    return;
-                });
-
+    return Observable.create((obs) => {
+      this.GCHTTP.Post('Login', oUsuario)
+        .subscribe((data: any) => {
+          if (data) {
+            this.oUsuario = data;
+            obs.next(true);
+            obs.complete();
+            return;
+          }
+          obs.next(false);
+          obs.complete();
+          return;
         });
-    }
+
+    });
+  }
 
 
-    public Obtem(oAcademia: Academia): Observable<Usuario[]> {
-        return this.GCHTTP.Post('ObtemUsuariosAcademia', oAcademia);
-    }
+  public Obtem(oAcademia: Academia): Observable<Usuario[]> {
+    return this.GCHTTP.Post('ObtemUsuariosAcademia', oAcademia);
+  }
 
-    public Altera(oUsuario: Usuario): Observable<any> {
+  public Altera(oUsuario: Usuario): Observable<any> {
 
-        return this.GCHTTP.Post('AlteraUsuario', oUsuario);
-    }
+    return this.GCHTTP.Post('AlteraUsuario', oUsuario);
+  }
 
-    public Adiciona(oUsuario: Usuario): Observable<Usuario> {
-        return this.GCHTTP.Post('GC_Usuario', oUsuario);
-    }
+  public Adiciona(oUsuario: Usuario): Observable<Usuario> {
+    return this.GCHTTP.Post('GC_Usuario', oUsuario);
+  }
 
-    
-    public Deleta(oUsuario: Usuario): Observable<any> {
-        return this.GCHTTP.Post('DeletaUsuario', oUsuario);
-    }
 
-    public RecuperaSenha(oUsuario: Usuario): Observable<any> {
-        return this.GCHTTP.Post('ResetarSenha', oUsuario);
-    }
+  public Deleta(oUsuario: Usuario): Observable<any> {
+    return this.GCHTTP.Post('DeletaUsuario', oUsuario);
+  }
+
+  public RecuperaSenha(oUsuario: Usuario): Observable<any> {
+    return this.GCHTTP.Post('ResetarSenha', oUsuario);
+  }
 }
