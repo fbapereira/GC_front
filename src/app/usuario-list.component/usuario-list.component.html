@@ -1,76 +1,98 @@
 <app-gc-message [messages]='messages'></app-gc-message>
-
+<div class="container" style="margin-bottom: 20px">
+  <div class="row" *ngIf="!targetUsuario">
+    <div class="col-sm-12  col-md-12  offset-lg-2 col-lg-8">
+      <label for="inputEmail" class="sr-only">Busca</label>
+      <input type="text" class="form-control" [(ngModel)]="sBusca" placeholder="Nome, cpf ou e-mail..." (ngModelChange)="search() ">
+    </div>
+  </div>
+</div>
 <div class="table-responsive" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">CPF</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Login</th>
-                <th scope="col" colspan="3">#</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let oUsuario of lstUsuario">
-                <td scope="row">{{oUsuario.Id}}</td>
-                <td>{{oUsuario.CPF}}</td>
-                <td>{{oUsuario.Nome}}</td>
-                <td>{{oUsuario.Login}}</td>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">CPF</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Login</th>
+        <th scope="col" colspan="2">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let oUsuario of lstUsuarioFiltered">
+        <td scope="row">{{oUsuario.Id}}</td>
+        <td>{{oUsuario.CPF}}</td>
+        <td>{{oUsuario.Nome}}</td>
+        <td>{{oUsuario.Login}}</td>
 
-                <td>
-                    <button type="button" class="btn btn-outline-success" (click)="viewDetail(oUsuario)">Alterar Dados</button>
-                </td>
+        <td>
+          <button type="button" class="btn btn-outline-success" (click)="viewDetail(oUsuario)">Administrar</button>
+        </td>
 
-                <td>
-                    <button type="button" class="btn btn-outline-success" (click)="viewMensalidade(oUsuario)">Mensalidades</button>
-                </td>
+        <!-- <td>
+          <button type="button" class="btn btn-outline-success" (click)="viewMensalidade(oUsuario)">Mensalidades</button>
+        </td> -->
 
 
-                <td>
-                    <button type="button" *ngIf="meuUsuario.Id !== oUsuario.Id" class="btn btn-outline-danger" (click)="apagar(oUsuario)">Apagar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+        <td>
+          <button type="button" *ngIf="meuUsuario.Id !== oUsuario.Id" class="btn btn-outline-danger" (click)="apagar(oUsuario)">Apagar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <div class="container" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
-    <div class="row">
-        <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
-            <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoUsuario()">Adicionar</button>
-        </div>
+  <div class="row">
+    <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
+      <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoUsuario()">Adicionar</button>
     </div>
+  </div>
 </div>
 <!-- Adicioanr -->
 <div *ngIf="targetNewUsuario">
-    <app-gc-usuario-detail [(targetUsuario)]="targetNewUsuario" (showMensalidade)='showMensalidade(false)' (isEditavel)="true"></app-gc-usuario-detail>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12  col-md-6  col-lg-4">
-                <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
-            </div>
-            <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4" *ngIf="isAdmin()">
-                <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="CreateUsuario()">Adicionar</button>
-            </div>
-        </div>
+  <app-gc-usuario-detail [(targetUsuario)]="targetNewUsuario" (showMensalidade)='showMensalidade(false)' (isEditavel)="true"></app-gc-usuario-detail>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12  col-md-6  col-lg-4">
+        <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+      </div>
+      <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4" *ngIf="isAdmin()">
+        <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="CreateUsuario()">Adicionar</button>
+      </div>
     </div>
+  </div>
 </div>
-<!-- alterar -->
-<div *ngIf="targetUsuario">
-    <app-gc-usuario-detail [(targetUsuario)]="targetUsuario" (isEditavel)='true'></app-gc-usuario-detail>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12  col-md-6  col-lg-4">
-                <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
-            </div>
-            <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4" *ngIf="isAdmin()">
-                <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="SetUsuario()">Salvar</button>
-            </div>
-        </div>
-    </div>
-</div>
+<nav *ngIf="targetUsuario">
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home"
+      aria-selected="true">Dados</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile"
+      aria-selected="false">Mensalidades</a>
 
-<div [hidden]="!targetUsuarioMensalidade">
-    <app-gc-mensalidade-list #MensalidadeList [(targetUsuario)]='targetUsuarioMensalidade' [showAdd]="true" [showPay]="false"
-        [showPayAdmin]="true" [showExclude]="true"></app-gc-mensalidade-list>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <!-- alterar -->
+    <div *ngIf="targetUsuario">
+      <app-gc-usuario-detail [(targetUsuario)]="targetUsuario" (isEditavel)='true'></app-gc-usuario-detail>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12  col-md-6  col-lg-4">
+            <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+          </div>
+          <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4" *ngIf="isAdmin()">
+            <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="SetUsuario()">Salvar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div [hidden]="!targetUsuario">
+      <app-gc-mensalidade-list #MensalidadeList [(targetUsuario)]='targetUsuario' [showAdd]="true" [showPay]="true" [showPayAdmin]="true"
+        [showExclude]="true"></app-gc-mensalidade-list>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
 </div>

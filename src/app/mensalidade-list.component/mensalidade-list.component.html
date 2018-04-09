@@ -1,128 +1,143 @@
 <app-gc-message [messages]='messages'>
 </app-gc-message>
-<div class="table-responsive" *ngIf="!targetMensalidade && !targetNewMensalidade && !targetPagamentoMensalidade">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Valor</th>
-                <th scope="col">Vencimento</th>
-                <th scope="col">Status</th>
-                <th scope="col" colspan="3">#</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let oMensalidade of lstMensalidade">
-                <td scope="row">{{oMensalidade.Id}}</td>
-                <td>{{oMensalidade.Valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
-                <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
-                <td>{{oMensalidade.MensaliadadeStatus.Nome}}</td>
-                <td *ngIf="showPay">
-                    <button type="button" *ngIf="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="pagar(oMensalidade)">Pagar</button>
-                </td>
-                <td *ngIf="showPayAdmin ">
-                    <button type="button" *ngIf="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-success" (click)="alterar(oMensalidade)">Registrar Pagamento</button>
-                </td>
-                <td *ngIf="showExclude ">
-                    <button type="button" *ngIf="oMensalidade.MensaliadadeStatus.Id == 1" class="btn btn-outline-danger" (click)="apagar(oMensalidade)">Apagar</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <p class="text-center" *ngIf="!lstMensalidade || lstMensalidade.length == 0">Não há mensalidades cadastradas</p>
-</div>
-<div class="container" *ngIf="!targetNewMensalidade && showAdd && !targetPagamentoMensalidade">
-    <div class="row">
-        <div class="col-sm-12  col-md-4  col-lg-4">
-            <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
-        </div>
+<div class="table-responsive" *ngIf="!targetMensalidade && !targetNewMensalidade && !targetPagamentoMensalidade && !targetAlteraMensalidade">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Vencimento</th>
+        <th scope="col">Status</th>
+        <th scope="col" colspan="3">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let oMensalidade of lstMensalidade">
+        <td scope="row">{{oMensalidade.Id}}</td>
+        <td>{{oMensalidade.Valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
+        <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
+        <td *ngIf="oMensalidade.MensaliadadeStatus">{{oMensalidade.MensaliadadeStatus.Nome}}</td>
 
-        <div class="col-sm-12 offset-md-4 col-md-4 offset-lg-4 col-lg-4">
-            <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoMensalidade()">Adicionar</button>
-        </div>
+        <td>
+          <div class="dropdown show" *ngIf="oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1">
+            <a class="btn btn-info dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ações
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item" *ngIf="showPay && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="pagar(oMensalidade)">Ver Boleto</a>
+              <a class="dropdown-item" *ngIf="showPayAdmin && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="alterar(oMensalidade)">Registrar Pagamento</a>
+              <a class="dropdown-item" *ngIf="showPayAdmin && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="apagar(oMensalidade)">Apagar</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-center" *ngIf="!lstMensalidade || lstMensalidade.length == 0">Não há mensalidades cadastradas</p>
+</div>
+<div class="container" *ngIf="!targetNewMensalidade && showAdd && !targetPagamentoMensalidade && !targetAlteraMensalidade">
+  <div class="row">
+    <div class="col-sm-12  col-md-4  col-lg-4">
+      <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
     </div>
+
+    <div class="col-sm-12 offset-md-4 col-md-4 offset-lg-4 col-lg-4">
+      <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoMensalidade()">Adicionar</button>
+    </div>
+  </div>
 </div>
 <!-- Adicioanr -->
-<div *ngIf="targetNewMensalidade && !targetPagamentoMensalidade">
+<div *ngIf="targetNewMensalidade && !targetPagamentoMensalidade && !targetAlteraMensalidade">
 
-    <app-gc-adiciona-mensalidade [(targetMensalidade)]="targetNewMensalidade"></app-gc-adiciona-mensalidade>
+  <app-gc-adiciona-mensalidade [(targetMensalidade)]="targetNewMensalidade"></app-gc-adiciona-mensalidade>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12  col-md-6  col-lg-4">
-                <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
-            </div>
-            <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4">
-                <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="CreateMensalidade()">Adicionar</button>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12  col-md-6  col-lg-4">
+        <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return(true)">Voltar</button>
+      </div>
+      <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4">
+        <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="CreateMensalidade()">Adicionar</button>
+      </div>
     </div>
+  </div>
 </div>
 <div *ngIf="targetPagamentoMensalidade">
 
-    <div class="row">
-        <h5> Resumo</h5>
-    </div>
-    <div class="row">
+  <div class="row">
+    <h5> Resumo</h5>
+  </div>
+  <div class="row">
 
-        <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="form-group">
-                <label for="txtCPF">Valor</label>
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="form-group">
+        <label for="txtCPF">Valor</label>
 
-                <div class="input-group">
-                    <span class="input-group-text">R$</span>
-                    <input type="number" [attr.disabled]="false" class="form-control" id="txtValor" placeholder="Valor" step="0.01" min="0" [ngModel]="targetPagamentoMensalidade.Valor | number : '1.2-2' ">
-                </div>
-            </div>
+        <div class="input-group">
+          <span class="input-group-text">R$</span>
+          <input type="number" [attr.disabled]="false" class="form-control" id="txtValor" placeholder="Valor" step="0.01" min="0" [ngModel]="targetPagamentoMensalidade.Valor | number : '1.2-2' ">
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="form-group">
-                <label for="txtCPF">Status</label>
-                <input type="number" [attr.disabled]="true" class="form-control" id="txtParcela" placeholder="Parcelas" step="1" min="0"
-                    max="12" [(ngModel)]="targetPagamentoMensalidade.MensaliadadeStatus.Nome">
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="form-group">
-                <label for="txtCPF">Vencimento</label>
-                <input type="text" [attr.disabled]="true" class="form-control" id="txtVencimento" placeholder="Primeiro Vencimento" [ngModel]="targetPagamentoMensalidade.Vencimento  | date:'dd/MM/yyyy'">
-            </div>
-        </div>
-
+      </div>
     </div>
-    <div class="row">
-        <h5> Escolha a forma de pagamento</h5>
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="form-group">
+        <label for="txtCPF">Status</label>
+        <input type="number" [attr.disabled]="true" class="form-control" id="txtParcela" placeholder="Parcelas" step="1" min="0"
+          max="12" [(ngModel)]="targetPagamentoMensalidade.MensaliadadeStatus.Nome">
+      </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#boleto" role="tab" aria-controls="boleto" aria-selected="true">Boleto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#cartao" role="tab" aria-controls="cartao" aria-selected="false">Cartão</a>
-                </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="boleto" role="tabpanel" aria-labelledby="home-tab">
-                    <app-gc-pagamento #boleto [(targetMensalidade)]="targetPagamentoMensalidade"></app-gc-pagamento>
-                </div>
-                <div class="tab-pane fade" id="cartao" role="tabpanel" aria-labelledby="profile-tab">
-                    <app-gc-pagseguro #pagseguro [(targetMensalidade)]="targetPagamentoMensalidade"></app-gc-pagseguro>
-                </div>
-            </div>
-        </div>
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <div class="form-group">
+        <label for="txtCPF">Vencimento</label>
+        <input type="text" [attr.disabled]="true" class="form-control" id="txtVencimento" placeholder="Primeiro Vencimento" [ngModel]="targetPagamentoMensalidade.Vencimento  | date:'dd/MM/yyyy'">
+      </div>
     </div>
 
-
-
-
-    <div class="row ">
-        <div class="col-sm-12  col-md-6  col-lg-4">
-            <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+  </div>
+  <div class="row">
+    <h5> Escolha a forma de pagamento</h5>
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <ul class="nav nav-pills justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="home-tab" data-toggle="tab" href="#boleto" role="tab" aria-controls="boleto" aria-selected="true">Boleto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#cartao" role="tab" aria-controls="cartao" aria-selected="false">Cartão</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="boleto" role="tabpanel" aria-labelledby="home-tab">
+          <app-gc-pagamento #boleto [(targetMensalidade)]="targetPagamentoMensalidade"></app-gc-pagamento>
         </div>
+        <div class="tab-pane fade" id="cartao" role="tabpanel" aria-labelledby="profile-tab">
+          <app-gc-pagseguro #pagseguro [(targetMensalidade)]="targetPagamentoMensalidade"></app-gc-pagseguro>
+        </div>
+      </div>
     </div>
+  </div>
+
+
+
+
+  <div class="row ">
+    <div class="col-sm-12  col-md-6  col-lg-4">
+      <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+    </div>
+  </div>
 </div>
-<!-- <div *ngIf="targetAlteraMensalidade">
-    <app-gc-altera-mensalidade [(targetMensalidade)]="targetAlteraMensalidade"></app-gc-altera-mensalidade>
-</div> -->
+<div *ngIf="targetAlteraMensalidade">
+  <app-gc-altera-mensalidade #MensalidadeAltera [(targetMensalidade)]="targetAlteraMensalidade"></app-gc-altera-mensalidade>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12  col-md-6  col-lg-4">
+        <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return(true)">Voltar</button>
+      </div>
+      <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4">
+        <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="AlterMensalidade()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>

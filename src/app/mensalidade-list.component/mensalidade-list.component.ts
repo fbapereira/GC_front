@@ -12,6 +12,7 @@ import * as moment from 'moment';
 import { AcademiaService } from "../services/academia.service";
 import { PagamentoComponent } from "../pagamento.component/pagamento.component";
 import { PagSeguroComponent } from "../pagseguro.component/pagseguro.component";
+import { MensalidadeAlteraComponent } from "../mensalidade-altera.component/mensalidade-altera.component";
 
 @Component({
     selector: 'app-gc-mensalidade-list',
@@ -38,6 +39,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
     @ViewChild("boleto") boleto: PagamentoComponent;
     @ViewChild("pagseguro") pagseguro: PagSeguroComponent;
+    @ViewChild("MensalidadeAltera") mensalidadeAltera: MensalidadeAlteraComponent;
 
     emitClose: EventEmitter<boolean> = new EventEmitter();
 
@@ -84,12 +86,25 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
         this.targetNewMensalidade = new Mensalidade();
     }
 
-    return(): void {
+    return(parcialReturn: boolean): void {
+        if (!parcialReturn) {
+            this.emitClose.emit(true);
+            this.targetUsuario = undefined;
+        } else {
+
+            this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+                .subscribe((lstMensalidade: Mensalidade[]) => {
+                    this.lstMensalidade = lstMensalidade;
+                });
+        }
+
         this.messages = [];
-        this.emitClose.emit(true);
         this.targetNewMensalidade = undefined;
         this.targetPagamentoMensalidade = undefined;
+        this.targetAlteraMensalidade = undefined;
         this.targetUsuario = undefined;
+
+
     }
 
     pagar(oMensalidade: Mensalidade): void {
@@ -183,7 +198,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
         // Cria as mensalidades
         forkJoin(obs)
             .subscribe((oMensalidades: Mensalidade[]) => {
-                // gera boleto 
+                // gera boleto
                 this.oMensalidadeService.GerarBoletos(oMensalidades).
                     subscribe(() => {
 
@@ -216,5 +231,25 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
     payment(): void {
         this.pagseguro.getMethods();
+    }
+
+    AlterMensalidade(): void {
+
+        this.oMensalidadeService
+            .AlteraStatus(this.mensalidadeAltera.targetMensalidade.MensaliadadeStatus, this.mensalidadeAltera.targetMensalidade).
+            subscribe(() => {
+                this.return(true);
+                const oMessageUI: MessageUI = new MessageUI();
+                this.messages = [];
+                oMessageUI.message = 'Mensalidade alterada com sucesso';
+                oMessageUI.level = 'success';
+                oMessageUI.title = '[Mensalidade Alterada]';
+                this.messages.push(oMessageUI);
+                this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+                    .subscribe((lstMensalidade: Mensalidade[]) => {
+                        this.lstMensalidade = lstMensalidade;
+                    });
+            });
+
     }
 }

@@ -50,4 +50,8 @@ export class UsuarioService {
     public Deleta(oUsuario: Usuario): Observable<any> {
         return this.GCHTTP.Post('DeletaUsuario', oUsuario);
     }
+
+    public RecuperaSenha(oUsuario: Usuario): Observable<any> {
+        return this.GCHTTP.Post('ResetarSenha', oUsuario);
+    }
 }

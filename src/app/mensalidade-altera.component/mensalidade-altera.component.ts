@@ -26,6 +26,7 @@ export class MensalidadeAlteraComponent extends BaseComponent implements OnInit 
         private oUsuarioService: UsuarioService
     ) {
         super(true, oSAMService, router);
+
     }
 
     ngOnInit(): void {

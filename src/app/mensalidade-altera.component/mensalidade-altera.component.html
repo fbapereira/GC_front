@@ -2,11 +2,28 @@
     <div class="row">
         <div class="col-sm-12 col-md-6 col-lg-4">
             <div class="form-group">
+                <label for="txtCPF">Vencimento</label>
+                <input class="form-control" id="txtVencimento" placeholder="Primeiro Vencimento" [ngModel]="targetMensalidade.Vencimento  | date:'dd/MM/yyyy'"
+                    readonly>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="form-group">
+                <label for="txtCPF">Valor</label>
+                <div class="input-group">
+                    <span class="input-group-text">R$</span>
+                    <input type="number" [attr.disabled]="isEditavel" class="form-control" id="txtValor" placeholder="Valor" step="0.01" min="0"
+                        [(ngModel)]="targetMensalidade.Valor" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+            <div class="form-group">
                 <label for="txtCPF">Status</label>
 
                 <div class="input-group mb-3">
-                    <select class="custom-select" id="inputGroupSelect02">
-                        <option *ngFor="let oMensalidadeStatus of lstMensalidadeStatus" [ngValue]="oMensalidadeStatus">{{oMensalidadeStatus.Nome}}</option>
+                    <select class="custom-select" id="inputGroupSelect02" [(ngModel)]="targetMensalidade.MensaliadadeStatus.Id">
+                        <option *ngFor="let oMensalidadeStatus of lstMensalidadeStatus" [ngValue]="oMensalidadeStatus.Id">{{oMensalidadeStatus.Nome}}</option>
                     </select>
                     <div class="input-group-append">
                         <label class="input-group-text" for="inputGroupSelect02">Status</label>
@@ -15,13 +32,7 @@
 
             </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-4">
-            <div class="form-group">
-                <label for="txtCPF">Vencimento</label>
-                <input type="date" [attr.disabled]="isEditavel" class="form-control" id="txtVencimento" placeholder="Primeiro Vencimento"
-                    [(ngModel)]="targetMensalidade.Vencimento">
-            </div>
-        </div>
+
 
     </div>
 </div>

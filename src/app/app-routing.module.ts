@@ -16,6 +16,7 @@ const routes: Routes = [
     { path: 'forget-password', component: ForgetPasswordComponent },
     { path: 'meus-dados', component: MeusDadosComponent },
     { path: 'mensalidade', component: MensalidadeComponent },
+    { path: '*', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
 ];

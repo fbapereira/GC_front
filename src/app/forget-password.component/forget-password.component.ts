@@ -32,11 +32,28 @@ export class ForgetPasswordComponent {
             return;
         }
 
-        oMessageUI.message = 'Encaminhamos ao seu e-mail sua nova senha';
-        oMessageUI.title = '[Nova Senha]';
-        this.messages.push(oMessageUI);
-        return;
-
+        this.oUsuarioService.RecuperaSenha(this.oUsuario)
+            .subscribe((isOK: boolean) => {
+                if (isOK) {
+                    oMessageUI.message = 'Encaminhamos ao seu e-mail sua nova senha';
+                    oMessageUI.title = '[Nova Senha]';
+                    oMessageUI.level = 'success';
+                    this.messages.push(oMessageUI);
+                    return;
+                } else {
+                    oMessageUI.message = 'Houve um erro ao resetar sua senha';
+                    oMessageUI.title = '[Nova Senha]';
+                    oMessageUI.level = 'danger';
+                    this.messages.push(oMessageUI);
+                    return;
+                }
+            }, (e) => {
+                oMessageUI.message = 'Houve um erro ao resetar sua senha';
+                oMessageUI.title = '[Nova Senha]';
+                oMessageUI.level = 'danger';
+                this.messages.push(oMessageUI);
+                return;
+            });
     }
 
 

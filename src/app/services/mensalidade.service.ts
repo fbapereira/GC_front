@@ -70,17 +70,29 @@ export class MensalidadeService {
 
     }
 
+    AlteraStatus(oStatus: MensalidadeStatus, oMensalidade: Mensalidade): Observable<Boolean> {
+        const obj: any = {};
+        obj.GC_StatusId = oStatus.Id;
+        obj.GC_MensalidadeId = oMensalidade.Id;
+
+        return this.GCHTTP.Post('AlteraStatusMensalidade', obj);
+    }
+
     public Deleta(oMensalidade: Mensalidade): Observable<any> {
         return this.GCHTTP.Post('DeletaMensalidade', oMensalidade);
     }
 
     MapStatus(lstMensaliadadeUnmapped: Mensalidade[], that: any): Mensalidade[] {
-        lstMensaliadadeUnmapped.forEach((oMensalidade: Mensalidade) => {
-            oMensalidade.MensaliadadeStatus = that.lstMensaliadadeStatus.filter((oStatus: MensalidadeStatus) => {
-                return oMensalidade.GC_MensalidadeStatusId === oStatus.Id;
+        let temp = lstMensaliadadeUnmapped;
+
+        for (let oMensalidade of temp) {
+            const ostatus = that.lstMensaliadadeStatus.filter((oStatus: MensalidadeStatus) => {
+                return oMensalidade.GC_MensalidadeStatusId == oStatus.Id;
             })[0];
-        });
-        return lstMensaliadadeUnmapped;
+            oMensalidade.MensaliadadeStatus = ostatus;
+        }
+
+        return temp;
     }
 
 }
