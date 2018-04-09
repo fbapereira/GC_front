@@ -6,7 +6,6 @@
   "apps": [{
     "root": "src",
     "outDir": "dist",
-    "deployUrl": "App_Page",
     "assets": [
       "assets",
       "favicon.png"
