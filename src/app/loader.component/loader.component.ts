@@ -3,52 +3,58 @@ import { OnInit, ElementRef, ViewChild, Component, AfterViewInit, AfterViewCheck
 import { GCHTTPService } from '../services/GC-Http.service';
 
 @Component({
-    selector: 'app-gc-loader',
-    templateUrl: './loader.component.html',
-    styleUrls: ['./loader.component.css']
+  selector: 'app-gc-loader',
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.css']
 })
-export class LoaderComponent {
+export class LoaderComponent implements AfterViewInit {
 
 
 
-    @ViewChild('content') content: ElementRef;
-    oNgbModalRef: NgbModalRef;
-    counter = 0;
+
+  @ViewChild('content') content: ElementRef;
+  oNgbModalRef: NgbModalRef;
+  counter = 0;
 
 
-    constructor(
-        private modalService: NgbModal,
-        private oGCHTTPService: GCHTTPService
-    ) {
-        this.oGCHTTPService.isWorking
-            .subscribe((isWorking: boolean) => {
-                if (isWorking) {
-                    this.Start();
-                } else {
-                    this.Stop();
-                }
-            });
-    }
+  constructor(
+    private modalService: NgbModal,
+    private oGCHTTPService: GCHTTPService
+  ) {
 
+  }
 
-    Start(): void {
-        this.counter = this.counter + 1;
-        if (this.counter === 1) {
-            const oNgbModalOptions: NgbModalOptions = {};
-            oNgbModalOptions.backdrop = 'static';
-
-            this.oNgbModalRef = this.modalService.open(this.content, oNgbModalOptions);
-            this.oNgbModalRef.result.then((result) => { });
+  ngAfterViewInit(): void {
+    this.oGCHTTPService.isWorking
+      .subscribe((isWorking: boolean) => {
+        if (isWorking) {
+          this.Start();
+        } else {
+          this.Stop();
         }
-    }
+      });
+  }
 
-    Stop(): void {
-        this.counter = this.counter - 1;
-        if (this.counter === 0) {
-            if (this.oNgbModalRef) {
-                this.oNgbModalRef.close();
-                this.oNgbModalRef = undefined;
-            }
-        }
+  Start(): void {
+    this.counter = this.counter + 1;
+    if (this.counter === 1) {
+      const oNgbModalOptions: NgbModalOptions = {};
+      oNgbModalOptions.backdrop = 'static';
+
+      this.oNgbModalRef = this.modalService.open(this.content, oNgbModalOptions);
+      this.oNgbModalRef.result.then((result) => {
+      }, (e) => {
+      });
     }
+  }
+
+  Stop(): void {
+    this.counter = this.counter - 1;
+    if (this.counter === 0) {
+      if (this.oNgbModalRef) {
+        this.oNgbModalRef.close();
+        this.oNgbModalRef = undefined;
+      }
+    }
+  }
 }

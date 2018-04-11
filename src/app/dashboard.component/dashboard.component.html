@@ -1,5 +1,9 @@
 <div *ngIf="oUsuario">
-    <h3>Minhas Mensalidades</h3>
-    <app-gc-mensalidade-list [showAdd]="false" [showPay]="true" [showPayAdmin]="false" [showExclude]="false" *ngIf="oUsuario"
-        [(targetUsuario)]="oUsuario"></app-gc-mensalidade-list>
+
+  <h3 *ngIf="oUsuario.Id != 1">Minhas Mensalidades</h3>
+  <app-gc-mensalidade-list *ngIf="oUsuario.Id != 1" [showAdd]="false" [showPay]="true" [showPayAdmin]="false" [showExclude]="false"
+    [(targetUsuario)]="oUsuario"></app-gc-mensalidade-list>
+
+  <h3 *ngIf="oUsuario.Id == 1">Relatório Mensal</h3>
+  <app-gc-relatorio-mensal *ngIf="oUsuario.Id == 1"></app-gc-relatorio-mensal>
 </div>

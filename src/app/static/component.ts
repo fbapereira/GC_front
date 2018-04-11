@@ -1,6 +1,5 @@
 import { MenuComponent } from '../menu.component/menu.component';
 import { LoginComponent } from '../login.component/login.component';
-import { MessageComponent } from '../message.component/message.component';
 import { AcademiaComponent } from '../academia.component/academia.component';
 import { DashboardComponent } from '../dashboard.component/dashboard.component';
 import { AcademiaListComponent } from '../academia-list.component/academia-list.component';
@@ -16,11 +15,11 @@ import { MensalidadeAdicionaComponent } from '../mensalidade-adiciona.component/
 import { PagamentoComponent } from '../pagamento.component/pagamento.component';
 import { MensalidadeAlteraComponent } from '../mensalidade-altera.component/mensalidade-altera.component';
 import { PagSeguroComponent } from '../pagseguro.component/pagseguro.component';
+import { RelatorioMensalComponent } from '../relatorio-mensal/relatorio-mensal.component';
 
 export const GC_COMPONENTS = [
     MenuComponent,
     LoginComponent,
-    MessageComponent,
     AcademiaComponent,
     DashboardComponent,
     AcademiaListComponent,
@@ -29,11 +28,12 @@ export const GC_COMPONENTS = [
     ForgetPasswordComponent,
     MeusDadosComponent,
     LoaderComponent,
-    UsuarioDetailComponent, 
-    MensalidadeListComponent, 
+    UsuarioDetailComponent,
+    MensalidadeListComponent,
     MensalidadeComponent,
     MensalidadeAdicionaComponent,
-    PagamentoComponent, 
+    PagamentoComponent,
     MensalidadeAlteraComponent,
-    PagSeguroComponent
+    PagSeguroComponent,
+    RelatorioMensalComponent
 ];

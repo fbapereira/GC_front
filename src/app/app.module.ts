@@ -15,11 +15,12 @@ import { GC_Pipes } from './static/pipes';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { NgxBarcodeModule } from 'ngx-barcode';
 
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
     GC_COMPONENTS,
-    InputCPFDirective, 
+    InputCPFDirective,
     GC_Pipes
   ],
   imports: [
@@ -32,7 +33,8 @@ import { NgxBarcodeModule } from 'ngx-barcode';
     BrowserAnimationsModule,
     NgbModule.forRoot(),
     Angular2FontawesomeModule,
-    NgxBarcodeModule
+    NgxBarcodeModule,
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [GC_SERVICES],
   bootstrap: [AppComponent]

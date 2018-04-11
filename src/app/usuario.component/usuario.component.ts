@@ -1,7 +1,5 @@
 
-import { OnInit, Component } from '@angular/core';
-import { MessageUI } from '../models/messageUI';
-import { Usuario } from '../models/usuario';
+import { OnInit, Component } from '@angular/core';import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { Academia } from '../models/academia';
 import { AcademiaService } from '../services/academia.service';

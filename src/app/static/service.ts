@@ -6,6 +6,7 @@ import { PerfilService } from '../services/perfil.service';
 import { MensalidadeService } from '../services/mensalidade.service';
 import { BoletoService } from '../services/boleto.service';
 import { PagseguroService } from '../services/pagseguro.service';
+import { ReportService } from '../services/report.service';
 
 export const GC_SERVICES = [
     GCHTTPService,
@@ -15,5 +16,6 @@ export const GC_SERVICES = [
     PerfilService,
     MensalidadeService,
     BoletoService,
-    PagseguroService
+    PagseguroService,
+    ReportService
 ];

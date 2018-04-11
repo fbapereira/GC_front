@@ -1,5 +1,4 @@
 import { OnInit, Component } from '@angular/core';
-import { MessageUI } from '../models/messageUI';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { AcademiaService } from '../services/academia.service';
@@ -7,102 +6,86 @@ import { Academia } from '../models/academia';
 import { Router } from '@angular/router';
 import { PerfilService } from '../services/perfil.service';
 import { GCHTTPService } from '../services/GC-Http.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-hero-detail',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
+  selector: 'app-hero-detail',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
 
 export class LoginComponent {
-    messages: MessageUI[] = [];
-    oUsuario: Usuario = new Usuario();
-    lstAcademia: Academia[] = [];
+  oUsuario: Usuario = new Usuario();
+  lstAcademia: Academia[] = [];
 
-    oAcademia: Academia;
+  oAcademia: Academia;
 
-    constructor(
-        private oUsuarioService: UsuarioService,
-        private oAcademiaService: AcademiaService,
-        private oPerfilService: PerfilService,
-        private GCHTTP: GCHTTPService,
-        private router: Router) {
+  constructor(
+    private toastr: ToastrService,
+    private oUsuarioService: UsuarioService,
+    private oAcademiaService: AcademiaService,
+    private oPerfilService: PerfilService,
+    private GCHTTP: GCHTTPService,
+    private router: Router) {
 
+  }
+
+  SetAcademia(oAcademia: Academia) {
+
+    if (!oAcademia || oAcademia.Id === 0) {
+      this.toastr.info('Por favor, selecione uma academia', '[Academia]');
+      return;
     }
 
-    SetAcademia(oAcademia: Academia) {
-        this.messages = [];
+    this.oAcademiaService.oAcademia = oAcademia;
+    this.oAcademia = oAcademia;
+    this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, oAcademia)
+      .subscribe(() => {
+        this.router.navigate(['/dashboard']);
+        return;
+      });
+  }
 
-        if (!oAcademia || oAcademia.Id === 0) {
-            const oMessageUI: MessageUI = new MessageUI();
-            oMessageUI.message = 'Por favor, selecione uma academia';
-            oMessageUI.title = '[Academia]';
-            this.messages.push(oMessageUI);
-            return;
-        }
+  ForgetPassword() {
+    this.router.navigate(['/forget-password']);
+  }
 
-        this.oAcademiaService.oAcademia = oAcademia;
-        this.oAcademia = oAcademia;
-        this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, oAcademia)
-            .subscribe(() => {
-                this.router.navigate(['/dashboard']);
-                return;
-            });
+  Login(oUsuario: Usuario) {
+
+    if (!this.oUsuario.Email) {
+      this.toastr.error('Por favor, digite um e-mail valido', '[E-mail]');
+      return;
     }
 
-    ForgetPassword() {
-        this.router.navigate(['/forget-password']);
+    if (!this.oUsuario.Senha) {
+      this.toastr.error('Por favor, digite sua senha', '[Senha]');
+      return;
     }
 
-    Login(oUsuario: Usuario) {
-        this.messages = [];
-
-        if (!this.oUsuario.Email) {
-            const oMessageUI: MessageUI = new MessageUI();
-            oMessageUI.message = 'Por favor, digite um e-mail valido';
-            oMessageUI.title = '[E-mail]';
-            this.messages.push(oMessageUI);
-
+    this.oUsuarioService.Login(this.oUsuario)
+      .subscribe((x: boolean) => {
+        if (!x) {
+          this.toastr.error('Senha ou Usuário inválidos', '[Dados Inválidos]');
+          return;
         }
 
-        if (!this.oUsuario.Senha) {
-            const oMessageUI: MessageUI = new MessageUI();
-            oMessageUI.message = 'Por favor, digite sua senha';
-            oMessageUI.title = '[Senha]';
-            this.messages.push(oMessageUI);
-        }
-
-        if (this.messages.length === 0) {
-            this.oUsuarioService.Login(this.oUsuario)
-                .subscribe((x: boolean) => {
-                    if (!x) {
-                        const oMessageUI: MessageUI = new MessageUI();
-                        oMessageUI.message = 'Senha ou Usuário inválidos';
-                        oMessageUI.title = '[Dados Inválidos]';
-                        this.messages.push(oMessageUI);
-                        return;
-                    }
-
-                    // Obtem Instituicao
-                    this.oAcademiaService.GetAcademia(this.oUsuarioService.oUsuario)
-                        .subscribe((lstAcademia: Academia[]) => {
-                            if (!lstAcademia || lstAcademia.length === 0) {
-                                const oMessageUI: MessageUI = new MessageUI();
-                                oMessageUI.message = 'Por favor, entre em contato com o administrador';
-                                oMessageUI.title = '[Usuário sem Academia]';
-                                this.messages.push(oMessageUI);
-                                return;
-                            } else if (lstAcademia.length === 1) {
-                                this.SetAcademia(lstAcademia[0]);
-                                this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
-                                    .subscribe(() => {
-                                        this.router.navigate(['/dashboard']);
-                                        return;
-                                    });
-                            }
-                            this.lstAcademia = lstAcademia;
-                        });
+        // Obtem Instituicao
+        this.oAcademiaService.GetAcademia(this.oUsuarioService.oUsuario)
+          .subscribe((lstAcademia: Academia[]) => {
+            if (!lstAcademia || lstAcademia.length === 0) {
+              this.toastr.error('Por favor, entre em contato com o administrador', '[Usuário sem Academia]');
+              return;
+            } else if (lstAcademia.length === 1) {
+              this.SetAcademia(lstAcademia[0]);
+              this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
+                .subscribe(() => {
+                  this.router.navigate(['/dashboard']);
+                  return;
                 });
-        }
-    }
+            }
+            this.lstAcademia = lstAcademia;
+          });
+      });
+
+  }
 }

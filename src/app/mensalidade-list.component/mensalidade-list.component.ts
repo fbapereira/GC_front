@@ -7,12 +7,12 @@ import { Router } from "@angular/router";
 import { Mensalidade } from "../models/mensalidade";
 import { Observable } from "rxjs/Observable";
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { MessageUI } from "../models/messageUI";
 import * as moment from 'moment';
 import { AcademiaService } from "../services/academia.service";
 import { PagamentoComponent } from "../pagamento.component/pagamento.component";
 import { PagSeguroComponent } from "../pagseguro.component/pagseguro.component";
 import { MensalidadeAlteraComponent } from "../mensalidade-altera.component/mensalidade-altera.component";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: 'app-gc-mensalidade-list',
@@ -49,9 +49,10 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
   targetPagamentoMensalidade: Mensalidade;
   targetAlteraMensalidade: Mensalidade;
 
-  messages: MessageUI[] = [];
 
-  constructor(private oMensalidadeService: MensalidadeService,
+  constructor(
+    private toastr: ToastrService,
+    private oMensalidadeService: MensalidadeService,
     private oAcademiaService: AcademiaService,
     oSAMService: SAMService,
     router: Router
@@ -61,7 +62,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
   }
 
   ngOnInit(): void {
-    this.messages = [];
     if (this.targetUsuario) {
       this.oMensalidadeService.GetMensalidade(this.targetUsuario)
         .subscribe((lstMensalidade: Mensalidade[]) => {
@@ -71,7 +71,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.messages = [];
     if (this.targetUsuario) {
       this.oMensalidadeService.GetMensalidade(this.targetUsuario)
         .subscribe((lstMensalidade: Mensalidade[]) => {
@@ -82,7 +81,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
 
   NovoMensalidade(): void {
-    this.messages = [];
     this.targetNewMensalidade = new Mensalidade();
   }
 
@@ -97,45 +95,33 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
         });
     }
 
-    this.messages = [];
     this.targetNewMensalidade = undefined;
     this.targetPagamentoMensalidade = undefined;
     this.targetAlteraMensalidade = undefined;
   }
 
   pagar(oMensalidade: Mensalidade): void {
-    this.messages = [];
     this.targetPagamentoMensalidade = oMensalidade;
   }
 
   enviar(oMensalidade: Mensalidade): void {
     this.oMensalidadeService.EnviarBoleto(oMensalidade).
       subscribe(() => {
-        const oMessageUI: MessageUI = new MessageUI();
-        oMessageUI.message = 'Boleto enviada com sucesso por e-mail';
-        oMessageUI.title = '[Mensalidade]';
-        oMessageUI.level = 'success';
-        this.messages.push(oMessageUI);
+        this.toastr.success('Boleto enviada com sucesso por e-mail', '[Mensalidade]')
         return;
       });
   }
 
   alterar(oMensalidade: Mensalidade): void {
-    this.messages = [];
     this.targetAlteraMensalidade = oMensalidade;
   }
 
   apagar(oMensalidade: Mensalidade): void {
-    this.messages = [];
     this.oMensalidadeService.Deleta(oMensalidade)
       .subscribe(() => {
         this.oMensalidadeService.GetMensalidade(this.targetUsuario)
           .subscribe((lstMensalidade: Mensalidade[]) => {
-            const oMessageUI: MessageUI = new MessageUI();
-            oMessageUI.message = 'Mensalidade apagada com sucesso';
-            oMessageUI.title = '[Mensalidade]';
-            oMessageUI.level = 'success';
-            this.messages.push(oMessageUI);
+            this.toastr.success('Mensalidade apagada com sucesso', '[Mensalidade]')
             this.lstMensalidade = lstMensalidade;
             return;
           });
@@ -148,43 +134,27 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     const obsVinc: Observable<Mensalidade>[] = [];
     const lstMensalidade: Mensalidade[] = [];
 
-    this.messages = [];
     // Validação
     if (!this.targetNewMensalidade.parcela || this.targetNewMensalidade.parcela === 0) {
-      const oMessageUI: MessageUI = new MessageUI();
-      oMessageUI.message = 'Por favor, digite a quantidade de parcelas';
-      oMessageUI.title = '[Parcelas]';
-      oMessageUI.level = 'danger';
-      this.messages.push(oMessageUI);
+      this.toastr.info('Por favor, digite a quantidade de parcelas', '[Parcelas]')
       return;
     }
 
     if (!this.targetNewMensalidade.Valor || this.targetNewMensalidade.Valor <= 0) {
-      const oMessageUI: MessageUI = new MessageUI();
-      oMessageUI.message = 'Por favor, o valor da parcela deve ser maior que 0';
-      oMessageUI.title = '[Valor]';
-      oMessageUI.level = 'danger';
-      this.messages.push(oMessageUI);
+      this.toastr.info('Por favor, o valor da parcela deve ser maior que 0', '[Valor]')
       return;
     }
 
     if (!this.targetNewMensalidade.Vencimento || moment(this.targetNewMensalidade.Vencimento).isBefore(moment())) {
-      const oMessageUI: MessageUI = new MessageUI();
-      oMessageUI.message = 'Por favor, a data deve ser maior que hoje';
-      oMessageUI.title = '[Vencimento]';
-      oMessageUI.level = 'danger';
-      this.messages.push(oMessageUI);
+      this.toastr.info('Por favor, a data deve ser maior que hoje', '[Vencimento]')
       return;
+
     }
 
 
     if (!this.targetNewMensalidade.Vencimento ||
       moment(this.targetNewMensalidade.Vencimento).isAfter(moment().add(1, 'M').toDate())) {
-      const oMessageUI: MessageUI = new MessageUI();
-      oMessageUI.message = 'Por favor, a data deve ser em no maximo 30 dias';
-      oMessageUI.title = '[Vencimento]';
-      oMessageUI.level = 'danger';
-      this.messages.push(oMessageUI);
+      this.toastr.info('Por favor, a data deve ser em no maximo 30 dias', '[Vencimento]')
       return;
     }
 
@@ -221,15 +191,8 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
           this.oMensalidadeService.GetMensalidade(this.targetUsuario)
             .subscribe((lstMensalidadeWithId: Mensalidade[]) => {
 
-
-
+              this.toastr.success('Mensalidades incluidas com sucesso', '[Mensalidades Incluídas]')
               this.lstMensalidade = lstMensalidadeWithId;
-              const oMessageUI: MessageUI = new MessageUI();
-              this.messages = [];
-              oMessageUI.message = 'Mensalidades incluidas com sucesso';
-              oMessageUI.level = 'success';
-              oMessageUI.title = '[Mensalidades Incluídas]';
-              this.messages.push(oMessageUI);
               this.targetNewMensalidade = undefined;
               return;
             });
@@ -247,12 +210,9 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
       .AlteraStatus(this.mensalidadeAltera.targetMensalidade.MensaliadadeStatus, this.mensalidadeAltera.targetMensalidade).
       subscribe(() => {
         this.return(true);
-        const oMessageUI: MessageUI = new MessageUI();
-        this.messages = [];
-        oMessageUI.message = 'Mensalidade alterada com sucesso';
-        oMessageUI.level = 'success';
-        oMessageUI.title = '[Mensalidade Alterada]';
-        this.messages.push(oMessageUI);
+
+        this.toastr.success('Mensalidade alterada com sucesso', '[Mensalidades Alterada]')
+
         this.oMensalidadeService.GetMensalidade(this.targetUsuario)
           .subscribe((lstMensalidade: Mensalidade[]) => {
             this.lstMensalidade = lstMensalidade;
