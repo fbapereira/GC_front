@@ -16,7 +16,7 @@ export class UsuarioService {
     oUsuario.Login = oUsuario.Email;
 
     return Observable.create((obs) => {
-      this.oHttpClient.post('Login', oUsuario)
+      this.oHttpClient.post('Logins', oUsuario)
         .subscribe((data: any) => {
           if (data) {
             this.oUsuario = data;

@@ -8,6 +8,7 @@ import { PagseguroService } from '../services/pagseguro.service';
 import { ReportService } from '../services/report.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { GCHttpInterceptor } from '../services/interceptor/http-interceptor';
+import { ErrorHandlerBridge } from '../services/error-handler/error-handler-bridge';
 
 export const GC_SERVICES = [
 
@@ -19,6 +20,8 @@ export const GC_SERVICES = [
   BoletoService,
   PagseguroService,
   ReportService,
+  ErrorHandlerBridge,
+  GCHttpInterceptor,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: GCHttpInterceptor,

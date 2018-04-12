@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { Injectable, Injector, EventEmitter } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { InterceptorRequestUrl } from './requests/interceptor-request-url';
+import { ErrorHandlerTypeEnum } from '../error-handler/enums/error-handler-type.enum';
+import { InterceptorFailHttpErrorFailed } from './fails/interceptor-fail-http-error-failed';
 
 
 @Injectable()
@@ -27,7 +29,7 @@ export class GCHttpInterceptor implements HttpInterceptor {
   /**
    * Show last error emitted
    */
-  // private lastError: ErrorHandlerTypeEnum = undefined;
+  private lastError: ErrorHandlerTypeEnum = undefined;
 
   /**
    * Determine connection status
@@ -49,7 +51,7 @@ export class GCHttpInterceptor implements HttpInterceptor {
    */
   private lstInterceptorsResponse: Interceptor.Response[] = [];
 
-  constructor() {
+  constructor(private injector: Injector) {
 
     this.isConnectAlive = true;
 
@@ -61,9 +63,9 @@ export class GCHttpInterceptor implements HttpInterceptor {
       })
       .subscribe((params: { [id: string]: any; }) => {
         // load interceptors
-        this.lstInterceptorsFail = this.getFailsInterceptors(params);
-        this.lstInterceptorsRequest = this.getRequestInterceptors(params);
-        this.lstInterceptorsResponse = this.getResponseInterceptors(params);
+        this.lstInterceptorsFail = this.getFailsInterceptors(params, injector);
+        this.lstInterceptorsRequest = this.getRequestInterceptors(params, injector);
+        this.lstInterceptorsResponse = this.getResponseInterceptors(params, injector);
       });
   }
 
@@ -85,9 +87,9 @@ export class GCHttpInterceptor implements HttpInterceptor {
     *  Get all interceptors for requests
     * @param params
     */
-  private getRequestInterceptors(params: { [id: string]: any; }): Interceptor.Request[] {
+  private getRequestInterceptors(params: { [id: string]: any; }, injector: Injector): Interceptor.Request[] {
     const interceptors = [];
-    interceptors.push(new InterceptorRequestUrl());
+    interceptors.push(new InterceptorRequestUrl(params, injector));
     return interceptors;
   }
 
@@ -95,8 +97,9 @@ export class GCHttpInterceptor implements HttpInterceptor {
     *  Get all interceptors for fails
     * @param params
     */
-  private getFailsInterceptors(params: { [id: string]: any; }): Interceptor.Fail[] {
+  private getFailsInterceptors(params: { [id: string]: any; }, injector: Injector): Interceptor.Fail[] {
     const interceptors = [];
+    interceptors.push(new InterceptorFailHttpErrorFailed(params, injector));
     return interceptors;
   }
 
@@ -104,7 +107,7 @@ export class GCHttpInterceptor implements HttpInterceptor {
    *  Get all interceptors for response
    * @param params
    */
-  private getResponseInterceptors(params: { [id: string]: any; }): Interceptor.Response[] {
+  private getResponseInterceptors(params: { [id: string]: any; }, injector: Injector): Interceptor.Response[] {
     const interceptors = [];
     return interceptors;
   }
@@ -113,12 +116,11 @@ export class GCHttpInterceptor implements HttpInterceptor {
    * emits error
    * @param error
    */
-  private emitError(error: any) {
+  public emitError(error: any) {
     try {
-      //this.lastError = error;
+      this.lastError = error;
       this.isConnectAlive = false;
       this.errorEmitter.next(error);
-      this.errorEmitter.complete();
     } catch (e) {
       // Do Nothing
     }
@@ -127,17 +129,17 @@ export class GCHttpInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // validate the connection
-    // if (this.lastError) {
-    //   this.emitError(this.lastError);
-    //   return;
-    // }
+    if (this.lastError) {
+      this.emitError(this.lastError);
+      return;
+    }
 
     if (!this.isConnectAlive) {
       throw new Error("No connection");
     }
 
     // intercept request
-    this.lstInterceptorsRequest.forEach((x: Interceptor.Request) => { req = x.treat(req); });
+    this.lstInterceptorsRequest.forEach((x: Interceptor.Request) => { req = x.treat(req, this.injector); });
 
     return Observable.create((obs) => {
       // execute http request
@@ -146,13 +148,14 @@ export class GCHttpInterceptor implements HttpInterceptor {
         .subscribe(
           (resp: any) => {
             // intercept response
-            this.lstInterceptorsResponse.forEach((x: Interceptor.Response) => { resp = x.treat(resp); });
+            this.lstInterceptorsResponse.forEach((x: Interceptor.Response) => { resp = x.treat(resp, this.injector); });
             obs.next(resp);
           },
           (err => {
             // intercept fail
-            this.lstInterceptorsFail.forEach((x: Interceptor.Fail) => { err = x.treat(err); });
-            return Observable.of(err);
+            this.lstInterceptorsFail.forEach((x: Interceptor.Fail) => { err = x.treat(err, this.injector); });
+            obs.error(err);
+            obs.complete();
           }),
           () => {
             obs.complete();

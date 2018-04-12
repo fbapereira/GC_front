@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { PerfilService } from '../services/perfil.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
+import { ErrorHandlerBridge } from '../services/error-handler/error-handler-bridge';
 
 @Component({
   selector: 'app-hero-detail',
@@ -26,6 +27,7 @@ export class LoginComponent {
     private oAcademiaService: AcademiaService,
     private oPerfilService: PerfilService,
     private oHttpClient: HttpClient,
+    private oErrorHandlerBridge: ErrorHandlerBridge,
     private router: Router) {
 
   }
