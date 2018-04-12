@@ -1,5 +1,5 @@
 
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, ReflectiveInjector, Injector } from '@angular/core';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { SAMService } from '../services/sam.service';
@@ -16,7 +16,8 @@ export class DashboardComponent extends BaseComponent {
   oUsuario: Usuario = new Usuario();
   constructor(private oUsuarioService: UsuarioService,
     oSAMService: SAMService,
-    router: Router) {
+    router: Router,
+    private injector: Injector) {
     super(true, oSAMService, router);
     this.oUsuario = this.oUsuarioService.oUsuario;
   }

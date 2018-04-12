@@ -14,8 +14,9 @@ import { GC_Pipes } from './static/pipes';
 // import { NgbModalStack } from '@ng-bootstrap/ng-bootstrap/modal/modal-stack';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { NgxBarcodeModule } from 'ngx-barcode';
-
+import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +30,7 @@ import { ToastrModule } from 'ngx-toastr';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NgHttpLoaderModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),

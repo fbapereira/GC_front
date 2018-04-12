@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/usuario';
-import { GCHTTPService } from './GC-Http.service';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 import { Academia } from '../models/academia';
@@ -8,37 +7,38 @@ import { Mensalidade } from '../models/mensalidade';
 import { MensalidadeStatus } from '../models/mensalidade-status';
 
 import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class MensalidadeService {
 
   lstMensalidade: Mensalidade[];
   lstMensaliadadeStatus: MensalidadeStatus[];
-  constructor(private GCHTTP: GCHTTPService) { }
+  constructor(private oHttpClient: HttpClient) { }
 
-  Adiciona(oMensalidade: Mensalidade, oAcademia: Academia, oUsuario: Usuario): Observable<Mensalidade> {
+  Adiciona(oMensalidade: Mensalidade, oAcademia: Academia, oUsuario: Usuario): Observable<any> {
     oMensalidade.GC_MensalidadeStatusId = 1;
     oMensalidade.GC_AcademiaId = oAcademia.Id;
     oMensalidade.GC_UsuarioId = oUsuario.Id;
-    return this.GCHTTP.Post('GC_Mensalidade', oMensalidade);
+    return this.oHttpClient.post('GC_Mensalidade', oMensalidade);
   }
 
 
-  Vincula(oMensalidade: Mensalidade, oUsuario: Usuario): Observable<Mensalidade> {
+  Vincula(oMensalidade: Mensalidade, oUsuario: Usuario): Observable<any> {
     const obj: any = {};
     obj.GC_UsuarioId = oUsuario.Id;
     obj.GC_MensalidadeId = oMensalidade.Id;
-    return this.GCHTTP.Post('AdicionaMensalidadeUsuario', obj);
+    return this.oHttpClient.post('AdicionaMensalidadeUsuario', obj);
   }
 
-  GerarBoletos(oMensalidade: Mensalidade[]): Observable<boolean> {
+  GerarBoletos(oMensalidade: Mensalidade[]): Observable<any> {
 
-    return this.GCHTTP.Post('GerarBoletos', oMensalidade);
+    return this.oHttpClient.post('GerarBoletos', oMensalidade);
   }
 
-  EnviarBoleto(oMensalidade: Mensalidade): Observable<boolean> {
+  EnviarBoleto(oMensalidade: Mensalidade): Observable<any> {
 
-    return this.GCHTTP.Post('EnviaBoleto', oMensalidade);
+    return this.oHttpClient.post('EnviaBoleto', oMensalidade);
   }
 
   GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {
@@ -47,7 +47,7 @@ export class MensalidadeService {
       this.LoadMensalidadeStatus()
         .subscribe((lstMensaliadadeStatus: MensalidadeStatus[]) => {
           that.lstMensaliadadeStatus = lstMensaliadadeStatus;
-          return this.GCHTTP.Post('ObtemMensalidade', oUsuario)
+          return this.oHttpClient.post('ObtemMensalidade', oUsuario)
             .map((value: any) => {
               return this.MapStatus(value, that);
             })
@@ -59,21 +59,21 @@ export class MensalidadeService {
     });
   }
 
-  LoadMensalidadeStatus(): Observable<MensalidadeStatus[]> {
-    return this.GCHTTP.Get('GC_MensalidadeStatus');
+  LoadMensalidadeStatus(): Observable<any> {
+    return this.oHttpClient.get('GC_MensalidadeStatus');
 
   }
 
-  AlteraStatus(oStatus: MensalidadeStatus, oMensalidade: Mensalidade): Observable<Boolean> {
+  AlteraStatus(oStatus: MensalidadeStatus, oMensalidade: Mensalidade): Observable<any> {
     const obj: any = {};
     obj.GC_StatusId = oStatus.Id;
     obj.GC_MensalidadeId = oMensalidade.Id;
 
-    return this.GCHTTP.Post('AlteraStatusMensalidade', obj);
+    return this.oHttpClient.post('AlteraStatusMensalidade', obj);
   }
 
   public Deleta(oMensalidade: Mensalidade): Observable<any> {
-    return this.GCHTTP.Post('DeletaMensalidade', oMensalidade);
+    return this.oHttpClient.post('DeletaMensalidade', oMensalidade);
   }
 
   MapStatus(lstMensaliadadeUnmapped: Mensalidade[], that: any): Mensalidade[] {
