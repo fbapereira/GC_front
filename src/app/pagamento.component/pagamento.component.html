@@ -1,23 +1,23 @@
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 offset-md-2  col-md-10 col-lg-6  offset-lg-3 " *ngIf="targetPagamentoPagSeguro">
-            <div class="form-group">
-                <label for="txtCPF">Código de Barras</label>
+<div class="container" *ngIf="targetPagamentoPagSeguro">
+  <div class="row">
+    <div class="col-sm-12 offset-md-2  col-md-10 col-lg-6  offset-lg-3 " *ngIf="targetPagamentoPagSeguro">
+      <div class="form-group">
+        <label for="txtCPF">Código de Barras</label>
 
-                <div class="input-group">
-                    <input type="text" class="form-control" id="txtBoleto" aria-label="Recipient's username" aria-describedby="basic-addon2"
-                        [ngModel]="targetPagamentoPagSeguro.BarCode  ">
-                </div>
-            </div>
+        <div class="input-group">
+          <input type="text" class="form-control" id="txtBoleto" aria-label="Recipient's username" aria-describedby="basic-addon2"
+            [ngModel]="targetPagamentoPagSeguro.BarCode  ">
         </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6 col-md-4 offset-md-2 col-lg-3  offset-lg-3">
-            <button style="margin-top:15px;" class="btn btn-lg btn-secondary btn-block" (click)="copyToClipboard()">Copiar</button>
-        </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-4 offset-md-2 col-lg-3  offset-lg-3">
+      <button style="margin-top:15px;" class="btn btn-lg btn-secondary btn-block" (click)="copyToClipboard()">Copiar</button>
+    </div>
 
-        <div class="col-sm-6 col-md-4 col-lg-3">
-            <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="print()">Imprimir</button>
-        </div>
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="print()">Imprimir</button>
     </div>
+  </div>
 </div>

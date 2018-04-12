@@ -172,15 +172,20 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
 
 
-
+    debugger;
     // Cria as mensalidades
     forkJoin(obs)
       .subscribe((oMensalidades: Mensalidade[]) => {
         // gera boleto
         this.oMensalidadeService.GerarBoletos(oMensalidades).
           subscribe(() => {
+            this.toastr.success('Mensalidades incluidas com sucesso', '[Mensalidades Incluídas]')
 
+          }, (e) => {
+            // FAZER EMITTER
+            this.toastr.error('Pagseguro não respondeu como esperado tente mais tarde', '[Erro]');
           });
+
         // Vincula ao usuario
         oMensalidades.forEach((oMensalidade: Mensalidade) => {
           obsVinc.push(this.oMensalidadeService.Vincula(oMensalidade, this.targetUsuario));
@@ -190,8 +195,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
           // Obtem a mensalidade com Id
           this.oMensalidadeService.GetMensalidade(this.targetUsuario)
             .subscribe((lstMensalidadeWithId: Mensalidade[]) => {
-
-              this.toastr.success('Mensalidades incluidas com sucesso', '[Mensalidades Incluídas]')
               this.lstMensalidade = lstMensalidadeWithId;
               this.targetNewMensalidade = undefined;
               return;

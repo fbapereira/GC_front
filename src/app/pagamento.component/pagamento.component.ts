@@ -8,65 +8,73 @@ import { PerfilService } from "../services/perfil.service";
 import { Router } from "@angular/router";
 import { BoletoService } from "../services/boleto.service";
 import { PagamentoPagSeguro } from "../models/pagamento-pagseguro";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-    selector: 'app-gc-pagamento',
-    templateUrl: './pagamento.component.html',
-    styleUrls: []
+  selector: 'app-gc-pagamento',
+  templateUrl: './pagamento.component.html',
+  styleUrls: []
 })
 
 export class PagamentoComponent extends BaseComponent implements OnInit {
 
-    @Input()
-    targetMensalidade: Mensalidade;
+  @Input()
+  targetMensalidade: Mensalidade;
 
-    targetPagamentoPagSeguro: PagamentoPagSeguro;
+  targetPagamentoPagSeguro: PagamentoPagSeguro;
 
-    constructor(private oUsuarioService: UsuarioService,
-        private oAcademiaService: AcademiaService,
-        private oPerfilService: PerfilService,
-        private oBoletoService: BoletoService,
-        oSAMService: SAMService,
-        router: Router) {
-        super(true, oSAMService, router);
-    }
+  constructor(private oUsuarioService: UsuarioService,
+    private oAcademiaService: AcademiaService,
+    private oPerfilService: PerfilService,
+    private toastr: ToastrService,
+    private oBoletoService: BoletoService,
+    oSAMService: SAMService,
+    router: Router) {
+    super(true, oSAMService, router);
+  }
 
-    public copyToClipboard(): void {
-        const inputElement = document.getElementById('txtBoleto');
-        (<any>inputElement).select();
-        document.execCommand('copy');
-        inputElement.blur();
-    }
+  public copyToClipboard(): void {
+    const inputElement = document.getElementById('txtBoleto');
+    (<any>inputElement).select();
+    document.execCommand('copy');
+    inputElement.blur();
+  }
 
-    ngOnInit(): void {
-        this.oBoletoService.GetBoletos(this.targetMensalidade)
-            .subscribe((oPagamentoPagSeguro: PagamentoPagSeguro) => {
-                this.targetPagamentoPagSeguro = oPagamentoPagSeguro;
+  ngOnInit(): void {
+    this.oBoletoService.GetBoletos(this.targetMensalidade)
+      .subscribe((oPagamentoPagSeguro: PagamentoPagSeguro) => {
+        if (!oPagamentoPagSeguro || !oPagamentoPagSeguro.BarCode) {
+          this.toastr.error('Este boleto nao foi gerado por problemas no PagSeguro.', 'Erro');
+          this.targetMensalidade = undefined;
+          return;
+        }
 
-                let code: string = this.targetPagamentoPagSeguro.BarCode;
-                code = this.splice(code, 5, 0, '.');
-                code = this.splice(code, 11, 0, ' ');
-                code = this.splice(code, 17, 0, '.');
-                code = this.splice(code, 24, 0, ' ');
-                code = this.splice(code, 30, 0, '.');
-                code = this.splice(code, 37, 0, ' ');
-                code = this.splice(code, 39, 0, ' ');
-                this.targetPagamentoPagSeguro.BarCode = code;
+        this.targetPagamentoPagSeguro = oPagamentoPagSeguro;
 
-            });
-    }
+        let code: string = this.targetPagamentoPagSeguro.BarCode;
+        code = this.splice(code, 5, 0, '.');
+        code = this.splice(code, 11, 0, ' ');
+        code = this.splice(code, 17, 0, '.');
+        code = this.splice(code, 24, 0, ' ');
+        code = this.splice(code, 30, 0, '.');
+        code = this.splice(code, 37, 0, ' ');
+        code = this.splice(code, 39, 0, ' ');
+        this.targetPagamentoPagSeguro.BarCode = code;
 
-
-
-
-    print(): void {
-        window.open(this.targetPagamentoPagSeguro.Link);
-    }
+      });
+  }
 
 
-    splice(st, idx, rem, str) {
-        return st.slice(0, idx) + str + st.slice(idx + Math.abs(rem));
-    };
+
+
+  print(): void {
+    window.open(this.targetPagamentoPagSeguro.Link);
+  }
+
+
+  splice(st, idx, rem, str) {
+    return st.slice(0, idx) + str + st.slice(idx + Math.abs(rem));
+  };
 
 
 }
