@@ -19,13 +19,13 @@
 
         <td>
           <div class="dropdown show" *ngIf="oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1">
-            <a class="btn btn-info dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-secundry dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Ações
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <a class="dropdown-item" *ngIf="showPay && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="enviar(oMensalidade)">Enviar E-mail</a>
-              <a class="dropdown-item" *ngIf="showPay && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="pagar(oMensalidade)">Ver Boleto</a>
+              <a class="dropdown-item" *ngIf="showPay && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="pagar(oMensalidade)">Opções de Pagamento</a>
               <a class="dropdown-item" *ngIf="showPayAdmin && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="alterar(oMensalidade)">Registrar Pagamento</a>
               <a class="dropdown-item" *ngIf="showPayAdmin && oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="apagar(oMensalidade)">Apagar</a>
             </div>
@@ -39,7 +39,7 @@
 <div class="container" *ngIf="!targetNewMensalidade && showAdd && !targetPagamentoMensalidade && !targetAlteraMensalidade">
   <div class="row">
     <div class="col-sm-12  col-md-4  col-lg-4">
-      <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+      <button style="margin-top:15px;" class="btn btn-lg btn-secundry btn-block" (click)="return()">Voltar</button>
     </div>
 
     <div class="col-sm-12 offset-md-4 col-md-4 offset-lg-4 col-lg-4">
@@ -55,7 +55,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12  col-md-6  col-lg-4">
-        <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return(true)">Voltar</button>
+        <button style="margin-top:15px;" class="btn btn-lg btn-secundry btn-block" (click)="return(true)">Voltar</button>
       </div>
       <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4">
         <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="CreateMensalidade()">Adicionar</button>
@@ -124,7 +124,7 @@
 
   <div class="row ">
     <div class="col-sm-12  col-md-6  col-lg-4">
-      <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+      <button style="margin-top:15px;" class="btn btn-lg btn-secundry btn-block" (click)="return(true)">Voltar</button>
     </div>
   </div>
 </div>
@@ -133,7 +133,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12  col-md-6  col-lg-4">
-        <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return(true)">Voltar</button>
+        <button style="margin-top:15px;" class="btn btn-lg btn-secundry btn-block" (click)="return(true)">Voltar</button>
       </div>
       <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4">
         <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="AlterMensalidade()">Salvar</button>

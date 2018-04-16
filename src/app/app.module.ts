@@ -16,7 +16,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { ToastrModule } from 'ngx-toastr';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +37,7 @@ import { ToastrModule } from 'ngx-toastr';
     Angular2FontawesomeModule,
     NgxBarcodeModule,
     ToastrModule.forRoot(), // ToastrModule added
+    NgxPaginationModule
   ],
   providers: [GC_SERVICES],
   bootstrap: [AppComponent]

@@ -19,6 +19,7 @@ import { ToastrService } from "ngx-toastr";
   templateUrl: './mensalidade-list.component.html',
 })
 
+
 export class MensalidadeListComponent extends BaseComponent implements OnInit, OnChanges {
 
   @Input()
@@ -178,29 +179,46 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
       .subscribe((oMensalidades: Mensalidade[]) => {
         // gera boleto
         this.oMensalidadeService.GerarBoletos(oMensalidades).
-          subscribe(() => {
-            this.toastr.success('Mensalidades incluidas com sucesso', '[Mensalidades Incluídas]')
+          subscribe((sReturn: Boolean) => {
+            if (sReturn) {
+              // Vincula ao usuario
+              oMensalidades.forEach((oMensalidade: Mensalidade) => {
+                obsVinc.push(this.oMensalidadeService.Vincula(oMensalidade, this.targetUsuario));
+              });
+              forkJoin(obsVinc).subscribe(() => {
 
-          }, (e) => {
-            // FAZER EMITTER
-            this.toastr.error('Pagseguro não respondeu como esperado tente mais tarde', '[Erro]');
-          });
-
-        // Vincula ao usuario
-        oMensalidades.forEach((oMensalidade: Mensalidade) => {
-          obsVinc.push(this.oMensalidadeService.Vincula(oMensalidade, this.targetUsuario));
-        });
-        forkJoin(obsVinc).subscribe(() => {
-
-          // Obtem a mensalidade com Id
-          this.oMensalidadeService.GetMensalidade(this.targetUsuario)
-            .subscribe((lstMensalidadeWithId: Mensalidade[]) => {
-              this.lstMensalidade = lstMensalidadeWithId;
-              this.targetNewMensalidade = undefined;
+                // Obtem a mensalidade com Id
+                this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+                  .subscribe((lstMensalidadeWithId: Mensalidade[]) => {
+                    this.lstMensalidade = lstMensalidadeWithId;
+                    this.targetNewMensalidade = undefined;
+                    return;
+                  });
+              });
+              this.toastr.success('Mensalidades incluidas com sucesso', '[Mensalidades Incluídas]')
+            } else {
+              this.throwErrorForCreateMensalidade();
               return;
-            });
-        });
+            }
+          }, (e) => {
+            this.throwErrorForCreateMensalidade();
+            return;
+          });
       });
+  }
+
+  throwErrorForCreateMensalidade(): void {
+    this.oMensalidadeService.RollbackMensalidade(this.targetUsuario).subscribe(() => {
+      // Obtem a mensalidade com Id
+      this.oMensalidadeService.GetMensalidade(this.targetUsuario)
+        .subscribe((lstMensalidadeWithId: Mensalidade[]) => {
+          this.lstMensalidade = lstMensalidadeWithId;
+          this.targetNewMensalidade = undefined;
+          // FAZER EMITTER
+          this.toastr.error('Pagseguro não respondeu como esperado tente mais tarde', '[Erro]');
+          return;
+        });
+    });
   }
 
   payment(): void {

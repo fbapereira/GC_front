@@ -8,8 +8,8 @@ import { Observable } from 'rxjs/Observable';
  */
 export class InterceptorRequestUrl extends Interceptor.Request {
 
-  _urlBase: String = 'http://localhost:59912/Api/';
-  urlBase: String = 'http://app.basicflux.com/Api/';
+  urlBase: String = 'http://localhost:59912/Api/';
+  _urlBase: String = 'http://app.basicflux.com/Api/';
 
   constructor(params?: { [id: string]: any; }, injector?: Injector) {
     super();

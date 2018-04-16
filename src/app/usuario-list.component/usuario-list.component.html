@@ -1,50 +1,52 @@
-<div class="container" style="margin-bottom: 20px">
-  <div class="row" *ngIf="!targetUsuario">
-    <div class="col-sm-12  col-md-12  offset-lg-2 col-lg-8">
-      <label for="inputEmail" class="sr-only">Busca</label>
-      <input type="text" class="form-control" [(ngModel)]="sBusca" placeholder="Nome, cpf ou e-mail..." (ngModelChange)="search() ">
-    </div>
-  </div>
-</div>
 <div class="table-responsive" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">CPF</th>
-        <th scope="col">Nome</th>
-        <th scope="col">Login</th>
-        <th scope="col" colspan="2">#</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let oUsuario of lstUsuarioFiltered">
-        <td scope="row">{{oUsuario.Id}}</td>
-        <td>{{oUsuario.CPF}}</td>
-        <td>{{oUsuario.Nome}}</td>
-        <td>{{oUsuario.Login}}</td>
+  <div class="card">
+    <div class="card-header">
+      Usuário
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item table-card">
+        <div class="row">
+          <div class="col-sm-9  col-md-6  col-lg-6">
+            <label for="inputEmail">Busca</label>
+            <input type="text" class="form-control" [(ngModel)]="sBusca" placeholder="Nome, cpf ou e-mail..." (ngModelChange)="search() ">
+          </div>
 
-        <td>
-          <button type="button" class="btn btn-outline-success" (click)="viewDetail(oUsuario)">Administrar</button>
-        </td>
+        </div>
+      </li>
+      <li class="list-group-item table-card">
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <tbody>
+              <tr *ngFor="let oUsuario of lstUsuarioFiltered | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{oUsuario.CPF}}</td>
+                <td>{{oUsuario.Nome}}</td>
+                <td>{{oUsuario.Login}}</td>
 
-        <!-- <td>
+                <td>
+                  <button type="button" class="btn btn-success" (click)="viewDetail(oUsuario)">Administrar</button>
+                </td>
+
+                <!-- <td>
           <button type="button" class="btn btn-outline-success" (click)="viewMensalidade(oUsuario)">Mensalidades</button>
         </td> -->
 
 
-        <td>
-          <button type="button" *ngIf="meuUsuario.Id !== oUsuario.Id" class="btn btn-outline-danger" (click)="apagar(oUsuario)">Apagar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+                <td>
+                  <button type="button" *ngIf="meuUsuario.Id !== oUsuario.Id" class="btn btn-danger" (click)="apagar(oUsuario)">Apagar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <p class="text-center" *ngIf="!lstUsuarioFiltered || lstUsuarioFiltered.length == 0">Não há mensalidades cadastradas</p>
+        </div>
+      </li>
+    </ul>
+  </div>
 </div>
-<div class="container" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
-  <div class="row">
-    <div class="col-sm-12 offset-md-6 col-md-6 offset-lg-8 col-lg-4">
-      <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="NovoUsuario()">Adicionar</button>
-    </div>
+<div class="row">
+  <div class="col-sm-3  offset-md-8 col-md-4  offset-lg-8 col-lg-4" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
+    <button style="margin-top:30px;" class="btn btn-primary btn-block" (click)="NovoUsuario()">Adicionar</button>
   </div>
 </div>
 <!-- Adicioanr -->
@@ -53,7 +55,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12  col-md-6  col-lg-4">
-        <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+        <button style="margin-top:15px;" class="btn btn-lg btn-secundry btn-block" (click)="return()">Voltar</button>
       </div>
       <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4" *ngIf="isAdmin()">
         <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="CreateUsuario()">Adicionar</button>
@@ -78,7 +80,7 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12  col-md-6  col-lg-4">
-            <button style="margin-top:15px;" class="btn btn-lg btn-secundary btn-block" (click)="return()">Voltar</button>
+            <button style="margin-top:15px;" class="btn btn-lg btn-secundry btn-block" (click)="return()">Voltar</button>
           </div>
           <div class="col-sm-12 col-md-6 offset-lg-4 col-lg-4" *ngIf="isAdmin()">
             <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="SetUsuario()">Salvar</button>

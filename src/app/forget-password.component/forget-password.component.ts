@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, Renderer2 } from '@angular/core';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { AcademiaService } from '../services/academia.service';
@@ -18,7 +18,9 @@ export class ForgetPasswordComponent {
   constructor(
     private toastr: ToastrService,
     private oUsuarioService: UsuarioService,
+    private renderer: Renderer2,
     private router: Router) {
+    this.renderer.addClass(document.body, 'bodyImage');
 
   }
 

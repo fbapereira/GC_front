@@ -1,104 +1,100 @@
-<h4>Mensalidades Atrasadas</h4>
-<div class="table-responsive" *ngIf="itensAtrasados">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Email</th>
-        <th scope="col">Valor</th>
-        <th scope="col">Vencimento</th>
-        <th scope="col">Status</th>
-        <th scope="col" colspan="3">#</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of itensAtrasados">
-        <td scope="row">{{item.nome}}</td>
-        <td scope="row">{{item.email}}</td>
-        <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
-        <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
-        <td>{{item.status}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-center" *ngIf="!itensAtrasados || itensAtrasados.length == 0">Não há mensalidades cadastradas</p>
+<div class="card" *ngIf="itensAtrasados">
+  <div class="card-header">
+    Mensalidades Atrasadas
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item table-card">
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <tbody>
+            <tr *ngFor="let item of itensAtrasados">
+              <td scope="row">{{item.nome}}</td>
+              <td scope="row">{{item.email}}</td>
+              <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
+              <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
+              <td>{{item.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-center" *ngIf="!itensAtrasados || itensAtrasados.length == 0">Não há mensalidades cadastradas</p>
+      </div>
+    </li>
+  </ul>
 </div>
 
 
-<h4>Mensalidades Pagas</h4>
-<div class="table-responsive" *ngIf="itensPagos">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Email</th>
-        <th scope="col">Valor</th>
-        <th scope="col">Vencimento</th>
-        <th scope="col">Status</th>
-        <th scope="col" colspan="3">#</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of itensPagos">
-        <td scope="row">{{item.nome}}</td>
-        <td scope="row">{{item.email}}</td>
-        <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
-        <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
-        <td>{{item.status}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-center" *ngIf="!itensPagos || itensPagos.length == 0">Não há mensalidades cadastradas</p>
+<div class="card" *ngIf="itensPagos">
+  <div class="card-header">
+    Mensalidades Pagas
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item table-card">
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <tbody>
+            <tr *ngFor="let item of itensPagos">
+              <td scope="row">{{item.nome}}</td>
+              <td scope="row">{{item.email}}</td>
+              <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
+              <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
+              <td>{{item.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-center" *ngIf="!itensPagos || itensPagos.length == 0">Não há mensalidades cadastradas</p>
+      </div>
+    </li>
+  </ul>
 </div>
 
-<h4>Mensalidades Aguardando Pagamento</h4>
-<div class="table-responsive" *ngIf="itensAguardando">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Email</th>
-        <th scope="col">Valor</th>
-        <th scope="col">Vencimento</th>
-        <th scope="col">Status</th>
-        <th scope="col" colspan="3">#</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of itensAguardando">
-        <td scope="row">{{item.nome}}</td>
-        <td scope="row">{{item.email}}</td>
-        <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
-        <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
-        <td>{{item.status}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-center" *ngIf="!itensAguardando || itensAguardando.length == 0">Não há mensalidades cadastradas</p>
+
+
+<div class="card" *ngIf="itensAguardando">
+  <div class="card-header">
+    Mensalidades Aguardando Pagamento
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item table-card">
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <tbody>
+            <tr *ngFor="let item of itensAguardando">
+              <td scope="row">{{item.nome}}</td>
+              <td scope="row">{{item.email}}</td>
+              <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
+              <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
+              <td>{{item.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-center" *ngIf="!itensAguardando || itensAguardando.length == 0">Não há mensalidades cadastradas</p>
+      </div>
+    </li>
+  </ul>
 </div>
 
-<h4>Sem Boletos</h4>
-<div class="table-responsive" *ngIf="itensSemBoleto">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Email</th>
-        <th scope="col">Valor</th>
-        <th scope="col">Vencimento</th>
-        <th scope="col">Status</th>
-        <th scope="col" colspan="3">#</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of itensSemBoleto">
-        <td scope="row">{{item.nome}}</td>
-        <td scope="row">{{item.email}}</td>
-        <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
-        <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
-        <td>{{item.status}}</td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="text-center" *ngIf="!itensSemBoleto || itensSemBoleto.length == 0">Não há mensalidades cadastradas</p>
+
+
+<div class="card" *ngIf="itensSemBoleto">
+  <div class="card-header">
+    Sem Boletos
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item table-card">
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <tbody>
+            <tr *ngFor="let item of itensSemBoleto">
+              <td scope="row">{{item.nome}}</td>
+              <td scope="row">{{item.email}}</td>
+              <td>{{item.valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
+              <td>{{item.vencimento | date:'dd/MM/yyyy'}}</td>
+              <td>{{item.status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-center" *ngIf="!itensSemBoleto || itensSemBoleto.length == 0">Não há mensalidades cadastradas</p>
+      </div>
+    </li>
+  </ul>
 </div>

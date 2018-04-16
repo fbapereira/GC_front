@@ -8,6 +8,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-gc-relatorio-mensal',
   templateUrl: './relatorio-mensal.component.html',
+  styleUrls: ['./relatorio-mensal.component.css']
 })
 export class RelatorioMensalComponent extends BaseComponent implements OnInit {
   itensPagos: any[];

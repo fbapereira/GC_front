@@ -1,0 +1,159 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+$color-primary: #9152D2;
+$color-primary-hover: #AA7BDC;
+$color-alternative: #C4A3E7;
+$color-alternative-hover: #DECBF2;
+$color-alternative-font: #9152D2;
+$color-secundry: #E6D298;
+$color-secundry-hover: #795C06;
+$color-success: #B0DD68;
+$color-success-hover: #80B629;
+$color-danger: #DB0A3F;
+$color-danger-hover: #F7547D;
+/*
+body
+*/
+
+.bodyImage {
+  background: url("../../assets/img/bg.png") top center;
+  width: 100%;
+  display: block;
+}
+
+/*
+Table
+*/
+
+.card {
+  border: 1px solid rgba(121, 92, 6, 0.125) !important;
+}
+
+.card-header {
+  background-color: #FCEAB5 !important;
+  color: #AB8107 !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(246, 192, 34, 0.05);
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+  background: $color-alternative-font;
+  ;
+}
+
+/*
+Typo
+*/
+
+h3 {
+  color: $color-primary !important;
+}
+
+/*
+Nav
+*/
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  background-color: $color-success;
+  border-color: $color-success;
+  &:hover {
+    background-color: $color-success-hover;
+    border-color: $color-success-hover;
+  }
+}
+
+a {
+  color: $color-success;
+  &:hover {
+    color: $color-success-hover;
+  }
+}
+
+/*
+Nav Bar
+*/
+
+.bg-light {
+  background-color: #A096CE !important;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .show>.nav-link,
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link,
+.navbar-text {
+  color: rgba(250, 250, 250, 0.9) !important;
+}
+
+/*
+Buttons
+*/
+
+.btn-success {
+  background-color: $color-primary;
+  border-color: $color-primary;
+  &:hover {
+    background-color: $color-primary-hover;
+    border-color: $color-primary-hover;
+  }
+}
+
+.btn-outline-primary {
+  border-color: $color-primary !important;
+  color: $color-primary !important;
+  &:hover {
+    background-color: $color-primary !important;
+    color: white !important;
+  }
+}
+
+.btn-primary {
+  background-color: $color-primary !important;
+  border-color: $color-primary !important;
+  &:hover {
+    background-color: $color-primary-hover !important;
+    border-color: $color-primary-hover !important;
+  }
+}
+
+.btn-alternative {
+  background-color: $color-alternative;
+  border-color: $color-alternative;
+  color: white !important;
+  &:hover {
+    background-color: $color-alternative-hover;
+    border-color: $color-alternative-hover;
+  }
+}
+
+.btn-secundry {
+  background-color: $color-secundry;
+  border-color: $color-secundry;
+  color: white !important;
+  &:hover {
+    background-color: $color-secundry-hover;
+    border-color: $color-secundry-hover;
+  }
+}
+
+.btn-success {
+  background-color: $color-success;
+  border-color: $color-success;
+  &:hover {
+    background-color: $color-success-hover;
+    border-color: $color-success-hover;
+  }
+}
+
+.btn-danger {
+  background-color: $color-danger;
+  border-color: $color-danger;
+  &:hover {
+    background-color: $color-danger-hover;
+    border-color: $color-danger-hover;
+  }
+}

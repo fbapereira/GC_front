@@ -9,20 +9,20 @@ import { MeusDadosComponent } from './meus-dados.component/meus-dados.component'
 import { MensalidadeComponent } from './mensalidade.component/mensalidade.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'academia', component: AcademiaComponent },
-    { path: 'usuario', component: UsuarioComponent },
-    { path: 'forget-password', component: ForgetPasswordComponent },
-    { path: 'meus-dados', component: MeusDadosComponent },
-    { path: 'mensalidade', component: MensalidadeComponent },
-    { path: '*', redirectTo: '/login', pathMatch: 'full' },
-    { path: '**', redirectTo: '/login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'academia', component: AcademiaComponent },
+  { path: 'usuario', component: UsuarioComponent },
+  { path: 'forget-password', component: ForgetPasswordComponent },
+  { path: 'meus-dados', component: MeusDadosComponent },
+  { path: 'mensalidade', component: MensalidadeComponent },
+  { path: '*', redirectTo: '/login', },
+  { path: '**', redirectTo: '/login', },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

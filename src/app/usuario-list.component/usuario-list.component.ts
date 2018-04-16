@@ -11,6 +11,7 @@ import { SAMService } from '../services/sam.service';
 import { Router } from '@angular/router';
 import { MensalidadeListComponent } from '../mensalidade-list.component/mensalidade-list.component';
 import { ToastrService } from 'ngx-toastr';
+declare const $: any;
 
 @Component({
   selector: 'app-gc-usuario-list',
@@ -29,7 +30,7 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
 
 
   @ViewChild('MensalidadeList') MensalidadeList: MensalidadeListComponent;
-
+  p: number = 1;
 
   targetUsuarioMensalidade: Usuario;
   targetUsuario: Usuario;
@@ -51,6 +52,7 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
 
     this.loadUsuario();
     this.MensalidadeList.emitClose.subscribe((s: boolean) => {
+      this.return();
       this.targetUsuarioMensalidade = undefined;
     });
 
@@ -108,6 +110,7 @@ export class UsuarioListComponent extends BaseComponent implements OnInit {
 
 
   return(): void {
+    $('#nav-tab a[href="#nav-home"]').tab('show');
     this.targetUsuario = undefined;
     this.targetNewUsuario = undefined;
     this.loadUsuario();

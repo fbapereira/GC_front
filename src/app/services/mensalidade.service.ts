@@ -41,6 +41,13 @@ export class MensalidadeService {
     return this.oHttpClient.post('EnviaBoleto', oMensalidade);
   }
 
+  RollbackMensalidade(oUsuario: Usuario): Observable<any> {
+
+    return this.oHttpClient.post('DeletaMensalidadePagseguroErro', oUsuario);
+  }
+
+  DeletaMensalidadePagseguroErro
+
   GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {
     const that = this;
     return Observable.create((obs) => {

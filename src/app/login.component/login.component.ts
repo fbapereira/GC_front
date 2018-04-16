@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, Renderer2 } from '@angular/core';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { AcademiaService } from '../services/academia.service';
@@ -28,7 +28,10 @@ export class LoginComponent {
     private oPerfilService: PerfilService,
     private oHttpClient: HttpClient,
     private oErrorHandlerBridge: ErrorHandlerBridge,
+    private renderer: Renderer2,
     private router: Router) {
+    this.renderer.addClass(document.body, 'bodyImage');
+
 
   }
 
@@ -43,12 +46,14 @@ export class LoginComponent {
     this.oAcademia = oAcademia;
     this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, oAcademia)
       .subscribe(() => {
+        this.renderer.removeClass(document.body, 'bodyImage');
         this.router.navigate(['/dashboard']);
         return;
       });
   }
 
   ForgetPassword() {
+    this.renderer.removeClass(document.body, 'bodyImage');
     this.router.navigate(['/forget-password']);
   }
 
@@ -81,6 +86,7 @@ export class LoginComponent {
               this.SetAcademia(lstAcademia[0]);
               this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
                 .subscribe(() => {
+                  this.renderer.removeClass(document.body, 'bodyImage');
                   this.router.navigate(['/dashboard']);
                   return;
                 });
