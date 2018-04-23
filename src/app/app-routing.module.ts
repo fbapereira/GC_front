@@ -7,6 +7,7 @@ import { UsuarioComponent } from './usuario.component/usuario.component';
 import { ForgetPasswordComponent } from './forget-password.component/forget-password.component';
 import { MeusDadosComponent } from './meus-dados.component/meus-dados.component';
 import { MensalidadeComponent } from './mensalidade.component/mensalidade.component';
+import { EmailComponent } from './email.component/email.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'meus-dados', component: MeusDadosComponent },
   { path: 'mensalidade', component: MensalidadeComponent },
+  { path: 'email', component: EmailComponent },
   { path: '*', redirectTo: '/login', },
   { path: '**', redirectTo: '/login', },
   { path: 'login', component: LoginComponent },

@@ -8,6 +8,7 @@ import { PerfilService } from '../services/perfil.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { ErrorHandlerBridge } from '../services/error-handler/error-handler-bridge';
+import { TokenService } from '../services/token.service';
 
 @Component({
   selector: 'app-hero-detail',
@@ -28,6 +29,7 @@ export class LoginComponent {
     private oPerfilService: PerfilService,
     private oHttpClient: HttpClient,
     private oErrorHandlerBridge: ErrorHandlerBridge,
+    private oTokenService: TokenService,
     private renderer: Renderer2,
     private router: Router) {
     this.renderer.addClass(document.body, 'bodyImage');
@@ -76,6 +78,13 @@ export class LoginComponent {
           return;
         }
 
+        // this.oTokenService.Auth(this.oUsuario.Login, this.oUsuario.Senha)
+        //   .subscribe((isValid: boolean) => {
+        // if (!isValid) {
+        //   this.toastr.error('Senha ou Usuário inválidos', '[Dados Inválidos]');
+        //   return;
+        // }
+
         // Obtem Instituicao
         this.oAcademiaService.GetAcademia(this.oUsuarioService.oUsuario)
           .subscribe((lstAcademia: Academia[]) => {
@@ -94,6 +103,6 @@ export class LoginComponent {
             this.lstAcademia = lstAcademia;
           });
       });
-
+    // });
   }
 }

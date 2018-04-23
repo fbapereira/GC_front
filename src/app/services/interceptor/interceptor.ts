@@ -12,6 +12,7 @@ export namespace Interceptor {
     abstract treat(oHttpRequest: HttpRequest<any>, injector: Injector): HttpRequest<any>;
 
     public createHttpRequest(oHttpRequest: HttpRequest<any>, url: string, body: any): HttpRequest<any> {
+      debugger;
       if (oHttpRequest.method === 'POST') {
         return new HttpRequest(
           oHttpRequest.method,

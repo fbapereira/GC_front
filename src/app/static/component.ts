@@ -15,6 +15,7 @@ import { PagamentoComponent } from '../pagamento.component/pagamento.component';
 import { MensalidadeAlteraComponent } from '../mensalidade-altera.component/mensalidade-altera.component';
 import { PagSeguroComponent } from '../pagseguro.component/pagseguro.component';
 import { RelatorioMensalComponent } from '../relatorio-mensal/relatorio-mensal.component';
+import { EmailComponent } from '../email.component/email.component';
 
 export const GC_COMPONENTS = [
   MenuComponent,
@@ -33,5 +34,6 @@ export const GC_COMPONENTS = [
   PagamentoComponent,
   MensalidadeAlteraComponent,
   PagSeguroComponent,
-  RelatorioMensalComponent
+  RelatorioMensalComponent,
+  EmailComponent
 ];

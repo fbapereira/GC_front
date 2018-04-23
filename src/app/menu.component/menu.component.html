@@ -22,6 +22,12 @@
         </a>
       </li>
 
+      <li class="nav-item" *ngIf="IsVisible( 'email')" [ngClass]="{'active': (router.url=='/email')}">
+        <a class="nav-link" routerLink="/email" routerLinkActive="active">Caixa de E-mails
+          <span class="sr-only" *ngIf="router.url=='/email'">(current)</span>
+        </a>
+      </li>
+
       <li class="nav-item" [ngClass]="{'active': (router.url=='/meus-dados')}">
         <a class="nav-link" routerLink="/meus-dados" routerLinkActive="active">Meus Dados</a>
       </li>

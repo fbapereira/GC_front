@@ -6,10 +6,10 @@ import { Observable } from 'rxjs/Observable';
 /**
  * intercept request to send monitoring info
  */
-export class InterceptorRequestUrl extends Interceptor.Request {
+export class InterceptorRequestToken extends Interceptor.Request {
 
-  urlBase: String = 'http://localhost:59912/';
-  _urlBase: String = 'http://app.basicflux.com/';
+  _urlBase: String = 'http://localhost:59912/Api/';
+  urlBase: String = 'http://app.basicflux.com/Api/';
 
   constructor(params?: { [id: string]: any; }, injector?: Injector) {
     super();
@@ -21,7 +21,6 @@ export class InterceptorRequestUrl extends Interceptor.Request {
 
   private TrataUrl(url: string): string {
     if (url.indexOf('http') > -1) { return url; }
-    if (url.indexOf('Token') > -1) { return this.urlBase + url; }
-    return this.urlBase + 'Api/' + url;
+    return this.urlBase + url;
   }
 }
