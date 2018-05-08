@@ -8,9 +8,12 @@ import { ForgetPasswordComponent } from './forget-password.component/forget-pass
 import { MeusDadosComponent } from './meus-dados.component/meus-dados.component';
 import { MensalidadeComponent } from './mensalidade.component/mensalidade.component';
 import { EmailComponent } from './email.component/email.component';
+import { ResumoExternoComponent } from './resumo-externo.component/resumo-externo.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'external', component: ResumoExternoComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'academia', component: AcademiaComponent },
   { path: 'usuario', component: UsuarioComponent },
@@ -20,7 +23,6 @@ const routes: Routes = [
   { path: 'email', component: EmailComponent },
   { path: '*', redirectTo: '/login', },
   { path: '**', redirectTo: '/login', },
-  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

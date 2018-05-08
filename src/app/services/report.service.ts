@@ -7,8 +7,8 @@ export class ReportService {
   constructor(private oHttpClient: HttpClient) { }
 
 
-  public ObtemRelatorioMensal(): Observable<any> {
-    return this.oHttpClient.post('ObtemRelatorioMensal', {});
+  public ObtemRelatorioMensal(mesAtual: number): Observable<any> {
+    return this.oHttpClient.post('ObtemRelatorioMensal', { mes: mesAtual });
   }
 
 }

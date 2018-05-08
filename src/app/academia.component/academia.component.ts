@@ -17,6 +17,6 @@ export class AcademiaComponent extends BaseComponent {
         private oUsuarioService: UsuarioService,
         oSAMService: SAMService,
         router: Router) {
-        super(true, oSAMService, router);
+        super(false, oSAMService, router);
     }
 }

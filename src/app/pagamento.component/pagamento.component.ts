@@ -30,7 +30,7 @@ export class PagamentoComponent extends BaseComponent implements OnInit {
     private oBoletoService: BoletoService,
     oSAMService: SAMService,
     router: Router) {
-    super(true, oSAMService, router);
+    super(false, oSAMService, router);
   }
 
   public copyToClipboard(): void {

@@ -16,6 +16,8 @@ export class RelatorioMensalComponent extends BaseComponent implements OnInit {
   itensSemBoleto: any[];
   itensAtrasados: any[];
 
+  mesAtual: number = 0;
+
   constructor(
     private oReportService: ReportService,
     oSAMService: SAMService,
@@ -24,9 +26,17 @@ export class RelatorioMensalComponent extends BaseComponent implements OnInit {
     super(true, oSAMService, router);
   }
 
-  ngOnInit(): void {
-    this.oReportService.ObtemRelatorioMensal()
+
+  getMonth(): string {
+    return moment().add(this.mesAtual, 'month').format('MM/YYYY');
+  }
+  mudaMes(value: number): void {
+    debugger;
+    this.mesAtual = this.mesAtual + value;
+    this.oReportService.ObtemRelatorioMensal(this.mesAtual)
       .subscribe((itens: any[]) => {
+        debugger;
+
         this.itensPagos = itens.filter((x: any) => {
           return x.status === 'Paga';
         });
@@ -43,6 +53,10 @@ export class RelatorioMensalComponent extends BaseComponent implements OnInit {
 
         this.itensAtrasados.forEach((x) => { x.status = 'Atrasado' });
       });
+  }
+
+  ngOnInit(): void {
+    this.mudaMes(0);
   }
 }
 

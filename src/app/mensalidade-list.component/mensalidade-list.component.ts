@@ -58,7 +58,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     oSAMService: SAMService,
     router: Router
   ) {
-    super(true, oSAMService, router);
+    super(false, oSAMService, router);
     this.oRouter = router;
   }
 

@@ -1,3 +1,16 @@
+<div class="text-center">
+  <ul class="pagination">
+    <li class="page-item ">
+      <a class="page-link" tabindex="-1" (click)="mudaMes(-1)">Anterior</a>
+    </li>
+    <li class="page-item disabled">
+      <a class="page-link">{{getMonth()}}</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" (click)="mudaMes(1)">Próximo</a>
+    </li>
+  </ul>
+</div>
 <div class="card" *ngIf="itensAtrasados">
   <div class="card-header">
     Mensalidades Atrasadas

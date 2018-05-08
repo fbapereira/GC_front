@@ -37,6 +37,10 @@ export class UsuarioService {
     return this.oHttpClient.post('ObtemUsuariosAcademia', oAcademia);
   }
 
+  public ObtemResumo(oUsuario: Usuario): Observable<any> {
+    return this.oHttpClient.post('MinhaInformacoes', oUsuario);
+  }
+
   public Altera(oUsuario: Usuario): Observable<any> {
 
     return this.oHttpClient.post('AlteraUsuario', oUsuario);
