@@ -8,9 +8,6 @@ import { Observable } from 'rxjs/Observable';
  */
 export class InterceptorRequestUrl extends Interceptor.Request {
 
-  urlBase: String = 'http://localhost:59912/';
-  _urlBase: String = 'http://app.basicflux.com/';
-
   constructor(params?: { [id: string]: any; }, injector?: Injector) {
     super();
   }
@@ -20,8 +17,6 @@ export class InterceptorRequestUrl extends Interceptor.Request {
   }
 
   private TrataUrl(url: string): string {
-    if (url.indexOf('http') > -1) { return url; }
-    if (url.indexOf('Token') > -1) { return this.urlBase + url; }
-    return this.urlBase + 'Api/' + url;
+    return '/Api/' + url;
   }
 }

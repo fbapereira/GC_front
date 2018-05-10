@@ -1,8 +1,8 @@
 <div *ngIf="oUsuario">
 
-  <h3 *ngIf="oUsuario.Id != 1">Minhas Mensalidades</h3>
-  <app-gc-mensalidade-list *ngIf="oUsuario.Id != 1" [showAdd]="false" [showPay]="true" [showPayAdmin]="false" [showExclude]="false"
-    [(targetUsuario)]="oUsuario"></app-gc-mensalidade-list>
+  <h3 *ngIf="oUsuario.Id != 1 && oUsuario.Id != 95">Minhas Mensalidades</h3>
+  <app-gc-mensalidade-list *ngIf="oUsuario.Id != 1 && oUsuario.Id != 95" [showAdd]="false" [showPay]="true" [showPayAdmin]="false"
+    [showExclude]="false" [(targetUsuario)]="oUsuario"></app-gc-mensalidade-list>
 
-  <app-gc-relatorio-mensal *ngIf="oUsuario.Id == 1"></app-gc-relatorio-mensal>
+  <app-gc-relatorio-mensal *ngIf="oUsuario.Id == 1 || oUsuario.Id == 95"></app-gc-relatorio-mensal>
 </div>
