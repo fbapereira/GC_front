@@ -18,15 +18,16 @@
             id="inputPassword" class="form-control" placeholder="Senha">
 
           <label *ngIf="lstAcademia && lstAcademia.length > 1" for="inputPassword">Academia</label>
-          <select *ngIf="lstAcademia && lstAcademia.length > 1" (keyup.enter)="SetAcademia(oAcademia)" [(ngModel)]="oAcademia" class="form-control"
-            id="exampleFormControlSelect1">
+          <select id="dropAcademia" *ngIf="lstAcademia && lstAcademia.length > 1" (keyup.enter)="SetAcademia(oAcademia)" [(ngModel)]="oAcademia"
+            class="form-control">
             <option *ngFor="let oAcademia of lstAcademia" [ngValue]="oAcademia">{{oAcademia.Nome}}</option>
           </select>
 
-          <button style="margin-top: 15px;" *ngIf="!lstAcademia || lstAcademia.length == 0" class="btn btn-lg btn-primary btn-block"
+          <button id="btnLogin" style="margin-top: 15px;" *ngIf="!lstAcademia || lstAcademia.length == 0" class="btn btn-lg btn-primary btn-block"
             (click)="Login()">Entrar</button>
           <button *ngIf="!lstAcademia || lstAcademia.length == 0" class="btn btn-lg btn-alternative btn-block" type="submit" (click)="ForgetPassword()">Esqueci a senha</button>
-          <button style="margin-top:15px;" *ngIf="lstAcademia && lstAcademia.length > 1" class="btn btn-lg btn-primary btn-block" (click)="SetAcademia(oAcademia)">Entrar</button>
+          <button id="btnLoginAcademia" style="margin-top:15px;" *ngIf="lstAcademia && lstAcademia.length > 1" class="btn btn-lg btn-primary btn-block"
+            (click)="SetAcademia(oAcademia)">Entrar</button>
         </div>
       </div>
     </div>

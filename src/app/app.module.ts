@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { GC_SERVICES } from './static/service';
 import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,10 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { NgHttpLoaderModule } from 'ng-http-loader/ng-http-loader.module';
 import { ToastrModule } from 'ngx-toastr';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { APP_BASE_HREF } from '@angular/common';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +43,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     NgxPaginationModule
   ],
   providers: [GC_SERVICES],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

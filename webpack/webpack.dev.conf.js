@@ -5,7 +5,7 @@ const devConfig = {
     "historyApiFallback": true,
     proxy: {
       "/Api": {
-        "target": 'http://app.basicflux.com',
+        "target": 'http://localhost:59912',
         "pathRewrite": {
           '^/Api': 'api'
         },

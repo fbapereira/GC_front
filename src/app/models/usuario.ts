@@ -4,5 +4,6 @@ export class Usuario {
     Login: string;
     Senha: string;
     Email: string;
+    Telefone: string;
     CPF: string;
 }
