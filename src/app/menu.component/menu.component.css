@@ -1,8 +1,7 @@
-.navbar-nav {
-    flex-direction: row;
+.nav-link-sub {
+  padding-right: .5rem !important;
+  padding-left: .5rem !important;
+  color: #9152D2 !important;
 }
 
-    .nav-link {
-padding-right: .5rem!important;
-padding-left: .5rem!important;
-}
+
