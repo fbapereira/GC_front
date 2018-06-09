@@ -18,6 +18,8 @@ import { RelatorioMensalComponent } from '../relatorio-mensal/relatorio-mensal.c
 import { EmailComponent } from '../email.component/email.component';
 import { ResumoExternoComponent } from '../resumo-externo.component/resumo-externo.component';
 import { ModalidadeListComponent } from '../modalidade-list.component/modalidade-list.component';
+import { FaltasComponent } from '../faltas.component/faltas.component';
+import { AulasComponent } from '../aulas.component/aulas.component';
 
 export const GC_COMPONENTS = [
   MenuComponent,
@@ -39,5 +41,7 @@ export const GC_COMPONENTS = [
   RelatorioMensalComponent,
   EmailComponent,
   ResumoExternoComponent,
-  ModalidadeListComponent
+  ModalidadeListComponent,
+  FaltasComponent,
+  AulasComponent
 ];

@@ -10,6 +10,8 @@ import { MensalidadeComponent } from './mensalidade.component/mensalidade.compon
 import { EmailComponent } from './email.component/email.component';
 import { ResumoExternoComponent } from './resumo-externo.component/resumo-externo.component';
 import { ModalidadeListComponent } from './modalidade-list.component/modalidade-list.component';
+import { FaltasComponent } from './faltas.component/faltas.component';
+import { AulasComponent } from './aulas.component/aulas.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,8 +25,8 @@ const routes: Routes = [
   { path: 'mensalidade', component: MensalidadeComponent },
   { path: 'email', component: EmailComponent },
   { path: 'modalidade', component: ModalidadeListComponent },
-  { path: 'faltas', component: EmailComponent },
-  { path: 'aulas', component: EmailComponent },
+  { path: 'faltas', component: FaltasComponent },
+  { path: 'aulas', component: AulasComponent },
   { path: '*', redirectTo: '/login', },
   { path: '**', redirectTo: '/login', },
 ];

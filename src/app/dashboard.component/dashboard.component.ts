@@ -5,6 +5,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { SAMService } from '../services/sam.service';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../shared/base-component';
+import { PerfilService } from '../services/perfil.service';
 
 @Component({
   selector: 'app-hero-detail',

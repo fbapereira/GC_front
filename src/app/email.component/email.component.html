@@ -1,7 +1,7 @@
 <div class="table-responsive" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
   <div class="card">
     <div class="card-header">
-      Email
+      E-mail
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item table-card">
@@ -12,6 +12,7 @@
           </div>
 
         </div>
+
       </li>
       <li class="list-group-item table-card">
         <div class="table-responsive" *ngIf="!targetEmail">
@@ -70,7 +71,14 @@
             </div>
           </div>
           <div class="row">
-            <button type="button" class="btn btn-secundry" (click)="close()">Voltar</button>
+            <div class="col-sm-12  col-md-6 col-lg-4">
+              <button style="margin-top:15px;" type="button" class="btn btn-lg btn-secundry btn-block" (click)="close()">Voltar</button>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="!targetEmail">
+          <div class="col-sm-12  col-md-6 col-lg-4">
+            <button style="margin-top:15px;" type="button" class="btn btn-lg btn-secundry btn-block" (click)="returnDashboard()">Voltar</button>
           </div>
         </div>
       </li>
