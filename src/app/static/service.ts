@@ -11,6 +11,7 @@ import { GCHttpInterceptor } from '../services/interceptor/http-interceptor';
 import { ErrorHandlerBridge } from '../services/error-handler/error-handler-bridge';
 import { EmailService } from '../services/email.service';
 import { TokenService } from '../services/token.service';
+import { ModalidadeService } from '../services/modalidade.service';
 
 export const GC_SERVICES = [
 
@@ -26,6 +27,7 @@ export const GC_SERVICES = [
   ErrorHandlerBridge,
   GCHttpInterceptor,
   TokenService,
+  ModalidadeService,
   {
     provide: HTTP_INTERCEPTORS,
     useClass: GCHttpInterceptor,

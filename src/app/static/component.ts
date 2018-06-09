@@ -17,6 +17,7 @@ import { PagSeguroComponent } from '../pagseguro.component/pagseguro.component';
 import { RelatorioMensalComponent } from '../relatorio-mensal/relatorio-mensal.component';
 import { EmailComponent } from '../email.component/email.component';
 import { ResumoExternoComponent } from '../resumo-externo.component/resumo-externo.component';
+import { ModalidadeListComponent } from '../modalidade-list.component/modalidade-list.component';
 
 export const GC_COMPONENTS = [
   MenuComponent,
@@ -37,5 +38,6 @@ export const GC_COMPONENTS = [
   PagSeguroComponent,
   RelatorioMensalComponent,
   EmailComponent,
-  ResumoExternoComponent
+  ResumoExternoComponent,
+  ModalidadeListComponent
 ];

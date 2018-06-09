@@ -9,6 +9,7 @@ import { MeusDadosComponent } from './meus-dados.component/meus-dados.component'
 import { MensalidadeComponent } from './mensalidade.component/mensalidade.component';
 import { EmailComponent } from './email.component/email.component';
 import { ResumoExternoComponent } from './resumo-externo.component/resumo-externo.component';
+import { ModalidadeListComponent } from './modalidade-list.component/modalidade-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -21,6 +22,9 @@ const routes: Routes = [
   { path: 'meus-dados', component: MeusDadosComponent },
   { path: 'mensalidade', component: MensalidadeComponent },
   { path: 'email', component: EmailComponent },
+  { path: 'modalidade', component: ModalidadeListComponent },
+  { path: 'faltas', component: EmailComponent },
+  { path: 'aulas', component: EmailComponent },
   { path: '*', redirectTo: '/login', },
   { path: '**', redirectTo: '/login', },
 ];
