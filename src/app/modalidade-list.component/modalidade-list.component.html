@@ -14,7 +14,7 @@
                 <tr>
                   <th scope="col">Id</th>
                   <th scope="col">Nome</th>
-                  <th scope="col" colspan="3">#</th>
+                  <th scope="col" colspan="2">#</th>
                 </tr>
               </thead>
               <tbody>
@@ -23,6 +23,9 @@
                   <td>{{oModalidade.Nome }}</td>
                   <td>
                     <button type="button" class="btn btn-success" (click)="AlteraModalidade(oModalidade)">Alterar</button>
+                  </td>
+                  <td>
+                    <button type="button" class="btn btn-danger" (click)="ApagarModalidade(oModalidade)">Apagar</button>
                   </td>
                 </tr>
               </tbody>
@@ -81,7 +84,7 @@
             </div>
 
             <div class="col-sm-12 offset-md-4 col-md-4 offset-lg-4 col-lg-4">
-              <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="ApplyNovaModalidades()">Adicionar</button>
+              <button style="margin-top:15px;" class="btn btn-lg btn-primary btn-block" (click)="ApplyAlteraModalidade()">Alterar</button>
             </div>
           </div>
         </div>
