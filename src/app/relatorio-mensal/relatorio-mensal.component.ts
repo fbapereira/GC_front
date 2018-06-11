@@ -38,7 +38,7 @@ export class RelatorioMensalComponent extends BaseComponent implements OnInit {
         debugger;
 
         this.itensPagos = itens.filter((x: any) => {
-          return x.status === 'Paga';
+          return x.status === 'Paga' || x.status === 'Disponível';
         });
         this.itensAguardando = itens.filter((x: any) => {
           return moment(x.vencimento).isSameOrAfter(moment()) && x.status === 'Aguardando Pagamento';
@@ -48,10 +48,11 @@ export class RelatorioMensalComponent extends BaseComponent implements OnInit {
         });
 
         this.itensAtrasados = itens.filter((x: any) => {
-          return moment(x.vencimento).isBefore(moment()) && x.status === 'Aguardando Pagamento';
+          return moment(x.vencimento).isBefore(moment()) && (x.status === 'Aguardando Pagamento' || x.status === 'Cancelada');
         });
 
         this.itensAtrasados.forEach((x) => { x.status = 'Atrasado' });
+        this.itensPagos.forEach((x) => { x.status = 'Paga' });
       });
   }
 

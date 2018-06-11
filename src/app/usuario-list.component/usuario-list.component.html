@@ -38,11 +38,11 @@
     </ul>
   </div>
 </div>
-<div class="row">
+<div class="row" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
   <div class="col-sm-12  col-md-4 col-lg-4">
     <button style="margin-top:15px;" type="button" class="btn btn-lg btn-secundry btn-block" (click)="returnDashboard()">Voltar</button>
   </div>
-  <div class="col-sm-12  offset-md-4 col-md-4  offset-lg-4 col-lg-4" *ngIf="!targetUsuario && !targetNewUsuario && !targetUsuarioMensalidade">
+  <div class="col-sm-12  offset-md-4 col-md-4  offset-lg-4 col-lg-4">
     <button style="margin-top:30px;" class="btn  btn-primary btn-block" (click)="NovoUsuario()">Adicionar</button>
   </div>
 </div>
