@@ -27,12 +27,12 @@ const routes: Routes = [
   { path: 'modalidade', component: ModalidadeListComponent },
   { path: 'faltas', component: FaltasComponent },
   { path: 'aulas', component: AulasComponent },
-  { path: '*', redirectTo: '/login', },
-  { path: '**', redirectTo: '/login', },
+  { path: '*', redirectTo: '', },
+  { path: '**', redirectTo: '', },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

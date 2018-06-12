@@ -431,11 +431,11 @@ module.exports = {
       "sourceMap": true,
       "filename": "scripts.bundle.js",
       "scripts": [
-        "C:\\Projetos\\Personal\\GymControl\\GymControl.Client\\node_modules\\jquery\\dist\\jquery.min.js",
-        "C:\\Projetos\\Personal\\GymControl\\GymControl.Client\\node_modules\\popper.js\\dist\\umd\\popper.js",
-        "C:\\Projetos\\Personal\\GymControl\\GymControl.Client\\node_modules\\bootstrap\\dist\\js\\bootstrap.js"
+        "C:\\projeto\\pessoal\\GymControl.Client\\node_modules\\jquery\\dist\\jquery.min.js",
+        "C:\\projeto\\pessoal\\GymControl.Client\\node_modules\\popper.js\\dist\\umd\\popper.js",
+        "C:\\projeto\\pessoal\\GymControl.Client\\node_modules\\bootstrap\\dist\\js\\bootstrap.js"
       ],
-      "basePath": "C:\\Projetos\\Personal\\GymControl\\GymControl.Client"
+      "basePath": "C:\\projeto\\pessoal\\GymControl.Client"
     }),
     new CopyWebpackPlugin([{
         "context": "src",
