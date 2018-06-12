@@ -20,6 +20,7 @@ import { ResumoExternoComponent } from '../resumo-externo.component/resumo-exter
 import { ModalidadeListComponent } from '../modalidade-list.component/modalidade-list.component';
 import { FaltasComponent } from '../faltas.component/faltas.component';
 import { AulasComponent } from '../aulas.component/aulas.component';
+import { EuComponent } from '../eu.component/eu.component';
 
 export const GC_COMPONENTS = [
   MenuComponent,
@@ -43,5 +44,6 @@ export const GC_COMPONENTS = [
   ResumoExternoComponent,
   ModalidadeListComponent,
   FaltasComponent,
-  AulasComponent
+  AulasComponent,
+  EuComponent
 ];

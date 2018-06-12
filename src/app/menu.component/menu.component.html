@@ -61,7 +61,7 @@
   </div>
 </nav>
 
-<!--
-<nav *ngIf="!oUsuarioService.oUsuario || !oAcademiaService.oAcademia" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" routerLink="/dashboard">BasicFlux</a>
-</nav> -->
+
+<nav *ngIf="(!oUsuarioService.oUsuario || !oAcademiaService.oAcademia) && router.url=='/eu'" class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/dashboard">BasicFlux</a>
+</nav>

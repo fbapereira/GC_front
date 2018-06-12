@@ -12,9 +12,11 @@ import { ResumoExternoComponent } from './resumo-externo.component/resumo-extern
 import { ModalidadeListComponent } from './modalidade-list.component/modalidade-list.component';
 import { FaltasComponent } from './faltas.component/faltas.component';
 import { AulasComponent } from './aulas.component/aulas.component';
+import { EuComponent } from './eu.component/eu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'eu', component: EuComponent },
   { path: 'login', component: LoginComponent },
   { path: 'external', component: ResumoExternoComponent },
   { path: 'dashboard', component: DashboardComponent },

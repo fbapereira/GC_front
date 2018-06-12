@@ -12,7 +12,7 @@ exports.config = {
     'browserName': 'chrome'
   },
   directConnect: true,
-  baseUrl: 'http://app.basicflux.com:4200/',
+  baseUrl: 'http://app.basicflux.com:4300/',
   framework: 'jasmine',
   jasmineNodeOpts: {
     showColors: true,

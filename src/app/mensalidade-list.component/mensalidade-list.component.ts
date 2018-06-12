@@ -66,6 +66,15 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     if (this.targetUsuario) {
       this.oMensalidadeService.GetMensalidade(this.targetUsuario)
         .subscribe((lstMensalidade: Mensalidade[]) => {
+          lstMensalidade.forEach((x: any) => {
+            if (x.MensaliadadeStatus.Nome === 'Disponível') {
+              x.MensaliadadeStatus.Nome = 'Paga';
+            }
+
+            if (x.MensaliadadeStatus.Nome === 'Cancelada') {
+              x.MensaliadadeStatus.Nome = 'Aguardando Pagamento';
+            }
+          });
           this.lstMensalidade = lstMensalidade;
         });
     }
@@ -236,6 +245,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
         this.oMensalidadeService.GetMensalidade(this.targetUsuario)
           .subscribe((lstMensalidade: Mensalidade[]) => {
+
             this.lstMensalidade = lstMensalidade;
           });
       });
