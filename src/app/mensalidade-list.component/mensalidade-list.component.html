@@ -15,8 +15,13 @@
         <td>{{oMensalidade.Valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
         <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>
         <td *ngIf="oMensalidade.MensaliadadeStatus">{{oMensalidade.MensaliadadeStatus.Nome}}</td>
-
-        <td>
+        <td *ngIf="showBoletoOnly">
+          <a class="btn btn-secundry " *ngIf="oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1" (click)="print(oMensalidade)"
+            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ver Boleto
+          </a>
+        </td>
+        <td *ngIf="!showBoletoOnly">
           <div class="dropdown show" *ngIf="oMensalidade.MensaliadadeStatus && oMensalidade.MensaliadadeStatus.Id == 1">
             <a class="btn btn-secundry dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Ações

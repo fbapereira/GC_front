@@ -37,6 +37,7 @@ export class PagamentoComponent extends BaseComponent implements OnInit {
     const inputElement = document.getElementById('txtBoleto');
     (<any>inputElement).select();
     document.execCommand('copy');
+    this.toastr.success("Copiado!")
     inputElement.blur();
   }
 

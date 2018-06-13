@@ -13,6 +13,8 @@ import { PagamentoComponent } from "../pagamento.component/pagamento.component";
 import { PagSeguroComponent } from "../pagseguro.component/pagseguro.component";
 import { MensalidadeAlteraComponent } from "../mensalidade-altera.component/mensalidade-altera.component";
 import { ToastrService } from "ngx-toastr";
+import { PagamentoPagSeguro } from "../models/pagamento-pagseguro";
+import { BoletoService } from "../services/boleto.service";
 
 @Component({
   selector: 'app-gc-mensalidade-list',
@@ -33,6 +35,9 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
 
   @Input()
   showPayAdmin: Boolean;
+
+  @Input()
+  showBoletoOnly: Boolean;
 
 
   @Input()
@@ -55,6 +60,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
     private toastr: ToastrService,
     private oMensalidadeService: MensalidadeService,
     private oAcademiaService: AcademiaService,
+    private oBoletoService: BoletoService,
     oSAMService: SAMService,
     router: Router
   ) {
@@ -137,6 +143,17 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
           });
       });
 
+  }
+
+  print(oMensalidade: Mensalidade): void {
+    this.oBoletoService.GetBoletos(oMensalidade)
+      .subscribe((oPagamentoPagSeguro: PagamentoPagSeguro) => {
+        if (!oPagamentoPagSeguro || !oPagamentoPagSeguro.BarCode) {
+          this.toastr.error('Este boleto nao foi gerado por problemas no PagSeguro.', 'Erro');
+          return;
+        }
+        window.open(oPagamentoPagSeguro.Link);
+      });
   }
 
   CreateMensalidade(): void {
