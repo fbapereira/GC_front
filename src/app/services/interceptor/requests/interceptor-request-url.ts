@@ -17,6 +17,6 @@ export class InterceptorRequestUrl extends Interceptor.Request {
   }
 
   private TrataUrl(url: string): string {
-    return 'http://app.basicflux.com/Api/' + url;
+    return 'http://localhost:59912/Api/' + url;
   }
 }

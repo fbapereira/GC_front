@@ -8,6 +8,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 import { InterceptorRequestUrl } from './requests/interceptor-request-url';
 import { ErrorHandlerTypeEnum } from '../error-handler/enums/error-handler-type.enum';
 import { InterceptorFailHttpErrorFailed } from './fails/interceptor-fail-http-error-failed';
+import { InterceptorRequestToken } from './requests/interceptor-request-token';
 
 
 @Injectable()
@@ -90,6 +91,7 @@ export class GCHttpInterceptor implements HttpInterceptor {
   private getRequestInterceptors(params: { [id: string]: any; }, injector: Injector): Interceptor.Request[] {
     const interceptors = [];
     interceptors.push(new InterceptorRequestUrl(params, injector));
+    interceptors.push(new InterceptorRequestToken(params, injector));
     return interceptors;
   }
 

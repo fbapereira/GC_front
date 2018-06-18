@@ -5,9 +5,9 @@ const devConfig = {
     "historyApiFallback": true,
     proxy: {
       "/Api": {
-        "target": 'http://localhost:59912',
+        "target": 'http://localhost:59912/',
         "pathRewrite": {
-          '^/Api': 'api'
+          '^/Api': '/api'
         },
         "changeOrigin": true,
         "secure": false

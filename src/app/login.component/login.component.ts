@@ -78,31 +78,31 @@ export class LoginComponent {
           return;
         }
 
-        // this.oTokenService.Auth(this.oUsuario.Login, this.oUsuario.Senha)
-        //   .subscribe((isValid: boolean) => {
-        // if (!isValid) {
-        //   this.toastr.error('Senha ou Usuário inválidos', '[Dados Inválidos]');
-        //   return;
-        // }
-
-        // Obtem Instituicao
-        this.oAcademiaService.GetAcademia(this.oUsuarioService.oUsuario)
-          .subscribe((lstAcademia: Academia[]) => {
-            if (!lstAcademia || lstAcademia.length === 0) {
-              this.toastr.error('Por favor, entre em contato com o administrador', '[Usuário sem Academia]');
+        this.oTokenService.Auth(this.oUsuario.Login, this.oUsuario.Senha)
+          .subscribe((isValid: boolean) => {
+            if (!isValid) {
+              this.toastr.error('Senha ou Usuário inválidos', '[Dados Inválidos]');
               return;
-            } else if (lstAcademia.length === 1) {
-              this.SetAcademia(lstAcademia[0]);
-              this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
-                .subscribe(() => {
-                  this.renderer.removeClass(document.body, 'bodyImage');
-                  this.router.navigate(['/dashboard']);
-                  return;
-                });
             }
-            this.lstAcademia = lstAcademia;
+
+            // Obtem Instituicao
+            this.oAcademiaService.GetAcademia(this.oUsuarioService.oUsuario)
+              .subscribe((lstAcademia: Academia[]) => {
+                if (!lstAcademia || lstAcademia.length === 0) {
+                  this.toastr.error('Por favor, entre em contato com o administrador', '[Usuário sem Academia]');
+                  return;
+                } else if (lstAcademia.length === 1) {
+                  this.SetAcademia(lstAcademia[0]);
+                  this.oPerfilService.GetPerfil(this.oUsuarioService.oUsuario, this.oAcademia)
+                    .subscribe(() => {
+                      this.renderer.removeClass(document.body, 'bodyImage');
+                      this.router.navigate(['/dashboard']);
+                      return;
+                    });
+                }
+                this.lstAcademia = lstAcademia;
+              });
           });
       });
-    // });
   }
 }

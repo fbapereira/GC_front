@@ -9,7 +9,7 @@ const prodConfig = {
       "/Api": {
         "target": 'http://app.basicflux.com',
         "pathRewrite": {
-          '^/Api': 'api'
+          '^/Api': '/api'
         },
         "changeOrigin": true,
         "secure": false
