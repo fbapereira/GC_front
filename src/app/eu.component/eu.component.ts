@@ -3,7 +3,7 @@ import { OnInit, Component, ReflectiveInjector, Injector } from '@angular/core';
 import { Usuario } from '../models/usuario';
 import { UsuarioService } from '../services/usuario.service';
 import { SAMService } from '../services/sam.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BaseComponent } from '../shared/base-component';
 import { PerfilService } from '../services/perfil.service';
 import { Toast, ToastrService } from 'ngx-toastr';
@@ -14,16 +14,36 @@ import { Toast, ToastrService } from 'ngx-toastr';
     styleUrls: []
 })
 
-export class EuComponent extends BaseComponent {
+export class EuComponent extends BaseComponent implements OnInit {
     oUsuario: Usuario;
     sCPF: string = '';
-
+    mensalidadeID: string;
     constructor(private oUsuarioService: UsuarioService,
         oSAMService: SAMService,
         router: Router,
         private toast: ToastrService,
-        private injector: Injector) {
+        private injector: Injector,
+        private activatedRoute: ActivatedRoute) {
         super(false, oSAMService, router);
+    }
+
+
+    ngOnInit() {
+        // subscribe to router event
+        this.activatedRoute.params.subscribe((params: any) => {
+            let userId = params['cpf'];
+            let mensalidadeID = params['id'];
+
+            if (mensalidadeID) {
+                this.mensalidadeID = mensalidadeID;
+            }
+
+            if (userId) {
+                this.sCPF = userId;
+                this.search();
+            }
+
+        });
     }
 
     search(): void {

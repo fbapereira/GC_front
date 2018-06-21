@@ -9,8 +9,9 @@
         <th scope="col" colspan="3">#</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let oMensalidade of lstMensalidade">
+      <tr *ngFor="let oMensalidade of lstMensalidade | filterById : mensalidadeID : lstMensalidade">
         <td scope="row">{{oMensalidade.Id}}</td>
         <td>{{oMensalidade.Valor | NumberToStringFormat : 2: 'R$': '': ',': '.'}}</td>
         <td>{{oMensalidade.Vencimento | date:'dd/MM/yyyy'}}</td>

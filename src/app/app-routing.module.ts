@@ -16,6 +16,8 @@ import { EuComponent } from './eu.component/eu.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'eu/:cpf/:id', component: EuComponent },
+  { path: 'eu/:cpf/', component: EuComponent },
   { path: 'eu', component: EuComponent },
   { path: 'login', component: LoginComponent },
   { path: 'external', component: ResumoExternoComponent },

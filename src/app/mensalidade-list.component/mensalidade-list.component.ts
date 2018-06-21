@@ -39,6 +39,9 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
   @Input()
   showBoletoOnly: Boolean;
 
+  
+  @Input()
+  mensalidadeID: string;
 
   @Input()
   showExclude: Boolean;
