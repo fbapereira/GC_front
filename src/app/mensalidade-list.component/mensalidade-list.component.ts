@@ -39,7 +39,7 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
   @Input()
   showBoletoOnly: Boolean;
 
-  
+
   @Input()
   mensalidadeID: string;
 
@@ -96,6 +96,26 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
           this.lstMensalidade = lstMensalidade;
         });
     }
+  }
+
+
+  getError(errorObj: any): string {
+    let oRet;
+
+    if (errorObj &&
+      errorObj.error &&
+      errorObj.error.ExceptionMessage) {
+      const obj = JSON.parse(errorObj.error.ExceptionMessage);
+      obj.errors.forEach(element => {
+        if (Number(element.code) === 53015) { oRet = 'Nome inválido'; }
+        if (Number(element.code) === 1114) { oRet = 'CPF inválido'; }
+
+        if (!oRet && element.message) {
+          oRet = element.message;
+        }
+      });
+    }
+    return oRet;
   }
 
 
@@ -200,9 +220,6 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
       this.targetNewMensalidade.Vencimento = moment(this.targetNewMensalidade.Vencimento).add(1, 'M').toDate();
     }
 
-
-
-    debugger;
     // Cria as mensalidades
     forkJoin(obs)
       .subscribe((oMensalidades: Mensalidade[]) => {
@@ -226,17 +243,19 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
               });
               this.toastr.success('Mensalidades incluidas com sucesso', '[Mensalidades Incluídas]')
             } else {
-              this.throwErrorForCreateMensalidade();
+              this.throwErrorForCreateMensalidade(undefined);
               return;
             }
           }, (e) => {
-            this.throwErrorForCreateMensalidade();
+            const obj = this.getError(e);
+            if (obj) { this.toastr.error(obj, '[Erro pagseguro]'); }
+            this.throwErrorForCreateMensalidade(obj);
             return;
           });
       });
   }
 
-  throwErrorForCreateMensalidade(): void {
+  throwErrorForCreateMensalidade(emitErro: any): void {
     this.oMensalidadeService.RollbackMensalidade(this.targetUsuario).subscribe(() => {
       // Obtem a mensalidade com Id
       this.oMensalidadeService.GetMensalidade(this.targetUsuario)
@@ -244,7 +263,9 @@ export class MensalidadeListComponent extends BaseComponent implements OnInit, O
           this.lstMensalidade = lstMensalidadeWithId;
           this.targetNewMensalidade = undefined;
           // FAZER EMITTER
-          this.toastr.error('Pagseguro não respondeu como esperado tente mais tarde', '[Erro]');
+          if (!emitErro) {
+            this.toastr.error('Pagseguro não respondeu como esperado tente mais tarde', '[Erro]');
+          }
           return;
         });
     });

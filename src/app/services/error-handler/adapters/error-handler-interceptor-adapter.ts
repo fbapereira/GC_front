@@ -24,7 +24,7 @@ export class ErrorHandlerInterceptorAdapter extends ErrorHandlerAdapter {
 
     oGCHttpInterceptor.errorEmitter
       .subscribe((oErrorHandlerTypeEnum: ErrorHandlerTypeEnum) => {
-        debugger;
+         
         // create object
         const oErrorHandlerObject: ErrorHandlerObject = new ErrorHandlerObject();
 

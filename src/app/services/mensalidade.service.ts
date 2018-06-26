@@ -46,9 +46,7 @@ export class MensalidadeService {
     return this.oHttpClient.post('DeletaMensalidadePagseguroErro', oUsuario);
   }
 
-  DeletaMensalidadePagseguroErro
-
-  GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {
+    GetMensalidade(oUsuario: Usuario): Observable<Mensalidade[]> {
     const that = this;
     return Observable.create((obs) => {
       this.LoadMensalidadeStatus()
@@ -84,7 +82,7 @@ export class MensalidadeService {
   }
 
   MapStatus(lstMensaliadadeUnmapped: Mensalidade[], that: any): Mensalidade[] {
-    let temp = lstMensaliadadeUnmapped;
+    const temp = lstMensaliadadeUnmapped;
 
     for (let oMensalidade of temp) {
       const ostatus = that.lstMensaliadadeStatus.filter((oStatus: MensalidadeStatus) => {

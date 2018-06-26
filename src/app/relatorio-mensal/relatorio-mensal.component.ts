@@ -31,11 +31,11 @@ export class RelatorioMensalComponent extends BaseComponent implements OnInit {
     return moment().add(this.mesAtual, 'month').format('MM/YYYY');
   }
   mudaMes(value: number): void {
-    debugger;
+     
     this.mesAtual = this.mesAtual + value;
     this.oReportService.ObtemRelatorioMensal(this.mesAtual)
       .subscribe((itens: any[]) => {
-        debugger;
+         
 
         this.itensPagos = itens.filter((x: any) => {
           return x.status === 'Paga' || x.status === 'Disponível';

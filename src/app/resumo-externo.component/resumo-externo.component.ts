@@ -29,7 +29,7 @@ export class ResumoExternoComponent extends BaseComponent implements OnInit {
   }
 
   Login(): void {
-    debugger;
+     
     if (!this.oUsuario.CPF) {
       this.toastr.error('Digite seu CPF');
       return;
